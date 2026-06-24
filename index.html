@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belajar AI: dari NOL hingga MAHIR — 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --green:#22C55E; --blue:#3B82F6; --yellow:#FACC15; --red:#EF4444;
+  --bg:#000; --bg2:#0A0A0A; --bg3:#141414; --border:#2A2A2A;
+  --text:#F5F5F5; --muted:#888;
+  --accent-dim:rgba(34,197,94,0.10);
+  --radius:10px;
+  --font:'Inter',-apple-system,sans-serif;
+  --head:'Space Grotesk','Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+
+html,body{width:100%;height:100%;overflow:hidden;font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+
+/* ── TOP BAR ── */
+#topbar{
+  position:fixed;top:0;left:0;right:0;height:50px;
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;z-index:200;
+}
+.tb-brand{display:flex;align-items:center;gap:10px;}
+.tb-logo{background:var(--green);color:#000;font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:5px;}
+.tb-title{font-family:var(--head);font-size:13px;font-weight:700;color:var(--text);}
+.tb-counter{font-family:var(--head);font-size:12px;font-weight:600;color:var(--muted);}
+.tb-counter b{color:var(--text);}
+
+/* ── PROGRESS ── */
+#prog-track{position:fixed;top:50px;left:0;right:0;height:3px;background:var(--border);z-index:200;}
+#prog-fill{height:100%;background:var(--green);transition:width .35s ease;}
+
+/* ── SLIDE WRAP ── */
+#wrap{position:fixed;top:53px;bottom:62px;left:0;right:0;overflow:hidden;}
+
+.slide{
+  position:absolute;inset:0;overflow-y:auto;
+  opacity:0;transform:translateX(32px);
+  transition:opacity .3s ease,transform .3s ease;
+  pointer-events:none;
+  padding:36px 60px;
+}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all;}
+.slide.out{opacity:0;transform:translateX(-32px);transition:opacity .25s ease,transform .25s ease;}
+.slide::-webkit-scrollbar{width:4px;}
+.slide::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+
+/* ── BOTTOM NAV ── */
+#botnav{
+  position:fixed;bottom:0;left:0;right:0;height:62px;
+  background:var(--bg2);border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;z-index:200;
+}
+.chap-lbl{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);max-width:50%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-row{display:flex;align-items:center;gap:10px;}
+.kb-hint{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
+.kb{display:inline-flex;align-items:center;justify-content:center;background:var(--bg3);border:1px solid var(--border);border-radius:4px;width:22px;height:22px;font-size:10px;font-weight:600;color:var(--muted);}
+.nav-btn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:16px;cursor:pointer;transition:all .15s;font-weight:700;}
+.nav-btn:hover:not(:disabled){background:var(--green);color:#000;border-color:var(--green);}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed;}
+
+/* ════════════════════ CONTENT ATOMS ════════════════════ */
+
+/* Chapter intro */
+.ch-intro{display:flex;flex-direction:column;justify-content:center;min-height:100%;padding:10px 0;}
+.ch-tag{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;}
+.ch-tag.g{color:var(--green);} .ch-tag.y{color:var(--yellow);} .ch-tag.r{color:var(--red);} .ch-tag.b{color:var(--blue);}
+.big-icon{font-size:60px;margin-bottom:18px;line-height:1;}
+.ch-title{font-family:var(--head);font-size:clamp(32px,5.5vw,58px);font-weight:700;letter-spacing:-2px;line-height:1.05;margin-bottom:14px;}
+.ch-sub{font-size:16px;color:var(--muted);font-weight:500;margin-bottom:22px;}
+.ch-topics{display:flex;flex-wrap:wrap;gap:8px;}
+.ch-topic{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);font-weight:500;}
+
+/* Headings */
+.s-head{font-family:var(--head);font-size:20px;font-weight:700;color:var(--text);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.s-head.g{color:var(--green);} .s-head.y{color:var(--yellow);} .s-head.r{color:var(--red);} .s-head.b{color:var(--blue);}
+.sub{font-family:var(--head);font-size:14px;font-weight:700;color:var(--text);margin:18px 0 9px;}
+
+/* Body text */
+p.body{font-size:14px;color:#BBBBBB;line-height:1.7;margin-bottom:13px;}
+em{color:#DDD;}
+
+/* Callout */
+.callout{border-radius:var(--radius);padding:13px 15px;margin:13px 0;border-left:4px solid;font-size:13.5px;line-height:1.6;color:#BBBBBB;}
+.callout .cl{font-family:var(--head);font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px;}
+.callout.tip{background:rgba(34,197,94,.08);border-color:var(--green);} .callout.tip .cl{color:var(--green);}
+.callout.info{background:rgba(59,130,246,.08);border-color:var(--blue);} .callout.info .cl{color:var(--blue);}
+.callout.warn{background:rgba(250,204,21,.08);border-color:var(--yellow);} .callout.warn .cl{color:var(--yellow);}
+.callout.danger{background:rgba(239,68,68,.08);border-color:var(--red);} .callout.danger .cl{color:var(--red);}
+
+/* Cards */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px;margin:13px 0;}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:border-color .15s;}
+.card:hover{border-color:var(--green);}
+.ci{font-size:22px;margin-bottom:8px;}
+.ct{font-family:var(--head);font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.cd{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* Table */
+.tw{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);margin:13px 0;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{background:var(--bg3);color:var(--text);font-family:var(--head);font-weight:700;padding:10px 14px;text-align:left;font-size:11.5px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody td{padding:9px 14px;color:#BBBBBB;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover td{background:rgba(255,255,255,.02);}
+.tg{color:var(--green)!important;font-weight:600;} .tb{color:var(--blue)!important;font-weight:600;} .ty{color:var(--yellow)!important;font-weight:600;} .tr{color:var(--red)!important;font-weight:600;}
+.tc{text-align:center;}
+
+/* Lists */
+ul.ls,ol.ls{list-style:none;margin:11px 0;display:flex;flex-direction:column;gap:8px;}
+ul.ls li,ol.ls li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:#BBBBBB;line-height:1.6;}
+ul.ls li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:8px;flex-shrink:0;}
+ol.ls{counter-reset:item;}
+ol.ls li::before{counter-increment:item;content:counter(item);min-width:24px;height:24px;background:var(--accent-dim);border:1.5px solid rgba(34,197,94,.3);border-radius:50%;font-family:var(--head);font-size:11px;font-weight:700;color:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* Prompt block */
+.pb{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:15px 17px;margin:11px 0;font-family:var(--mono);font-size:12px;color:#7DD3FC;line-height:1.7;position:relative;}
+.pb::before{content:attr(data-label);position:absolute;top:-10px;left:12px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-family:var(--head);font-size:9px;font-weight:700;color:var(--green);letter-spacing:.5px;text-transform:uppercase;}
+.pb .dim{color:var(--muted);} .pb .hi{color:#86EFAC;font-weight:600;}
+
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0;}
+.chip{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:6px 15px;font-size:12px;color:var(--text);font-weight:500;}
+
+/* Stats */
+.stats{display:flex;gap:13px;flex-wrap:wrap;margin:20px 0;}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:15px 20px;text-align:center;min-width:90px;}
+.num{font-family:var(--head);font-size:30px;font-weight:700;color:var(--green);display:block;letter-spacing:-1px;line-height:1;}
+.lbl{font-size:11px;color:var(--muted);margin-top:3px;display:block;font-weight:500;}
+
+/* 2-col */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+
+/* Model pills */
+.model-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+.mp{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;text-align:center;}
+.mn{font-family:var(--head);font-size:13px;font-weight:700;color:var(--blue);display:block;}
+.mb{font-size:11px;color:var(--muted);display:block;margin-top:2px;}
+
+/* Quote */
+.quote{background:var(--bg2);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:var(--radius);padding:26px 30px;margin:18px 0;text-align:center;}
+blockquote{font-family:var(--head);font-size:clamp(14px,2vw,19px);font-weight:700;color:var(--text);line-height:1.55;margin-bottom:9px;}
+cite{font-family:var(--head);font-size:12px;color:var(--green);font-style:normal;font-weight:600;}
+
+/* Principle cards */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:13px;margin:13px 0;}
+.pc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;}
+.pn{font-family:var(--head);font-size:10px;font-weight:700;color:var(--green);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+.pt{font-family:var(--head);font-size:14px;font-weight:700;color:var(--text);margin-bottom:7px;}
+.pd{font-size:12.5px;color:var(--muted);line-height:1.6;}
+
+/* Roadmap */
+.rm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin:13px 0;}
+.rc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;}
+.rw{display:inline-block;background:var(--green);color:#000;font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-bottom:9px;}
+.rf{font-family:var(--head);font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.rd{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* Comparison */
+.cmp{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:12px 0;}
+.crow{display:grid;grid-template-columns:62px 1fr 98px;border-bottom:1px solid var(--border);font-size:12.5px;}
+.crow:last-child{border-bottom:none;}
+.cb{padding:11px;font-family:var(--head);font-weight:700;font-size:11px;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;}
+.cx{padding:11px;color:#BBBBBB;border-right:1px solid var(--border);display:flex;align-items:center;}
+.cr{padding:11px;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;font-size:11px;}
+.bad{background:rgba(239,68,68,.06);} .ok{background:rgba(250,204,21,.06);} .good{background:rgba(34,197,94,.06);}
+
+/* Hero grid bg */
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:48px 48px;opacity:.18;pointer-events:none;}
+.hz{position:relative;z-index:1;}
+
+/* Accent glow blobs */
+.blob1{position:absolute;top:-80px;right:-60px;width:400px;height:400px;border-radius:50%;background:var(--green);opacity:.04;pointer-events:none;}
+.blob2{position:absolute;bottom:-100px;left:-50px;width:300px;height:300px;border-radius:50%;background:var(--blue);opacity:.04;pointer-events:none;}
+
+/* Eyebrow */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:20px;}
+.eyebrow::before{content:'';display:block;width:22px;height:2px;background:var(--green);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .slide{padding:24px 20px;}
+  #topbar,#botnav{padding:0 16px;}
+  .two{grid-template-columns:1fr;}
+  .card-grid,.pgrid,.rm-grid{grid-template-columns:1fr 1fr;}
+  .ch-title{letter-spacing:-1px;}
+  .kb-hint{display:none;}
+  .tb-title{display:none;}
+}
+@media(max-width:480px){
+  .card-grid,.pgrid,.rm-grid{grid-template-columns:1fr;}
+  .crow{grid-template-columns:50px 1fr 76px;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div class="tb-brand">
+    <span class="tb-logo">Panduan AI</span>
+    <span class="tb-title">Belajar AI: dari NOL hingga MAHIR</span>
+  </div>
+  <span class="tb-counter">Slide <b id="cur">1</b> / <b id="tot">26</b></span>
+</div>
+
+<div id="prog-track"><div id="prog-fill" style="width:0%"></div></div>
+
+<!-- ═══════════════════════ SLIDES ═══════════════════════ -->
+<div id="wrap">
+
+  <!-- ▸ 01 COVER -->
+  <div class="slide active" data-chapter="Panduan Praktis AI · 2026">
+    <div class="hgrid"></div><div class="blob1"></div><div class="blob2"></div>
+    <div class="hz" style="max-width:640px;padding-top:16px;">
+      <div class="eyebrow">Panduan Lengkap Artificial Intelligence</div>
+      <div style="font-family:var(--head);font-size:clamp(52px,8vw,86px);font-weight:700;letter-spacing:-3px;line-height:1.0;color:var(--green);">Belajar AI</div>
+      <div style="font-family:var(--head);font-size:clamp(20px,3vw,28px);font-weight:600;color:var(--muted);letter-spacing:-.5px;margin-bottom:20px;">dari NOL hingga MAHIR</div>
+      <p class="body">Panduan praktis memahami AI dari dasar — cara kerja, teknik prompting, efisiensi kerja, hingga memaksimalkan potensinya untuk pekerjaan sehari-hari.</p>
+      <div class="chips">
+        <span class="chip">🧠 Cara Kerja AI</span>
+        <span class="chip">✍️ Teknik Prompting</span>
+        <span class="chip">⚡ Efisiensi Kerja</span>
+        <span class="chip">🚀 Tools Terbaik</span>
+      </div>
+      <div class="stats" style="margin-top:22px;">
+        <div class="stat"><span class="num">4</span><span class="lbl">Bab Lengkap</span></div>
+        <div class="stat"><span class="num">20+</span><span class="lbl">Teknik & Tips</span></div>
+        <div class="stat"><span class="num">15+</span><span class="lbl">Tools AI</span></div>
+        <div class="stat"><span class="num">26</span><span class="lbl">Slide</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▸ 02 BAB 1 INTRO -->
+  <div class="slide" data-chapter="BAB 1 · Memahami AI">
+    <div class="ch-intro">
+      <div class="ch-tag g">BAB 1</div>
+      <div class="big-icon">🧠</div>
+      <div class="ch-title">Memahami <span style="color:var(--green)">Kecerdasan Buatan</span></div>
+      <p class="ch-sub">Fondasi yang perlu kamu ketahui sebelum melangkah lebih jauh</p>
+      <div class="ch-topics">
+        <span class="ch-topic">Apa itu AI?</span>
+        <span class="ch-topic">Sejarah Singkat</span>
+        <span class="ch-topic">Jenis-Jenis AI</span>
+        <span class="ch-topic">Machine Learning</span>
+        <span class="ch-topic">LLM & Hallucination</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▸ 03 APA ITU AI -->
+  <div class="slide" data-chapter="BAB 1 · Memahami AI">
+    <div class="s-head g">Apa itu AI?</div>
+    <p class="body">Kecerdasan Buatan (<em>Artificial Intelligence / AI</em>) adalah teknologi yang memungkinkan mesin meniru kemampuan kognitif manusia — seperti belajar, memahami bahasa, memecahkan masalah, hingga menghasilkan konten kreatif.</p>
+    <p class="body">AI sudah dikembangkan sejak 1950-an, namun baru benar-benar meledak berkat kemajuan komputasi dan ketersediaan data dalam jumlah besar.</p>
+    <div class="callout tip"><span class="cl">💡 Penting Diingat</span>AI bukan sihir. AI adalah sistem matematika yang dilatih dari miliaran data, sehingga bisa memprediksi pola dan menghasilkan output yang terasa "cerdas".</div>
+    <div class="card-grid" style="margin-top:20px;">
+      <div class="card"><div class="ci">📊</div><div class="ct">Berbasis Data</div><div class="cd">AI belajar dari miliaran contoh, bukan diprogram satu per satu</div></div>
+      <div class="card"><div class="ci">🔄</div><div class="ct">Prediksi Pola</div><div class="cd">AI memprediksi output terbaik berdasarkan pola yang dipelajari</div></div>
+      <div class="card"><div class="ci">🌍</div><div class="ct">Multibahasa</div><div class="cd">Bisa memahami dan menghasilkan teks dalam ratusan bahasa</div></div>
+    </div>
+  </div>
+
+  <!-- ▸ 04 SEJARAH -->
+  <div class="slide" data-chapter="BAB 1 · Memahami AI">
+    <div class="s-head g">Sejarah Singkat AI</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th style="width:70px">Tahun</th><th>Tonggak Sejarah</th></tr></thead>
+        <tbody>
+          <tr><td class="tg">1950</td><td>Alan Turing menciptakan "Turing Test" — bisakah mesin berpikir?</td></tr>
+          <tr><td class="tg">1956</td><td>Istilah "Artificial Intelligence" resmi diciptakan di Dartmouth Conference</td></tr>
+          <tr><td class="tg">1980s</td><td>Lahirnya Expert Systems — mesin yang bisa mengambil keputusan layaknya ahli</td></tr>
+          <tr><td class="tg">1997</td><td>Deep Blue (IBM) mengalahkan juara catur dunia Garry Kasparov</td></tr>
+          <tr><td class="tg">2012</td><td>Deep Learning revolusioner — AlexNet menang kompetisi pengenalan gambar global</td></tr>
+          <tr><td class="tg">2017</td><td>Google merilis arsitektur Transformer — fondasi dari semua LLM modern</td></tr>
+          <tr><td class="tg">2022</td><td>ChatGPT diluncurkan, membawa AI ke tangan semua orang</td></tr>
+          <tr><td class="tg">2026+</td><td>AI Generatif menjadi alat kerja standar di seluruh dunia</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ▸ 05 JENIS AI -->
+  <div class="slide" data-chapter="BAB 1 · Memahami AI">
+    <div class="s-head g">Jenis-Jenis AI</div>
+    <div class="card-grid">
+      <div class="card"><div class="ci">🎯</div><div class="ct">Narrow AI (AI Sempit)</div><div class="cd">Hanya bisa melakukan satu tugas spesifik dengan sangat baik. Contoh: rekomendasi YouTube, Face ID, spam filter.</div></div>
+      <div class="card"><div class="ci">🌐</div><div class="ct">General AI (AI Umum)</div><div class="cd">Bisa melakukan berbagai tugas seperti manusia. Masih dalam tahap penelitian intensif — belum ada yang benar-benar mencapainya.</div></div>
+      <div class="card"><div class="ci">🚀</div><div class="ct">Super AI</div><div class="cd">Kecerdasan melebihi manusia di semua bidang. Masih bersifat teoritis dan menjadi topik perdebatan para ilmuwan.</div></div>
+    </div>
+    <div class="callout info" style="margin-top:18px;"><span class="cl">📍 Posisi Kita Sekarang</span>Semua AI yang tersedia saat ini — ChatGPT, Claude, Gemini — masuk kategori <strong>Narrow AI</strong>. Sangat canggih untuk tugas-tugas tertentu, namun belum bisa disebut "General AI".</div>
+  </div>
+
+  <!-- ▸ 06 ML & DL -->
+  <div class="slide" data-chapter="BAB 1 · Memahami AI">
+    <div class="s-head g">Cara Kerja AI Modern</div>
+    <div class="two">
+      <div>
+        <div class="sub">🔵 Machine Learning (ML)</div>
+        <p class="body">Cara melatih AI menggunakan data. Alih-alih diprogram secara eksplisit, AI diberi jutaan contoh lalu belajar sendiri pola dari data tersebut. Semakin banyak data, semakin pintar modelnya.</p>
+        <div class="callout tip"><span class="cl">Analogi</span>Seperti anak kecil belajar dari pengalaman — bukan dari aturan tertulis.</div>
+      </div>
+      <div>
+        <div class="sub">🟣 Deep Learning (DL)</div>
+        <p class="body">Subset dari ML yang menggunakan struktur berlapis menyerupai neuron otak manusia (<em>neural network</em>). Membuat AI bisa "melihat" gambar, "mendengar" suara, dan "memahami" teks.</p>
+        <div class="callout info"><span class="cl">Contoh</span>GPT, Claude, Gemini semuanya berbasis deep learning dengan arsitektur Transformer (2017).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▸ 07 LLM & HALLUCINATION -->
+  <div class="slide" data-chapter="BAB 1 · Memahami AI">
+    <div class="s-head g">Large Language Model (LLM)</div>
+    <p class="body">Model AI yang dilatih dari miliaran teks internet. LLM bukan "database" jawaban — mereka <em>menghasilkan</em> jawaban baru berdasarkan pola bahasa yang dipelajari.</p>
+    <div class="model-row">
+      <div class="mp"><span class="mn">GPT-4o</span><span class="mb">OpenAI</span></div>
+      <div class="mp"><span class="mn">Claude</span><span class="mb">Anthropic</span></div>
+      <div class="mp"><span class="mn">Gemini</span><span class="mb">Google</span></div>
+      <div class="mp"><span class="mn">Llama 3</span><span class="mb">Meta (Open Source)</span></div>
+    </div>
+    <div class="callout info"><span class="cl">🧠 Analogi Mudah</span>Bayangkan kamu membaca 1 juta buku dalam semua bahasa — kamu akan sangat fasih berbicara dan menulis. Itulah yang dilakukan LLM.</div>
+    <div class="sub" style="margin-top:16px;">⚠️ Mengapa AI Bisa "Salah"? (Hallucination)</div>
+    <p class="body">AI bekerja berdasarkan prediksi pola, bukan pencarian fakta. Kadang ia menghasilkan informasi yang terdengar meyakinkan namun tidak akurat.</p>
+    <div class="callout warn"><span class="cl">⚠️ Selalu Verifikasi</span>Selalu cek ulang data angka, nama, dan fakta spesifik dari AI — terutama untuk keperluan pekerjaan formal.</div>
+  </div>
+
+  <!-- ▸ 08 BAB 2 INTRO -->
+  <div class="slide" data-chapter="BAB 2 · Seni Prompting">
+    <div class="ch-intro">
+      <div class="ch-tag y">BAB 2</div>
+      <div class="big-icon">✍️</div>
+      <div class="ch-title">Seni <span style="color:var(--yellow)">Prompting</span></div>
+      <p class="ch-sub">Cara berkomunikasi dengan AI agar hasilnya maksimal</p>
+      <div class="ch-topics">
+        <span class="ch-topic">Anatomi Prompt</span>
+        <span class="ch-topic">Zero-Shot</span>
+        <span class="ch-topic">Few-Shot</span>
+        <span class="ch-topic">Chain of Thought</span>
+        <span class="ch-topic">Role Prompting</span>
+        <span class="ch-topic">Prompt Chaining</span>
+        <span class="ch-topic">Kesalahan Umum</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▸ 09 ANATOMI PROMPT -->
+  <div class="slide" data-chapter="BAB 2 · Seni Prompting">
+    <div class="s-head y">Anatomi Prompt yang Efektif</div>
+    <p class="body">Prompt adalah instruksi yang kamu berikan kepada AI. Kualitas output AI sangat bergantung pada kualitas prompt — <em>garbage in, garbage out</em>.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th style="width:90px">Komponen</th><th>Fungsi</th><th>Contoh</th></tr></thead>
+        <tbody>
+          <tr><td class="ty">ROLE</td><td>Definisikan peran AI</td><td><em>"Kamu adalah guru Bahasa Inggris berpengalaman..."</em></td></tr>
+          <tr><td class="ty">CONTEXT</td><td>Berikan latar belakang situasi</td><td><em>"Saya sedang membuat laporan untuk klien perusahaan..."</em></td></tr>
+          <tr><td class="ty">TASK</td><td>Jelaskan tugas yang harus dilakukan</td><td><em>"Tolong buat ringkasan dari teks berikut..."</em></td></tr>
+          <tr><td class="ty">FORMAT</td><td>Tentukan bentuk output</td><td><em>"Gunakan poin-poin, maksimal 5 poin..."</em></td></tr>
+          <tr><td class="ty">EXAMPLE</td><td>Berikan contoh output yang diharapkan</td><td><em>"Contoh yang saya mau: [contoh teks]"</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip"><span class="cl">💡 Tips</span>Tidak semua komponen harus ada di setiap prompt. Tapi semakin lengkap konteks yang diberikan, semakin relevan dan tepat sasaran jawaban AI.</div>
+  </div>
+
+  <!-- ▸ 10 ZERO-SHOT & FEW-SHOT -->
+  <div class="slide" data-chapter="BAB 2 · Seni Prompting">
+    <div class="s-head y">Teknik Prompting — Bagian 1</div>
+    <div class="sub">1. Zero-Shot Prompting</div>
+    <p class="body">Langsung meminta AI melakukan tugas tanpa memberikan contoh apapun. Cocok untuk tugas sederhana yang AI sudah sangat familiar.</p>
+    <div class="pb" data-label="Zero-Shot"><span class="hi">Terjemahkan</span> kalimat ini ke Bahasa Inggris:
+<span class="dim">"Hari ini cuacanya sangat panas dan melelahkan."</span></div>
+    <div class="sub" style="margin-top:18px;">2. Few-Shot Prompting</div>
+    <p class="body">Berikan 2–5 contoh sebelum meminta AI melakukan tugas. Sangat efektif untuk mengajarkan format atau gaya penulisan spesifik.</p>
+    <div class="pb" data-label="Few-Shot"><span class="hi">Klasifikasikan</span> sentimen berikut:
+<span class="dim">"Produknya bagus"     → Positif
+"Pelayanannya lambat" → Negatif
+"Biasa saja"          → Netral</span>
+
+Sekarang klasifikasikan: <span class="hi">"Sangat puas dengan hasilnya!"</span></div>
+  </div>
+
+  <!-- ▸ 11 COT & ROLE -->
+  <div class="slide" data-chapter="BAB 2 · Seni Prompting">
+    <div class="s-head y">Teknik Prompting — Bagian 2</div>
+    <div class="sub">3. Chain of Thought (CoT)</div>
+    <p class="body">Minta AI "berpikir langkah demi langkah" sebelum memberikan jawaban. Sangat meningkatkan akurasi untuk soal logika dan keputusan kompleks.</p>
+    <div class="callout tip"><span class="cl">💡 Cara Mudah</span>Tambahkan <strong>"Pikirkan langkah demi langkah"</strong> atau <strong>"Let's think step by step"</strong> di akhir prompt — hasilnya jauh lebih akurat.</div>
+    <div class="sub" style="margin-top:16px;">4. Role Prompting</div>
+    <p class="body">Minta AI berperan sebagai persona tertentu untuk output yang lebih relevan dan terspecialisasi.</p>
+    <div class="pb" data-label="Role Prompting"><span class="hi">Kamu adalah</span> konsultan pemasaran berpengalaman 10 tahun
+yang spesialis di UKM Indonesia.
+
+Bantu saya membuat strategi promosi produk tas kulit lokal
+dengan budget di bawah <span class="hi">Rp 1 juta per bulan</span>.</div>
+  </div>
+
+  <!-- ▸ 12 PROMPT CHAINING & KESALAHAN -->
+  <div class="slide" data-chapter="BAB 2 · Seni Prompting">
+    <div class="s-head y">Teknik Lanjutan & Kesalahan Umum</div>
+    <div class="sub">5. Prompt Chaining</div>
+    <p class="body">Memecah tugas besar menjadi beberapa prompt berurutan. Output dari satu prompt menjadi input untuk prompt berikutnya. Ideal untuk proyek kompleks.</p>
+    <div class="sub" style="margin-top:14px;">❌ Kesalahan yang Sering Terjadi</div>
+    <ul class="ls" style="margin-bottom:16px;">
+      <li><strong>Terlalu singkat</strong> — AI tidak tahu panjang, gaya, atau target audiens</li>
+      <li><strong>Terlalu ambigu</strong> — "Perbaiki teks ini" → AI tidak tahu apa yang salah</li>
+      <li><strong>Tidak ada konteks</strong> — AI tidak tahu untuk siapa atau apa tujuannya</li>
+      <li><strong>Tidak iteratif</strong> — Jika hasil kurang, perbaiki promptnya, jangan menyerah</li>
+    </ul>
+    <div class="cmp">
+      <div class="crow bad"><div class="cb" style="color:var(--red)">❌</div><div class="cx">"Tulis email"</div><div class="cr" style="color:var(--red)">Sangat generik</div></div>
+      <div class="crow ok"><div class="cb" style="color:var(--yellow)">⚠️</div><div class="cx">"Tulis email untuk klien tentang keterlambatan proyek"</div><div class="cr" style="color:var(--yellow)">Lumayan</div></div>
+      <div class="crow good"><div class="cb" style="color:var(--green)">✅</div><div class="cx">"Kamu adalah manajer proyek. Tulis email profesional ke PT XYZ menjelaskan keterlambatan 3 hari karena masalah teknis. Tone formal tapi empatik. Sertakan solusi."</div><div class="cr" style="color:var(--green)">Sangat baik</div></div>
+    </div>
+  </div>
+
+  <!-- ▸ 13 BAB 3 INTRO -->
+  <div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
+    <div class="ch-intro">
+      <div class="ch-tag r">BAB 3</div>
+      <div class="big-icon">⚡</div>
+      <div class="ch-title">Efisiensi <span style="color:var(--red)">dengan AI</span></div>
+      <p class="ch-sub">Bekerja lebih cepat dan lebih cerdas bersama AI</p>
+      <div class="ch-topics">
+        <span class="ch-topic">Identifikasi Tugas</span>
+        <span class="ch-topic">Workflow AI-First</span>
+        <span class="ch-topic">Tips Hemat Waktu</span>
+        <span class="ch-topic">Kombinasi Tools</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▸ 14 IDENTIFIKASI TUGAS -->
+  <div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
+    <div class="s-head r">Identifikasi Tugas yang Bisa Diotomasi</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Kategori Tugas</th><th class="tc">Bisa AI?</th><th>Contoh</th></tr></thead>
+        <tbody>
+          <tr><td class="tr">Berulang & Berbasis Teks</td><td class="tg tc">✅ Sangat Bisa</td><td>Email, laporan, notulensi, ringkasan</td></tr>
+          <tr><td class="tr">Riset & Kompilasi Info</td><td class="tg tc">✅ Sangat Bisa</td><td>Mencari referensi, merangkum artikel</td></tr>
+          <tr><td class="tr">Kreatif & Generatif</td><td class="ty tc">✅ Butuh Review</td><td>Copywriting, ide konten, brainstorming</td></tr>
+          <tr><td class="tr">Analisis Data Sederhana</td><td class="tg tc">✅ Bisa</td><td>Interpretasi angka, tren, statistik</td></tr>
+          <tr><td class="tr">Keputusan Strategis</td><td class="ty tc">⚠️ Terbatas</td><td>AI bantu riset, keputusan tetap di tanganmu</td></tr>
+          <tr><td class="tr">Relasi & Empati Manusia</td><td class="tr tc">❌ Tidak Cocok</td><td>Negosiasi tatap muka, kepemimpinan</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ▸ 15 WORKFLOW AI-FIRST -->
+  <div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
+    <div class="s-head r">Workflow AI-First</div>
+    <p class="body">AI-First bukan berarti AI menggantimu — melainkan kamu menggunakannya sebagai asisten pertama sebelum mengerjakan tugas sendiri:</p>
+    <ol class="ls">
+      <li><strong>Definisikan tugas</strong> — Apa yang harus diselesaikan? Apa outputnya?</li>
+      <li><strong>Draft dengan AI</strong> — Biarkan AI membuat draf pertama atau kerangka awal</li>
+      <li><strong>Review & Refinement</strong> — Kamu mengevaluasi, memperbaiki, menambah konteks lokal</li>
+      <li><strong>Finalisasi</strong> — Gabungkan insight AI dengan keahlian dan judgment-mu</li>
+      <li><strong>Feedback Loop</strong> — Iterasi dengan AI jika perlu penyesuaian lebih lanjut</li>
+    </ol>
+    <div class="callout danger"><span class="cl">⚡ Aturan Emas</span><strong>Aturan 80/20 AI:</strong> 80% waktu dihemat dari draft & riset awal. 20% sisanya kamu gunakan untuk refinement dan sentuhan personal yang tidak bisa digantikan mesin.</div>
+  </div>
+
+  <!-- ▸ 16 TIPS HEMAT WAKTU -->
+  <div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
+    <div class="s-head r">Tips Menghemat Waktu dengan AI</div>
+    <ul class="ls">
+      <li><strong>Buat Template Prompt</strong> — Simpan prompt yang sering dipakai agar tidak mengetik ulang</li>
+      <li><strong>Mulai dari First Draft AI</strong> — Jauh lebih cepat daripada mulai dari halaman kosong</li>
+      <li><strong>Batch Processing</strong> — Kumpulkan tugas sejenis dan selesaikan sekaligus dalam satu sesi</li>
+      <li><strong>AI sebagai Rubber Duck</strong> — Ceritakan masalahmu ke AI untuk mendapat perspektif baru</li>
+      <li><strong>Buat SOP dengan AI</strong> — Dokumentasi proses kerja berulang agar tim bisa mengikutinya</li>
+      <li><strong>Belajar Cepat</strong> — "Jelaskan X seperti saya pemula" jauh lebih efisien dari googling berjam-jam</li>
+    </ul>
+  </div>
+
+  <!-- ▸ 17 KOMBINASI TOOLS -->
+  <div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
+    <div class="s-head r">Menggabungkan AI Tools</div>
+    <p class="body">Tidak ada satu AI yang bisa segalanya. Kunci efisiensi adalah kombinasi tools yang tepat:</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Kebutuhan</th><th>Tools Rekomendasi</th></tr></thead>
+        <tbody>
+          <tr><td class="tr">Menulis & Analisis Teks</td><td>Claude AI, ChatGPT, Gemini</td></tr>
+          <tr><td class="tr">Membuat Gambar & Visual</td><td>Midjourney, DALL-E 3, Adobe Firefly, Canva AI</td></tr>
+          <tr><td class="tr">Coding & Debugging</td><td>Claude AI, GitHub Copilot, Cursor</td></tr>
+          <tr><td class="tr">Presentasi & Slide</td><td>Gamma.app, Beautiful.ai, Canva AI</td></tr>
+          <tr><td class="tr">Riset & Pencarian</td><td>Perplexity AI, Gemini + Search</td></tr>
+          <tr><td class="tr">Audio & Voice</td><td>ElevenLabs, Adobe Podcast AI</td></tr>
+          <tr><td class="tr">Video & Animasi</td><td>Runway ML, Kling AI, Seedance</td></tr>
+          <tr><td class="tr">Otomasi & Workflow</td><td>Zapier AI, Make.com, n8n</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ▸ 18 BAB 4 INTRO -->
+  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+    <div class="ch-intro">
+      <div class="ch-tag b">BAB 4</div>
+      <div class="big-icon">💼</div>
+      <div class="ch-title">AI untuk <span style="color:var(--blue)">Pekerjaan Sehari-hari</span></div>
+      <p class="ch-sub">Contoh nyata penggunaan AI di berbagai bidang profesional</p>
+      <div class="ch-topics">
+        <span class="ch-topic">Administrasi</span>
+        <span class="ch-topic">Komunikasi</span>
+        <span class="ch-topic">Belajar & Riset</span>
+        <span class="ch-topic">Coding</span>
+        <span class="ch-topic">Tools Populer</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▸ 19 ADMINISTRASI -->
+  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+    <div class="s-head b">AI untuk Administrasi & Dokumen</div>
+    <p class="body">Area di mana AI paling langsung menghemat waktu. Hampir semua pekerjaan administratif berbasis teks bisa dipercepat <strong>5–10 kali lipat</strong>.</p>
+    <ul class="ls">
+      <li>Membuat surat resmi, memo, dan proposal dari poin-poin kasar</li>
+      <li>Merangkum dokumen panjang menjadi poin kunci dalam hitungan detik</li>
+      <li>Menyusun notulensi rapat dari catatan acak yang tidak terstruktur</li>
+      <li>Membuat template dokumen yang konsisten dan tampak profesional</li>
+      <li>Mentranslasi dokumen antar bahasa dengan akurasi tinggi</li>
+    </ul>
+    <div class="pb" data-label="Contoh Prompt Admin" style="margin-top:14px;"><span class="dim">Saya staf TU sekolah.</span> Buat surat undangan rapat orang tua
+untuk acara <span class="hi">"Penerimaan Rapor"</span> pada Kamis, 20 Juni 2026
+pukul 09.00 WIB. Bahasa formal tapi ramah. Sertakan konfirmasi
+kehadiran paling lambat 17 Juni via WhatsApp ke nomor sekolah.</div>
+  </div>
+
+  <!-- ▸ 20 KOMUNIKASI -->
+  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+    <div class="s-head b">AI untuk Komunikasi Profesional</div>
+    <div class="card-grid">
+      <div class="card"><div class="ci">📧</div><div class="ct">Email Profesional</div><div class="cd">Draft email dari poin-poin atau tone yang diinginkan dalam hitungan detik</div></div>
+      <div class="card"><div class="ci">😤</div><div class="ct">Balasan Komplain</div><div class="cd">Respon yang empatik dan tetap profesional untuk situasi sensitif</div></div>
+      <div class="card"><div class="ci">🎤</div><div class="ct">Presentasi</div><div class="cd">Outline atau script berdasarkan topik dan target audiens</div></div>
+      <div class="card"><div class="ci">📱</div><div class="ct">Media Sosial</div><div class="cd">Caption, hashtag, dan jadwal konten yang konsisten</div></div>
+      <div class="card"><div class="ci">💬</div><div class="ct">Template WhatsApp</div><div class="cd">Respon standar untuk pertanyaan umum pelanggan bisnis</div></div>
+    </div>
+    <div class="callout info" style="margin-top:14px;"><span class="cl">💡 Tips</span>Untuk balasan email formal, tambahkan: <em>"Tone: profesional tapi hangat. Panjang: maksimal 5 kalimat."</em> — hasilnya langsung bisa dipakai.</div>
+  </div>
+
+  <!-- ▸ 21 BELAJAR & RISET -->
+  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+    <div class="s-head b">AI untuk Belajar & Riset</div>
+    <p class="body">AI adalah "tutor pribadi" yang tidak pernah lelah dan bisa menjelaskan topik apapun dari level pemula hingga ahli.</p>
+    <ul class="ls">
+      <li>Jelaskan konsep sulit dengan analogi: <em>"Jelaskan blockchain seperti saya berusia 10 tahun"</em></li>
+      <li>Rangkum artikel atau dokumen panjang dalam hitungan detik</li>
+      <li>Diskusikan topik dari berbagai sudut pandang</li>
+      <li>Buat soal latihan dan simulasi ujian dari materi tertentu</li>
+      <li>Terjemahkan paper akademis atau istilah teknis ke bahasa awam</li>
+    </ul>
+    <div class="callout info" style="margin-top:14px;"><span class="cl">🎓 Kekuatan Terbesar</span>Waktu yang biasanya habis 2–3 jam untuk research awal bisa dipangkas menjadi 15–20 menit. Gunakan waktu sisa untuk deep-dive ke hal yang benar-benar penting.</div>
+  </div>
+
+  <!-- ▸ 22 CODING -->
+  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+    <div class="s-head b">AI untuk Coding & Teknis</div>
+    <ul class="ls">
+      <li><strong>Menulis kode</strong> — dari deskripsi fungsi yang diinginkan</li>
+      <li><strong>Debugging</strong> — paste error, AI jelaskan penyebab dan solusinya</li>
+      <li><strong>Refactoring</strong> — perbaiki struktur kode yang berantakan</li>
+      <li><strong>Dokumentasi</strong> — generate komentar dan docs otomatis</li>
+      <li><strong>Belajar framework baru</strong> — tutorial step-by-step sesuai levelmu</li>
+    </ul>
+    <div class="callout info"><span class="cl">💡 Tips Coding dengan AI</span>Selalu berikan konteks yang jelas: bahasa pemrograman, framework, versi, dan apa yang sudah dicoba. Semakin spesifik, semakin tepat jawaban AI.</div>
+    <div class="pb" data-label="Contoh Prompt Coding" style="margin-top:13px;">Saya pakai <span class="hi">PHP native</span>, tanpa framework.
+Buat fungsi untuk <span class="hi">upload file PDF</span> dengan validasi:
+max 2MB, hanya file PDF, simpan ke folder /uploads/
+<span class="dim">// Error: undefined variable $target_dir</span></div>
+  </div>
+
+  <!-- ▸ 23 TOOLS POPULER -->
+  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+    <div class="s-head b">Tools AI Populer: Panduan Perbandingan</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Tool</th><th>Keunggulan</th><th>Cocok Untuk</th><th>Harga</th></tr></thead>
+        <tbody>
+          <tr><td class="tb"><strong>Claude</strong><br><small style="color:var(--muted)">Anthropic</small></td><td>Analisis mendalam, nuansa bahasa terbaik</td><td>Penulisan, analisis, coding, riset</td><td>Gratis / $20/bln</td></tr>
+          <tr><td class="tb"><strong>ChatGPT</strong><br><small style="color:var(--muted)">OpenAI</small></td><td>Ecosystem luas, GPT-4o multimodal</td><td>Serba guna, image generation</td><td>Gratis / $20/bln</td></tr>
+          <tr><td class="tb"><strong>Gemini</strong><br><small style="color:var(--muted)">Google</small></td><td>Terintegrasi Google, akses web real-time</td><td>Riset terkini, Google Workspace</td><td>Gratis / $20/bln</td></tr>
+          <tr><td class="tb"><strong>Perplexity AI</strong></td><td>Pencarian dengan sumber terverifikasi</td><td>Riset & referensi terpercaya</td><td>Gratis / $20/bln</td></tr>
+          <tr><td class="tb"><strong>Gamma.app</strong></td><td>Presentasi dari teks otomatis & cepat</td><td>Slide & deck profesional</td><td>Gratis / $15/bln</td></tr>
+          <tr><td class="tb"><strong>Midjourney</strong></td><td>Kualitas gambar terbaik di kelasnya</td><td>Ilustrasi, desain, visual konten</td><td>$10–60/bln</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ▸ 24 PENUTUP INTRO -->
+  <div class="slide" data-chapter="Penutup · Mindset AI-First">
+    <div class="ch-intro">
+      <div class="ch-tag g">PENUTUP</div>
+      <div class="big-icon">🚀</div>
+      <div class="ch-title">Mindset <span style="color:var(--green)">AI-First</span></div>
+      <p class="ch-sub">Perjalanan belajar AI adalah maraton, bukan sprint</p>
+      <div class="ch-topics">
+        <span class="ch-topic">3 Prinsip Utama</span>
+        <span class="ch-topic">Roadmap 30 Hari</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▸ 25 QUOTE & PRINSIP -->
+  <div class="slide" data-chapter="Penutup · Mindset AI-First">
+    <div class="s-head">3 Prinsip Utama Mindset AI-First</div>
+    <div class="quote">
+      <blockquote>"AI tidak akan menggantikan manusia.<br>Tapi manusia yang menggunakan AI dengan baik<br>akan menggantikan mereka yang tidak."</blockquote>
+      <cite>— Realita industri yang sudah terjadi di berbagai bidang</cite>
+    </div>
+    <div class="pgrid">
+      <div class="pc"><div class="pn">Prinsip 01</div><div class="pt">Kolaborasi, Bukan Kompetisi</div><div class="pd">AI adalah alat, bukan musuh. Tugasmu adalah mengarahkan, mengevaluasi, dan memberikan konteks lokal yang tidak bisa digantikan mesin.</div></div>
+      <div class="pc"><div class="pn">Prinsip 02</div><div class="pt">Kuriositas Tanpa Henti</div><div class="pd">Dunia AI bergerak sangat cepat. Sisihkan 15–30 menit per hari untuk bereksperimen dengan cara baru menggunakan AI.</div></div>
+      <div class="pc"><div class="pn">Prinsip 03</div><div class="pt">Tetap Kritis & Verifikasi</div><div class="pd">AI bisa salah. Selalu verifikasi fakta penting, terutama data numerik, nama, dan informasi kritis.</div></div>
+    </div>
+  </div>
+
+  <!-- ▸ 26 ROADMAP -->
+  <div class="slide" data-chapter="Penutup · Mindset AI-First">
+    <div class="s-head">Roadmap Belajar AI: 30 Hari Pertama</div>
+    <div class="rm-grid">
+      <div class="rc"><div class="rw">MINGGU 1</div><div class="rf">Eksplorasi Dasar</div><div class="rd">Coba ChatGPT atau Claude untuk 5 tugas sehari-hari. Catat hasilnya dan identifikasi kelebihan dan kekurangannya.</div></div>
+      <div class="rc"><div class="rw">MINGGU 2</div><div class="rf">Kuasai Prompting</div><div class="rd">Praktikkan Few-Shot, Role Prompting, dan Chain of Thought setiap hari. Buat prompt library pertamamu.</div></div>
+      <div class="rc"><div class="rw">MINGGU 3</div><div class="rf">Integrasi ke Pekerjaan</div><div class="rd">Identifikasi 3 tugas rutin yang bisa dibantu AI. Buat template prompt yang bisa digunakan berulang.</div></div>
+      <div class="rc"><div class="rw">MINGGU 4</div><div class="rf">Eksplorasi Tools</div><div class="rd">Coba 2–3 AI tools baru. Evaluasi mana yang paling relevan dan mulai rutinkan penggunaannya.</div></div>
+    </div>
+    <div class="callout tip" style="margin-top:14px;"><span class="cl">🚀 Pesan Penutup</span>Tujuan belajar AI bukan menjadi "ahli AI" secara teknis — tapi menjadi lebih produktif, kreatif, dan kompetitif di bidangmu sendiri. Mulailah dari satu masalah nyata hari ini!</div>
+  </div>
+
+</div><!-- #wrap -->
+
+<!-- BOTTOM NAV -->
+<div id="botnav">
+  <span class="chap-lbl" id="chap-lbl">Panduan Praktis AI · 2026</span>
+  <div class="nav-row">
+    <div class="kb-hint"><span class="kb">←</span><span class="kb">→</span></div>
+    <button class="nav-btn" id="btn-p" onclick="go(-1)" disabled title="Sebelumnya (←)">←</button>
+    <button class="nav-btn" id="btn-n" onclick="go(1)" title="Berikutnya (→)">→</button>
+  </div>
+</div>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const TOTAL  = slides.length;
+document.getElementById('tot').textContent = TOTAL;
+
+let cur = 0;
+
+function go(dir) {
+  const next = cur + dir;
+  if (next < 0 || next >= TOTAL) return;
+
+  const prev = cur;
+  cur = next;
+
+  slides[prev].classList.remove('active');
+  slides[prev].classList.add('out');
+  setTimeout(() => slides[prev].classList.remove('out'), 300);
+
+  slides[cur].classList.add('active');
+  slides[cur].scrollTop = 0;
+
+  updateUI();
+}
+
+function updateUI() {
+  document.getElementById('cur').textContent = cur + 1;
+  document.getElementById('prog-fill').style.width = (cur / (TOTAL - 1) * 100) + '%';
+  document.getElementById('chap-lbl').textContent = slides[cur].dataset.chapter || '';
+  document.getElementById('btn-p').disabled = cur === 0;
+  document.getElementById('btn-n').disabled = cur === TOTAL - 1;
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (['ArrowRight','ArrowDown','Space',' '].includes(e.key)) { e.preventDefault(); go(1); }
+  else if (['ArrowLeft','ArrowUp'].includes(e.key))           { e.preventDefault(); go(-1); }
+});
+
+// Touch swipe
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+document.addEventListener('touchend',   e => {
+  const d = tx - e.changedTouches[0].clientX;
+  if (Math.abs(d) > 50) go(d > 0 ? 1 : -1);
+}, {passive:true});
+
+updateUI();
+</script>
+</body>
+</html>
