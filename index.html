@@ -9,59 +9,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-
 :root{
-  --accent:#FFFFFF; --blue:#3B82F6; --yellow:#FACC15; --red:#EF4444;
-  --bg:#000000; --bg2:#0A0A0A; --bg3:#111111; --border:#1C1C1C;
-  --text:#F5F5F5; --muted:#888888;
+  --accent:#FFFFFF;--blue:#3B82F6;--yellow:#FACC15;--red:#EF4444;
+  --bg:#000000;--bg2:#0A0A0A;--bg3:#111111;--border:#1C1C1C;
+  --text:#F5F5F5;--muted:#888888;
   --accent-dim:rgba(255,255,255,0.08);
   --radius:12px;
   --font:'Inter',-apple-system,sans-serif;
   --head:'Space Grotesk','Inter',sans-serif;
   --mono:'JetBrains Mono',monospace;
 }
-
-html,body{width:100%;height:100%;overflow:hidden;overflow-x:hidden;font-family:var(--font);background:#000;color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
-
-/* ── TOP BAR ── */
-#topbar{
-  position:fixed;top:0;left:0;right:0;height:55px;
-  background:var(--bg2);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px;z-index:200;
-}
+html,body{width:100%;height:100%;overflow:hidden;font-family:var(--font);background:#000;color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+#topbar{position:fixed;top:0;left:0;right:0;height:55px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:200;}
 .tb-brand{display:flex;align-items:center;gap:10px;}
 .tb-logo{background:var(--yellow);color:#000;font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:6px;box-shadow:0 0 10px rgba(250,204,21,0.3);}
 .tb-title{font-family:var(--head);font-size:13px;font-weight:700;color:var(--text);}
 .tb-counter{font-family:var(--head);font-size:12px;font-weight:600;color:var(--muted);}
 .tb-counter b{color:var(--accent);}
-
-/* ── PROGRESS ── */
 #prog-track{position:fixed;top:55px;left:0;right:0;height:3px;background:var(--border);z-index:200;}
-#prog-fill{height:100%;background:var(--accent);transition:width .3s cubic-bezier(0.4, 0, 0.2, 1);box-shadow:0 0 8px rgba(255,255,255,0.3);}
-
-/* ── SLIDE WRAP ── */
-#wrap{position:fixed;top:58px;bottom:62px;left:0;right:0;overflow:hidden;overflow-x:hidden;}
-
-.slide{overflow-x:hidden;
-  position:absolute;inset:0;overflow-y:auto;
-  opacity:0;transform:scale(0.98) translateY(10px);
-  transition:opacity .4s cubic-bezier(0.4, 0, 0.2, 1), transform .4s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events:none;
-  padding:40px 60px;
-}
+#prog-fill{height:100%;background:var(--accent);transition:width .3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 0 8px rgba(255,255,255,0.3);}
+#wrap{position:fixed;top:58px;bottom:62px;left:0;right:0;overflow:hidden;}
+.slide{position:absolute;inset:0;overflow-y:auto;opacity:0;transform:scale(0.98) translateY(10px);transition:opacity .4s cubic-bezier(0.4,0,0.2,1),transform .4s cubic-bezier(0.4,0,0.2,1);pointer-events:none;padding:40px 60px;}
 .slide.active{opacity:1;transform:scale(1) translateY(0);pointer-events:all;}
 .slide.out{opacity:0;transform:scale(0.98) translateY(-10px);}
 .slide::-webkit-scrollbar{width:6px;}
 .slide::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
-
-/* ── BOTTOM NAV ── */
-#botnav{
-  position:fixed;bottom:0;left:0;right:0;height:62px;
-  background:var(--bg2);border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px;z-index:200;
-}
+#botnav{position:fixed;bottom:0;left:0;right:0;height:62px;background:var(--bg2);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:200;}
 .chap-lbl{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);max-width:50%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .nav-row{display:flex;align-items:center;gap:10px;}
 .kb-hint{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
@@ -69,1580 +42,205 @@ html,body{width:100%;height:100%;overflow:hidden;overflow-x:hidden;font-family:v
 .nav-btn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:16px;cursor:pointer;transition:all .15s;font-weight:700;}
 .nav-btn:hover:not(:disabled){background:var(--accent);color:#000;border-color:var(--accent);box-shadow:0 0 15px rgba(255,255,255,0.25);}
 .nav-btn:disabled{opacity:.3;cursor:not-allowed;}
-
-/* ════════════════════ CONTENT ATOMS ════════════════════ */
 .ch-intro{display:flex;flex-direction:column;justify-content:center;min-height:100%;padding:10px 0;}
 .ch-tag{font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;}
-.ch-tag.g{color:var(--accent);} .ch-tag.y{color:var(--yellow);} .ch-tag.r{color:var(--red);} .ch-tag.b{color:var(--blue)}
-.big-icon{font-size:60px;margin-bottom:18px;line-height:1;animation: float 3s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(250,204,21,0.15));}
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-.ch-title{font-family:var(--head);font-size:clamp(32px,5.5vw,58px);font-weight:700;letter-spacing:-2px;line-height:1.05;margin-bottom:14px;text-shadow:0 0 40px rgba(255,255,255,0.1);}
+.ch-tag.g{color:var(--accent);}.ch-tag.y{color:var(--yellow);}.ch-tag.r{color:var(--red);}.ch-tag.b{color:var(--blue);}
+.big-icon{font-size:60px;margin-bottom:18px;line-height:1;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(250,204,21,0.15));}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.ch-title{font-family:var(--head);font-size:clamp(32px,5.5vw,58px);font-weight:700;letter-spacing:-2px;line-height:1.05;margin-bottom:14px;}
 .ch-sub{font-size:16px;color:var(--muted);font-weight:500;margin-bottom:22px;}
 .ch-topics{display:flex;flex-wrap:wrap;gap:8px;}
 .ch-topic{background:rgba(17,17,17,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);font-weight:500;transition:all .2s ease;}
-.ch-topic:hover{border-color:rgba(250,204,21,0.3);color:var(--yellow);box-shadow:0 0 12px rgba(250,204,21,0.08);}
-
-.s-head{font-family:var(--head);font-size:22px;font-weight:700;color:var(--text);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;text-shadow:0 0 20px rgba(255,255,255,0.06);}
-.s-head.g{color:var(--accent);} .s-head.y{color:var(--yellow);} .s-head.r{color:var(--red);} .s-head.b{color:var(--blue);}
-.sub{font-family:var(--head);font-size:15px;font-weight:700;color:var(--text);margin:18px 0 9px;text-shadow:0 0 12px rgba(255,255,255,0.05);}
-
+.ch-topic:hover{border-color:rgba(250,204,21,0.3);color:var(--yellow);}
+.s-head{font-family:var(--head);font-size:22px;font-weight:700;color:var(--text);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.s-head.g{color:var(--accent);}.s-head.y{color:var(--yellow);}.s-head.r{color:var(--red);}.s-head.b{color:var(--blue);}
+.sub{font-family:var(--head);font-size:15px;font-weight:700;color:var(--text);margin:18px 0 9px;}
 p.body{font-size:14.5px;color:#D4D4D4;line-height:1.7;margin-bottom:13px;}
-em{color:var(--yellow); font-style: normal; font-weight: 600;text-shadow:0 0 8px rgba(250,204,21,0.15);}
-
-/* Callout */
-.callout{border-radius:var(--radius);padding:15px 18px;margin:15px 0;border-left:4px solid;font-size:14px;line-height:1.6;color:#D4D4D4;background:rgba(15,15,15,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.05);border-left:4px solid;box-shadow:0 4px 20px rgba(0,0,0,0.2);}
+em{color:var(--yellow);font-style:normal;font-weight:600;}
+.callout{border-radius:var(--radius);padding:15px 18px;margin:15px 0;font-size:14px;line-height:1.6;color:#D4D4D4;background:rgba(15,15,15,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.05);border-left:4px solid;}
 .callout .cl{font-family:var(--head);font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px;}
-.callout.tip{background:rgba(250,204,21,.04);border-color:var(--yellow);} .callout.tip .cl{color:var(--yellow);text-shadow:0 0 8px rgba(250,204,21,0.2);}
-.callout.info{background:rgba(59,130,246,.04);border-color:var(--blue);} .callout.info .cl{color:var(--blue);}
-.callout.warn{background:rgba(250,204,21,.04);border-color:var(--yellow);} .callout.warn .cl{color:var(--yellow);}
-.callout.danger{background:rgba(239,68,68,.04);border-color:var(--red);} .callout.danger .cl{color:var(--red);}
-
-/* Cards */
+.callout.tip{background:rgba(250,204,21,.04);border-color:var(--yellow);}.callout.tip .cl{color:var(--yellow);}
+.callout.info{background:rgba(59,130,246,.04);border-color:var(--blue);}.callout.info .cl{color:var(--blue);}
+.callout.warn{background:rgba(250,204,21,.04);border-color:var(--yellow);}.callout.warn .cl{color:var(--yellow);}
+.callout.danger{background:rgba(239,68,68,.04);border-color:var(--red);}.callout.danger .cl{color:var(--red);}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:15px;margin:15px 0;}
-.card{background:rgba(15,15,15,0.55);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px;transition:all .35s cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 24px rgba(0,0,0,0.25);}
-.card:hover{border-color:rgba(250,204,21,0.25);transform:translateY(-4px) scale(1.01);background:rgba(20,20,20,0.7);box-shadow:0 8px 40px rgba(250,204,21,0.06),0 0 30px rgba(255,255,255,0.04);}
-.ci{font-size:24px;margin-bottom:10px;transition:all .3s ease;}
-.card:hover .ci{filter:drop-shadow(0 0 8px rgba(250,204,21,0.3));transform:scale(1.1);}
+.card{background:rgba(15,15,15,0.55);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px;transition:all .35s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.card:hover{border-color:rgba(250,204,21,0.25);transform:translateY(-4px);background:rgba(20,20,20,0.7);}
+.ci{font-size:24px;margin-bottom:10px;}
 .ct{font-family:var(--head);font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;}
 .cd{font-size:12.5px;color:var(--muted);line-height:1.5;}
-
-/* Table */
-.tw{overflow-x:auto;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.06);margin:15px 0;background:rgba(15,15,15,0.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 20px rgba(0,0,0,0.2);}
+.tw{overflow-x:auto;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.06);margin:15px 0;background:rgba(15,15,15,0.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
 table{width:100%;border-collapse:collapse;font-size:13.5px;}
 thead th{background:var(--bg3);color:var(--text);font-family:var(--head);font-weight:700;padding:12px 16px;text-align:left;font-size:12px;border-bottom:1px solid var(--border);white-space:nowrap;}
 tbody td{padding:11px 16px;color:#D4D4D4;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
 tbody tr:last-child td{border-bottom:none;}
 tbody tr:hover td{background:rgba(255,255,255,.02);}
-.tg{color:var(--accent)!important;font-weight:600;text-shadow:0 0 10px rgba(255,255,255,0.15);} .tb{color:var(--blue)!important;font-weight:600;text-shadow:0 0 10px rgba(59,130,246,0.15);} .ty{color:var(--yellow)!important;font-weight:600;text-shadow:0 0 10px rgba(250,204,21,0.2);} .tr{color:var(--red)!important;font-weight:600;text-shadow:0 0 10px rgba(239,68,68,0.15);}
+.tg{color:var(--accent)!important;font-weight:600;}.tb{color:var(--blue)!important;font-weight:600;}.ty{color:var(--yellow)!important;font-weight:600;}.tr{color:var(--red)!important;font-weight:600;}
 .tc{text-align:center;}
-
-/* Lists */
 ul.ls,ol.ls{list-style:none;margin:11px 0;display:flex;flex-direction:column;gap:8px;}
 ul.ls li,ol.ls li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#D4D4D4;line-height:1.6;}
-ul.ls li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:9px;flex-shrink:0;box-shadow:0 0 6px rgba(250,204,21,0.4);}
+ul.ls li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:9px;flex-shrink:0;}
 ol.ls{counter-reset:item;}
-ol.ls li::before{counter-increment:item;content:counter(item);min-width:24px;height:24px;background:var(--accent-dim);border:1.5px solid rgba(255,255,255,.2);border-radius:50%;font-family:var(--head);font-size:11px;font-weight:700;color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 8px rgba(250,204,21,0.1);}
-
-/* Prompt block */
-.pb{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px 20px;margin:12px 0;font-family:var(--mono);font-size:12.5px;color:#7DD3FC;line-height:1.7;position:relative;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(0,0,0,0.2);}
-.pb::before{content:attr(data-label);position:absolute;top:-10px;left:12px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-family:var(--head);font-size:9px;font-weight:700;color:var(--yellow);letter-spacing:.5px;text-transform:uppercase;box-shadow:0 0 8px rgba(250,204,21,0.15);}
-.pb .dim{color:var(--muted);} .pb .hi{color:var(--yellow);font-weight:600;text-shadow:0 0 6px rgba(250,204,21,0.2);}
-
-/* Visual Prompt Editor Component */
-.prompt-builder{background:rgba(11,15,25,0.7);border:1px solid rgba(30,41,59,0.5);border-radius:var(--radius);overflow:hidden;margin:15px 0;font-family:var(--mono);font-size:13px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 4px 24px rgba(0,0,0,0.3);}
+ol.ls li::before{counter-increment:item;content:counter(item);min-width:24px;height:24px;background:var(--accent-dim);border:1.5px solid rgba(255,255,255,.2);border-radius:50%;font-family:var(--head);font-size:11px;font-weight:700;color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pb{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px 20px;margin:12px 0;font-family:var(--mono);font-size:12.5px;color:#7DD3FC;line-height:1.7;position:relative;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+.pb::before{content:attr(data-label);position:absolute;top:-10px;left:12px;background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-family:var(--head);font-size:9px;font-weight:700;color:var(--yellow);letter-spacing:.5px;text-transform:uppercase;}
+.pb .dim{color:var(--muted);}.pb .hi{color:var(--yellow);font-weight:600;}
+.prompt-builder{background:rgba(11,15,25,0.7);border:1px solid rgba(30,41,59,0.5);border-radius:var(--radius);overflow:hidden;margin:15px 0;font-family:var(--mono);font-size:13px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
 .pb-header{background:#111827;padding:10px 16px;border-bottom:1px solid #1E293B;display:flex;gap:6px;}
 .pb-dot{width:10px;height:10px;border-radius:50%;background:#EF4444;}
-.pb-dot:nth-child(2){background:#FACC15;} .pb-dot:nth-child(3){background:#FFFFFF;}
+.pb-dot:nth-child(2){background:#FACC15;}.pb-dot:nth-child(3){background:#FFFFFF;}
 .pb-content{padding:16px;line-height:1.8;}
 .p-badge{display:inline-block;padding:2px 6px;border-radius:4px;font-size:11px;font-weight:700;color:#000;margin-right:4px;}
-.p-role{background:var(--blue);color:#fff;box-shadow:0 0 8px rgba(59,130,246,0.3);} .p-ctx{background:var(--yellow);color:#000;box-shadow:0 0 8px rgba(250,204,21,0.3);}
-.p-task{background:var(--accent);color:#000;} .p-fmt{background:#A855F7;color:#fff;box-shadow:0 0 8px rgba(168,85,247,0.3);}
-
-/* Interactive Quiz Styling */
-.quiz-box{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:20px;margin-top:15px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(0,0,0,0.2);}
-.quiz-opt{background:rgba(26,26,26,0.6);border:1px solid rgba(255,255,255,0.06);padding:12px 16px;border-radius:8px;margin-top:10px;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:between;font-size:14px;}
-.quiz-opt:hover{border-color:rgba(250,204,21,0.3);background:rgba(250,204,21,0.04);box-shadow:0 0 20px rgba(250,204,21,0.05);}
-.quiz-opt:hover{border-color:var(--yellow);background:rgba(250,204,21,0.02);box-shadow:0 0 16px rgba(250,204,21,0.04);}
-.quiz-opt.correct{border-color:var(--yellow);background:rgba(250,204,21,0.05);color:var(--yellow);box-shadow:0 0 12px rgba(250,204,21,0.1);}
-.quiz-opt.wrong{border-color:var(--red);background:rgba(239,68,68,0.05);color:var(--red);box-shadow:0 0 12px rgba(239,68,68,0.1);}
-
-/* Visual Pipeline / Workflow */
+.p-role{background:var(--blue);color:#fff;}.p-ctx{background:var(--yellow);color:#000;}.p-task{background:var(--accent);color:#000;}.p-fmt{background:#A855F7;color:#fff;}
+.quiz-box{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:20px;margin-top:15px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+.quiz-opt{background:rgba(26,26,26,0.6);border:1px solid rgba(255,255,255,0.06);padding:12px 16px;border-radius:8px;margin-top:10px;cursor:pointer;transition:all 0.3s;font-size:14px;}
+.quiz-opt:hover{border-color:rgba(250,204,21,0.3);background:rgba(250,204,21,0.04);}
+.quiz-opt.correct{border-color:var(--yellow);background:rgba(250,204,21,0.05);color:var(--yellow);}
+.quiz-opt.wrong{border-color:var(--red);background:rgba(239,68,68,0.05);color:var(--red);}
 .flow-container{display:flex;align-items:center;justify-content:space-between;margin:20px 0;gap:10px;}
-.flow-step{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;text-align:center;flex:1;position:relative;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:all .3s ease;}
-.flow-step:hover{border-color:rgba(250,204,21,0.2);box-shadow:0 6px 24px rgba(250,204,21,0.05);transform:translateY(-2px);}
+.flow-step{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;text-align:center;flex:1;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:all .3s ease;}
+.flow-step:hover{border-color:rgba(250,204,21,0.2);transform:translateY(-2px);}
 .flow-step h4{font-family:var(--head);font-size:13px;color:var(--accent);margin-bottom:4px;}
 .flow-step p{font-size:11px;color:var(--muted);}
 .flow-arrow{color:var(--border);font-weight:700;font-size:18px;}
-
-/* Chips & Stats */
 .chips{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0;}
-.chip{background:rgba(26,26,26,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:6px 15px;font-size:12px;color:var(--text);font-weight:500;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:all .2s ease;}
-.chip:hover{border-color:rgba(255,255,255,0.25);box-shadow:0 0 16px rgba(255,255,255,0.08);transform:translateY(-1px);}
+.chip{background:rgba(26,26,26,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:6px 15px;font-size:12px;color:var(--text);font-weight:500;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
 .stats{display:flex;gap:13px;flex-wrap:wrap;margin:20px 0;}
-.stat{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:15px 20px;text-align:center;min-width:90px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(0,0,0,0.2);transition:all .3s ease;}
-.stat:hover{border-color:rgba(255,255,255,0.20);box-shadow:0 6px 30px rgba(255,255,255,0.06);}
-.num{font-family:var(--head);font-size:32px;font-weight:700;color:var(--accent);display:block;letter-spacing:-1px;line-height:1;text-shadow:0 0 20px rgba(255,255,255,0.2);}
+.stat{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:15px 20px;text-align:center;min-width:90px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+.num{font-family:var(--head);font-size:32px;font-weight:700;color:var(--accent);display:block;letter-spacing:-1px;line-height:1;}
 .lbl{font-size:11px;color:var(--muted);margin-top:4px;display:block;font-weight:500;}
-
 .two{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
 .model-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
 .mp{background:rgba(26,26,26,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 14px;text-align:center;flex:1;min-width:110px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:all .3s ease;}
-.mp:hover{border-color:rgba(59,130,246,0.3);box-shadow:0 0 20px rgba(59,130,246,0.08);transform:translateY(-2px);}
-.mn{font-family:var(--head);font-size:13px;font-weight:700;color:var(--blue);display:block;text-shadow:0 0 10px rgba(59,130,246,0.2);}
+.mp:hover{border-color:rgba(59,130,246,0.3);transform:translateY(-2px);}
+.mn{font-family:var(--head);font-size:13px;font-weight:700;color:var(--blue);display:block;}
 .mb{font-size:11px;color:var(--muted);display:block;margin-top:2px;}
-
-.quote{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-left:4px solid var(--yellow);border-radius:var(--radius);padding:22px 26px;margin:18px 0;text-align:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(0,0,0,0.2);}
-blockquote{font-family:var(--head);font-size:clamp(14px,2vw,18px);font-weight:700;color:var(--text);line-height:1.55;margin-bottom:9px;text-shadow:0 0 30px rgba(255,255,255,0.08);}
-cite{font-family:var(--head);font-size:12px;color:var(--yellow);font-style:normal;font-weight:600;text-shadow:0 0 10px rgba(250,204,21,0.3);}
-
+.quote{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-left:4px solid var(--yellow);border-radius:var(--radius);padding:22px 26px;margin:18px 0;text-align:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+blockquote{font-family:var(--head);font-size:clamp(14px,2vw,18px);font-weight:700;color:var(--text);line-height:1.55;margin-bottom:9px;}
+cite{font-family:var(--head);font-size:12px;color:var(--yellow);font-style:normal;font-weight:600;}
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:13px;margin:13px 0;}
-.pc{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(0,0,0,0.2);transition:all .3s ease;}
+.pc{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:all .3s ease;}
 .pc:hover{border-color:rgba(34,197,94,0.2);transform:translateY(-2px);}
-.pn{font-family:var(--head);font-size:10px;font-weight:700;color:var(--yellow);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;text-shadow:0 0 8px rgba(250,204,21,0.2);}
+.pn{font-family:var(--head);font-size:10px;font-weight:700;color:var(--yellow);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
 .pt{font-family:var(--head);font-size:14px;font-weight:700;color:var(--text);margin-bottom:7px;}
 .pd{font-size:12.5px;color:var(--muted);line-height:1.6;}
-
 .rm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin:13px 0;}
-.rc{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(0,0,0,0.2);transition:all .3s ease;}
+.rc{background:rgba(15,15,15,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:all .3s ease;}
 .rc:hover{border-color:rgba(34,197,94,0.2);transform:translateY(-2px);}
-.rw{display:inline-block;background:var(--yellow);color:#000;font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-bottom:9px;box-shadow:0 0 12px rgba(250,204,21,0.25);}
+.rw{display:inline-block;background:var(--yellow);color:#000;font-family:var(--head);font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-bottom:9px;}
 .rf{font-family:var(--head);font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px;}
 .rd{font-size:12px;color:var(--muted);line-height:1.5;}
-
 .cmp{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);margin:12px 0;}
 .crow{display:grid;grid-template-columns:62px 1fr 98px;border-bottom:1px solid var(--border);font-size:12.5px;}
 .crow:last-child{border-bottom:none;}
 .cb{padding:11px;font-family:var(--head);font-weight:700;font-size:11px;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;}
 .cx{padding:11px;color:#BBBBBB;border-right:1px solid var(--border);display:flex;align-items:center;}
 .cr{padding:11px;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;font-size:11px;}
-.bad{background:rgba(239,68,68,.04);border-left:3px solid rgba(239,68,68,0.3)!important;} .ok{background:rgba(250,204,21,.04);border-left:3px solid rgba(250,204,21,0.3)!important;} .good{background:rgba(34,197,94,.04);}
-
+.bad{background:rgba(239,68,68,.04);border-left:3px solid rgba(239,68,68,0.3)!important;}
+.ok{background:rgba(250,204,21,.04);border-left:3px solid rgba(250,204,21,0.3)!important;}
+.good{background:rgba(34,197,94,.04);}
 .hgrid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:48px 48px;opacity:.15;pointer-events:none;}
-.hz{position:relative;z-index:1;}
 .blob1{position:absolute;top:-80px;right:-60px;width:400px;height:400px;border-radius:50%;background:var(--accent);opacity:.03;pointer-events:none;filter:blur(60px);}
 .blob2{position:absolute;bottom:-100px;left:-50px;width:300px;height:300px;border-radius:50%;background:var(--yellow);opacity:.03;pointer-events:none;filter:blur(60px);}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
-.eyebrow::before{content:'';display:block;width:22px;height:2px;background:var(--accent);box-shadow:0 0 8px rgba(250,204,21,0.4);}
-
-
-/* Stagger Animation */
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(24px); filter:blur(2px); }
-  to   { opacity:1; transform:translateY(0); filter:blur(0); }
-}
-@keyframes fadeIn {
-  from { opacity:0; }
-  to   { opacity:1; }
-}
-@keyframes scaleIn {
-  from { opacity:0; transform:scale(0.92); }
-  to   { opacity:1; transform:scale(1); }
-}
-
-.slide .anim-item { opacity:0; }
-.slide.active .anim-item { animation: fadeUp 0.55s cubic-bezier(0.4,0,0.2,1) forwards; }
-.slide.active .anim-fade { animation: fadeIn 0.5s cubic-bezier(0.4,0,0.2,1) forwards; }
-.slide.active .anim-scale { animation: scaleIn 0.6s cubic-bezier(0.4,0,0.2,1) forwards; }
-
-.slide.active .anim-item:nth-child(1)  { animation-delay: 0.05s; }
-.slide.active .anim-item:nth-child(2)  { animation-delay: 0.12s; }
-.slide.active .anim-item:nth-child(3)  { animation-delay: 0.19s; }
-.slide.active .anim-item:nth-child(4)  { animation-delay: 0.26s; }
-.slide.active .anim-item:nth-child(5)  { animation-delay: 0.33s; }
-.slide.active .anim-item:nth-child(6)  { animation-delay: 0.40s; }
-.slide.active .anim-item:nth-child(7)  { animation-delay: 0.47s; }
-.slide.active .anim-item:nth-child(8)  { animation-delay: 0.54s; }
-.slide.active .anim-item:nth-child(9)  { animation-delay: 0.61s; }
-.slide.active .anim-item:nth-child(10) { animation-delay: 0.68s; }
-.slide.active .anim-item:nth-child(11) { animation-delay: 0.75s; }
-.slide.active .anim-item:nth-child(12) { animation-delay: 0.82s; }
-
-/* Big title entrance */
-.slide.active .ch-tag,
-.slide.active .big-icon,
-.slide.active .ch-title,
-.slide.active .ch-sub,
-.slide.active .ch-topics,
-.slide.active .eyebrow,
-.slide.active .s-head,
-.slide.active .sub,
-.slide.active .body,
-.slide.active .callout,
-.slide.active .card,
-.slide.active .stat,
-.slide.active .pb,
-.slide.active .tw,
-.slide.active .ls li,
-.slide.active .quote,
-.slide.active .pgrid .pc,
-.slide.active .rm-grid .rc,
-.slide.active .quiz-box,
-.slide.active .quiz-opt,
-.slide.active .prompt-builder,
-.slide.active .flow-step,
-.slide.active .chip,
-.slide.active .mp,
-.slide.active .cmp,
-.slide.active .model-row .mp,
-.slide.active .chips .chip,
-.slide.active .stats .stat,
-.slide.active .card-grid .card,
-.slide.active .pgrid .pc,
-.slide.active .rm-grid .rc,
-.slide.active .hgrid,
-.slide.active .blob1,
-.slide.active .blob2 { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) forwards; opacity:0; }
-
-.slide.active .ch-tag      { animation-delay: 0.05s; }
-.slide.active .big-icon    { animation-delay: 0.10s; }
-.slide.active .ch-title    { animation-delay: 0.15s; }
-.slide.active .ch-sub      { animation-delay: 0.22s; }
-.slide.active .ch-topics   { animation-delay: 0.29s; }
-.slide.active .eyebrow     { animation-delay: 0.05s; }
-.slide.active .s-head      { animation-delay: 0.08s; }
-.slide.active .sub         { animation-delay: 0.15s; }
-.slide.active .body        { animation-delay: 0.18s; }
-.slide.active .callout     { animation-delay: 0.22s; }
-.slide.active .card        { animation-delay: calc(0.15s + var(--i, 0) * 0.08s); }
-.slide.active .stat        { animation-delay: calc(0.15s + var(--i, 0) * 0.08s); }
-.slide.active .pb          { animation-delay: 0.20s; }
-.slide.active .tw          { animation-delay: 0.18s; }
-.slide.active .ls li       { animation-delay: calc(0.15s + var(--i, 0) * 0.07s); }
-.slide.active .quote       { animation-delay: 0.18s; }
-.slide.active .pc          { animation-delay: calc(0.15s + var(--i, 0) * 0.08s); }
-.slide.active .rc          { animation-delay: calc(0.15s + var(--i, 0) * 0.08s); }
-.slide.active .quiz-box    { animation-delay: 0.18s; }
-.slide.active .quiz-opt    { animation-delay: calc(0.20s + var(--i, 0) * 0.08s); }
-.slide.active .prompt-builder { animation-delay: 0.20s; }
-.slide.active .flow-step   { animation-delay: calc(0.15s + var(--i, 0) * 0.08s); }
-.slide.active .chip        { animation-delay: calc(0.15s + var(--i, 0) * 0.06s); }
-.slide.active .mp         { animation-delay: calc(0.15s + var(--i, 0) * 0.06s); }
-.slide.active .cmp        { animation-delay: 0.18s; }
-.slide.active .blob1       { animation-delay: 0.0s; animation: fadeIn 1.2s ease forwards; }
-.slide.active .blob2       { animation-delay: 0.0s; animation: fadeIn 1.2s ease forwards; }
-.slide.active .hgrid       { animation-delay: 0.0s; animation: fadeIn 1.5s ease forwards; }
-
-
-/* Chapter Progress Dots */
-#chapter-dots{position:fixed;top:58px;left:50%;transform:translateX(-50%);z-index:195;display:flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(15,15,15,0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.06);border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:opacity .3s, transform .3s;}
+.eyebrow::before{content:'';display:block;width:22px;height:2px;background:var(--accent);}
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);filter:blur(2px);}to{opacity:1;transform:translateY(0);filter:blur(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.slide.active .ch-tag,.slide.active .big-icon,.slide.active .ch-title,.slide.active .ch-sub,
+.slide.active .ch-topics,.slide.active .eyebrow,.slide.active .s-head,.slide.active .sub,
+.slide.active p.body,.slide.active .callout,.slide.active .card,.slide.active .stat,
+.slide.active .pb,.slide.active .tw,.slide.active .ls li,.slide.active .quote,
+.slide.active .pgrid .pc,.slide.active .rm-grid .rc,.slide.active .quiz-box,
+.slide.active .quiz-opt,.slide.active .prompt-builder,.slide.active .flow-step,
+.slide.active .chip,.slide.active .mp,.slide.active .cmp,.slide.active .model-row,
+.slide.active .hgrid,.slide.active .blob1,.slide.active .blob2
+{animation:fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) forwards;opacity:0;}
+.slide.active .ch-tag{animation-delay:0.05s;}.slide.active .big-icon{animation-delay:0.10s;}
+.slide.active .ch-title{animation-delay:0.15s;}.slide.active .ch-sub{animation-delay:0.22s;}
+.slide.active .ch-topics{animation-delay:0.29s;}.slide.active .eyebrow{animation-delay:0.05s;}
+.slide.active .s-head{animation-delay:0.08s;}.slide.active .sub{animation-delay:0.15s;}
+.slide.active p.body{animation-delay:0.18s;}.slide.active .callout{animation-delay:0.22s;}
+.slide.active .card{animation-delay:calc(0.15s + var(--i,0)*0.08s);}
+.slide.active .pb{animation-delay:0.20s;}.slide.active .tw{animation-delay:0.18s;}
+.slide.active .ls li{animation-delay:calc(0.15s + var(--i,0)*0.07s);}
+.slide.active .quote{animation-delay:0.18s;}
+.slide.active .pc{animation-delay:calc(0.15s + var(--i,0)*0.08s);}
+.slide.active .rc{animation-delay:calc(0.15s + var(--i,0)*0.08s);}
+.slide.active .quiz-box{animation-delay:0.18s;}
+.slide.active .prompt-builder{animation-delay:0.20s;}
+.slide.active .flow-step{animation-delay:calc(0.15s + var(--i,0)*0.08s);}
+.slide.active .mp,.slide.active .model-row{animation-delay:0.15s;}
+.slide.active .cmp{animation-delay:0.18s;}
+.slide.active .blob1,.slide.active .blob2{animation:fadeIn 1.2s ease forwards;}
+.slide.active .hgrid{animation:fadeIn 1.5s ease forwards;}
+/* CHAPTER DOTS */
+#chapter-dots{position:fixed;top:58px;left:50%;transform:translateX(-50%);z-index:195;display:flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(15,15,15,0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.06);border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.3);}
 .ch-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:pointer;transition:all .3s cubic-bezier(0.4,0,0.2,1);position:relative;}
-.ch-dot:hover{background:var(--yellow);transform:scale(1.3);box-shadow:0 0 8px rgba(250,204,21,0.4);}
-.ch-dot.active{background:var(--accent);box-shadow:0 0 12px rgba(255,255,255,0.4),0 0 4px rgba(250,204,21,0.6);transform:scale(1.25);}
-.ch-dot::after{content:attr(data-label);position:absolute;top:-28px;left:50%;transform:translateX(-50%) translateY(4px);background:rgba(0,0,0,0.9);border:1px solid rgba(255,255,255,0.15);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:all .2s ease;backdrop-filter:blur(8px);box-shadow:0 4px 12px rgba(0,0,0,0.5);}
+.ch-dot:hover{background:var(--yellow);transform:scale(1.3);}
+.ch-dot.active{background:var(--accent);box-shadow:0 0 12px rgba(255,255,255,0.4);transform:scale(1.25);}
+.ch-dot::after{content:attr(data-label);position:absolute;top:-28px;left:50%;transform:translateX(-50%) translateY(4px);background:rgba(0,0,0,0.9);border:1px solid rgba(255,255,255,0.15);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:all .2s ease;}
 .ch-dot:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
 .ch-sep{width:1px;height:10px;background:rgba(255,255,255,0.1);margin:0 2px;}
-
-/* OLED Scanline subtle effect */
+/* OLED */
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.015) 2px,rgba(255,255,255,0.015) 4px);pointer-events:none;z-index:9999;opacity:0.6;}
-
-
-/* ═════════════════ HERO SLIDE ENHANCEMENTS ═════════════════ */
-
-/* Animated Aurora Background */
-#hero-aurora{
-  position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(250,204,21,0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(255,255,255,0.05) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(250,204,21,0.04) 0%, transparent 50%);
-  animation: auroraShift 12s ease-in-out infinite alternate;
-}
-@keyframes auroraShift {
-  0% { transform: translate(0,0) scale(1); opacity:0.7; }
-  33% { transform: translate(2%,-1%) scale(1.05); opacity:0.9; }
-  66% { transform: translate(-1%,2%) scale(0.95); opacity:0.8; }
-  100% { transform: translate(1%,1%) scale(1.02); opacity:0.7; }
-}
-
-/* Canvas Particle Network */
-#hero-canvas{
-  position:absolute;inset:0;z-index:1;pointer-events:none;
-}
-
-/* Hero Content Layer */
-.hero-content{
-  position:relative;z-index:2;
-  max-width:720px;
-  padding-top: clamp(20px, 5vh, 60px);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  min-height:100%;
-}
-
-/* Gradient Text Title */
-.hero-title{
-  font-family:var(--head);
-  font-size:clamp(56px, 9vw, 110px);
-  font-weight:800;
-  letter-spacing:-4px;
-  line-height:0.95;
-  background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 40%, #FACC15 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 40px rgba(255,255,255,0.15)) drop-shadow(0 0 80px rgba(250,204,21,0.08));
-  animation: titleReveal 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-  transform: translateY(30px);
-  margin-bottom:6px;
-}
-@keyframes titleReveal {
-  to { opacity:1; transform: translateY(0); }
-}
-
-/* Subtitle with typing cursor effect */
-.hero-subtitle{
-  font-family:var(--head);
-  font-size:clamp(22px, 3.5vw, 32px);
-  font-weight:600;
-  color:var(--muted);
-  letter-spacing:-0.5px;
-  margin-bottom:28px;
-  animation: subtitleReveal 1s 0.4s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-  transform: translateY(20px);
-}
-@keyframes subtitleReveal {
-  to { opacity:1; transform: translateY(0); }
-}
-
-/* Eyebrow pulse glow */
-.hero-eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  font-family:var(--head);
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--yellow);
-  margin-bottom:24px;
-  animation: eyebrowReveal 0.8s 0.2s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-eyebrow::before{
-  content:'';
-  display:block;
-  width:28px;
-  height:2px;
-  background:var(--yellow);
-  box-shadow:0 0 10px rgba(250,204,21,0.5);
-  animation: linePulse 2s ease-in-out infinite;
-}
-@keyframes linePulse {
-  0%,100% { opacity:0.6; box-shadow:0 0 6px rgba(250,204,21,0.3); }
-  50% { opacity:1; box-shadow:0 0 14px rgba(250,204,21,0.6); }
-}
-@keyframes eyebrowReveal {
-  to { opacity:1; }
-}
-
-/* Hero body text */
-.hero-body{
-  font-size:15.5px;
-  color:#BBBBBB;
-  line-height:1.75;
-  margin-bottom:24px;
-  max-width:540px;
-  animation: fadeUp 0.8s 0.6s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-
-/* Hero Chips - more premium */
-.hero-chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:32px;
-  animation: fadeUp 0.8s 0.75s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-chip{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:24px;
-  padding:7px 18px;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:500;
-  transition:all 0.3s ease;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-}
-.hero-chip:hover{
-  border-color:rgba(250,204,21,0.3);
-  color:var(--yellow);
-  box-shadow:0 0 16px rgba(250,204,21,0.08);
-  transform:translateY(-2px);
-  background:rgba(250,204,21,0.04);
-}
-
-/* Hero Stats - floating glass cards */
-.hero-stats{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  animation: fadeUp 0.8s 0.9s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-stat{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:var(--radius);
-  padding:18px 24px;
-  text-align:center;
-  min-width:100px;
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  transition:all 0.35s cubic-bezier(0.4,0,0.2,1);
-  position:relative;
-  overflow:hidden;
-}
-.hero-stat::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(250,204,21,0.3),transparent);
-  opacity:0;
-  transition:opacity 0.3s;
-}
-.hero-stat:hover{
-  border-color:rgba(250,204,21,0.2);
-  transform:translateY(-4px) scale(1.02);
-  box-shadow:0 8px 32px rgba(250,204,21,0.06), 0 0 20px rgba(255,255,255,0.03);
-  background:rgba(255,255,255,0.05);
-}
-.hero-stat:hover::before{ opacity:1; }
-.hero-stat .num{
-  font-family:var(--head);
-  font-size:36px;
-  font-weight:800;
-  color:var(--accent);
-  display:block;
-  letter-spacing:-2px;
-  line-height:1;
-  background: linear-gradient(180deg, #FFFFFF 0%, #E8E8E8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero-stat .lbl{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:6px;
-  display:block;
-  font-weight:500;
-  letter-spacing:0.5px;
-}
-
-/* Start Hint */
-.hero-start-hint{
-  position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:12px;
-  color:var(--muted);
-  font-family:var(--head);
-  letter-spacing:1px;
-  animation: fadeUp 0.8s 1.2s cubic-bezier(0.4,0,0.2,1) forwards, hintBounce 2s 1.5s ease-in-out infinite;
-  opacity:0;
-  z-index:2;
-}
-@keyframes hintBounce {
-  0%,100% { transform:translateX(-50%) translateY(0); }
-  50% { transform:translateX(-50%) translateY(-6px); }
-}
-.hero-start-hint .arrow-key{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:6px;
-  width:24px;
-  height:24px;
-  font-size:12px;
-  color:var(--yellow);
-}
-
-/* Floating decorative orbs */
-.hero-orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(60px);
-  pointer-events:none;
-  z-index:0;
-}
-.hero-orb-1{
-  width:300px;height:300px;
-  background:rgba(250,204,21,0.06);
-  top:10%;right:10%;
-  animation: orbFloat1 8s ease-in-out infinite;
-}
-.hero-orb-2{
-  width:200px;height:200px;
-  background:rgba(255,255,255,0.04);
-  bottom:20%;left:5%;
-  animation: orbFloat2 10s ease-in-out infinite;
-}
-@keyframes orbFloat1 {
-  0%,100% { transform:translate(0,0); }
-  50% { transform:translate(-20px,30px); }
-}
-@keyframes orbFloat2 {
-  0%,100% { transform:translate(0,0); }
-  50% { transform:translate(15px,-20px); }
-}
-
-/* Grid overlay for hero */
-.hero-grid{
-  position:absolute;
-  inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size:60px 60px;
-  pointer-events:none;
-  z-index:0;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
-}
-
-/* Responsive hero */
+/* HERO */
+#hero-aurora{position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 20% 40%,rgba(250,204,21,0.08) 0%,transparent 50%),radial-gradient(ellipse 60% 40% at 80% 60%,rgba(255,255,255,0.05) 0%,transparent 50%),radial-gradient(ellipse 50% 60% at 50% 100%,rgba(250,204,21,0.04) 0%,transparent 50%);animation:auroraShift 12s ease-in-out infinite alternate;}
+@keyframes auroraShift{0%{transform:translate(0,0) scale(1);opacity:0.7;}50%{transform:translate(2%,-1%) scale(1.05);opacity:0.9;}100%{transform:translate(1%,1%) scale(1.02);opacity:0.7;}}
+#hero-canvas{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.hero-content{position:relative;z-index:2;max-width:720px;padding-top:clamp(20px,5vh,60px);display:flex;flex-direction:column;justify-content:center;min-height:100%;}
+.hero-title{font-family:var(--head);font-size:clamp(56px,9vw,110px);font-weight:800;letter-spacing:-4px;line-height:0.95;background:linear-gradient(135deg,#FFFFFF 0%,#F5F5F5 40%,#FACC15 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:titleReveal 1.2s cubic-bezier(0.4,0,0.2,1) forwards;opacity:0;transform:translateY(30px);margin-bottom:6px;}
+@keyframes titleReveal{to{opacity:1;transform:translateY(0);}}
+.hero-subtitle{font-family:var(--head);font-size:clamp(22px,3.5vw,32px);font-weight:600;color:var(--muted);letter-spacing:-0.5px;margin-bottom:28px;animation:subtitleReveal 1s 0.4s cubic-bezier(0.4,0,0.2,1) forwards;opacity:0;transform:translateY(20px);}
+@keyframes subtitleReveal{to{opacity:1;transform:translateY(0);}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--head);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);margin-bottom:24px;animation:eyebrowReveal 0.8s 0.2s cubic-bezier(0.4,0,0.2,1) forwards;opacity:0;}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:2px;background:var(--yellow);box-shadow:0 0 10px rgba(250,204,21,0.5);animation:linePulse 2s ease-in-out infinite;}
+@keyframes linePulse{0%,100%{opacity:0.6;}50%{opacity:1;box-shadow:0 0 14px rgba(250,204,21,0.6);}}
+@keyframes eyebrowReveal{to{opacity:1;}}
+.hero-body{font-size:15.5px;color:#BBBBBB;line-height:1.75;margin-bottom:24px;max-width:540px;animation:fadeUp 0.8s 0.6s cubic-bezier(0.4,0,0.2,1) forwards;opacity:0;}
+.hero-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;animation:fadeUp 0.8s 0.75s cubic-bezier(0.4,0,0.2,1) forwards;opacity:0;}
+.hero-chip{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:7px 18px;font-size:13px;color:var(--muted);font-weight:500;transition:all 0.3s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+.hero-chip:hover{border-color:rgba(250,204,21,0.3);color:var(--yellow);transform:translateY(-2px);}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp 0.8s 0.9s cubic-bezier(0.4,0,0.2,1) forwards;opacity:0;}
+.hero-stat{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px 24px;text-align:center;min-width:100px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:all 0.35s;position:relative;overflow:hidden;}
+.hero-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(250,204,21,0.3),transparent);opacity:0;transition:opacity 0.3s;}
+.hero-stat:hover{border-color:rgba(250,204,21,0.2);transform:translateY(-4px) scale(1.02);}
+.hero-stat:hover::before{opacity:1;}
+.hero-stat .num{font-family:var(--head);font-size:36px;font-weight:800;display:block;letter-spacing:-2px;line-height:1;background:linear-gradient(180deg,#FFFFFF 0%,#E8E8E8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-stat .lbl{font-size:11px;color:var(--muted);margin-top:6px;display:block;font-weight:500;}
+.hero-start-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);font-family:var(--head);letter-spacing:1px;animation:fadeUp 0.8s 1.2s cubic-bezier(0.4,0,0.2,1) forwards,hintBounce 2s 1.5s ease-in-out infinite;opacity:0;z-index:2;}
+@keyframes hintBounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-6px);}}
+.hero-start-hint .arrow-key{display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;width:24px;height:24px;font-size:12px;color:var(--yellow);}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;z-index:0;}
+.hero-orb-1{width:300px;height:300px;background:rgba(250,204,21,0.06);top:10%;right:10%;animation:orbFloat1 8s ease-in-out infinite;}
+.hero-orb-2{width:200px;height:200px;background:rgba(255,255,255,0.04);bottom:20%;left:5%;animation:orbFloat2 10s ease-in-out infinite;}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0);}50%{transform:translate(-20px,30px);}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0);}50%{transform:translate(15px,-20px);}}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,black 20%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,black 20%,transparent 70%);}
+/* RESPONSIVE */
 @media(max-width:768px){
-  .hero-title{ font-size:clamp(42px,12vw,70px); letter-spacing:-2px; }
-  .hero-subtitle{ font-size:clamp(18px,5vw,24px); }
-  .hero-stats{ gap:10px; }
-  .hero-stat{ min-width:80px; padding:14px 16px; }
-  .hero-stat .num{ font-size:28px; }
-  .hero-start-hint{ display:none; }
-  .hero-orb{ display:none; }
-}
-
-@media(max-width:768px){
-  #chapter-dots{gap:4px;padding:4px 10px;border-radius:16px;}
-  .ch-dot{width:6px;height:6px;}
-  .ch-dot::after{display:none;}
-}
-
-
-/* OLED Scanline subtle effect */
-body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.015) 2px,rgba(255,255,255,0.015) 4px);pointer-events:none;z-index:9999;opacity:0.6;}
-
-
-/* ═════════════════ HERO SLIDE ENHANCEMENTS ═════════════════ */
-
-/* Animated Aurora Background */
-#hero-aurora{
-  position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(250,204,21,0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(255,255,255,0.05) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(250,204,21,0.04) 0%, transparent 50%);
-  animation: auroraShift 12s ease-in-out infinite alternate;
-}
-@keyframes auroraShift {
-  0% { transform: translate(0,0) scale(1); opacity:0.7; }
-  33% { transform: translate(2%,-1%) scale(1.05); opacity:0.9; }
-  66% { transform: translate(-1%,2%) scale(0.95); opacity:0.8; }
-  100% { transform: translate(1%,1%) scale(1.02); opacity:0.7; }
-}
-
-/* Canvas Particle Network */
-#hero-canvas{
-  position:absolute;inset:0;z-index:1;pointer-events:none;
-}
-
-/* Hero Content Layer */
-.hero-content{
-  position:relative;z-index:2;
-  max-width:720px;
-  padding-top: clamp(20px, 5vh, 60px);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  min-height:100%;
-}
-
-/* Gradient Text Title */
-.hero-title{
-  font-family:var(--head);
-  font-size:clamp(56px, 9vw, 110px);
-  font-weight:800;
-  letter-spacing:-4px;
-  line-height:0.95;
-  background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 40%, #FACC15 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 40px rgba(255,255,255,0.15)) drop-shadow(0 0 80px rgba(250,204,21,0.08));
-  animation: titleReveal 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-  transform: translateY(30px);
-  margin-bottom:6px;
-}
-@keyframes titleReveal {
-  to { opacity:1; transform: translateY(0); }
-}
-
-/* Subtitle with typing cursor effect */
-.hero-subtitle{
-  font-family:var(--head);
-  font-size:clamp(22px, 3.5vw, 32px);
-  font-weight:600;
-  color:var(--muted);
-  letter-spacing:-0.5px;
-  margin-bottom:28px;
-  animation: subtitleReveal 1s 0.4s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-  transform: translateY(20px);
-}
-@keyframes subtitleReveal {
-  to { opacity:1; transform: translateY(0); }
-}
-
-/* Eyebrow pulse glow */
-.hero-eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  font-family:var(--head);
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--yellow);
-  margin-bottom:24px;
-  animation: eyebrowReveal 0.8s 0.2s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-eyebrow::before{
-  content:'';
-  display:block;
-  width:28px;
-  height:2px;
-  background:var(--yellow);
-  box-shadow:0 0 10px rgba(250,204,21,0.5);
-  animation: linePulse 2s ease-in-out infinite;
-}
-@keyframes linePulse {
-  0%,100% { opacity:0.6; box-shadow:0 0 6px rgba(250,204,21,0.3); }
-  50% { opacity:1; box-shadow:0 0 14px rgba(250,204,21,0.6); }
-}
-@keyframes eyebrowReveal {
-  to { opacity:1; }
-}
-
-/* Hero body text */
-.hero-body{
-  font-size:15.5px;
-  color:#BBBBBB;
-  line-height:1.75;
-  margin-bottom:24px;
-  max-width:540px;
-  animation: fadeUp 0.8s 0.6s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-
-/* Hero Chips - more premium */
-.hero-chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:32px;
-  animation: fadeUp 0.8s 0.75s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-chip{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:24px;
-  padding:7px 18px;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:500;
-  transition:all 0.3s ease;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-}
-.hero-chip:hover{
-  border-color:rgba(250,204,21,0.3);
-  color:var(--yellow);
-  box-shadow:0 0 16px rgba(250,204,21,0.08);
-  transform:translateY(-2px);
-  background:rgba(250,204,21,0.04);
-}
-
-/* Hero Stats - floating glass cards */
-.hero-stats{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  animation: fadeUp 0.8s 0.9s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-stat{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:var(--radius);
-  padding:18px 24px;
-  text-align:center;
-  min-width:100px;
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  transition:all 0.35s cubic-bezier(0.4,0,0.2,1);
-  position:relative;
-  overflow:hidden;
-}
-.hero-stat::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(250,204,21,0.3),transparent);
-  opacity:0;
-  transition:opacity 0.3s;
-}
-.hero-stat:hover{
-  border-color:rgba(250,204,21,0.2);
-  transform:translateY(-4px) scale(1.02);
-  box-shadow:0 8px 32px rgba(250,204,21,0.06), 0 0 20px rgba(255,255,255,0.03);
-  background:rgba(255,255,255,0.05);
-}
-.hero-stat:hover::before{ opacity:1; }
-.hero-stat .num{
-  font-family:var(--head);
-  font-size:36px;
-  font-weight:800;
-  color:var(--accent);
-  display:block;
-  letter-spacing:-2px;
-  line-height:1;
-  background: linear-gradient(180deg, #FFFFFF 0%, #E8E8E8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero-stat .lbl{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:6px;
-  display:block;
-  font-weight:500;
-  letter-spacing:0.5px;
-}
-
-/* Start Hint */
-.hero-start-hint{
-  position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:12px;
-  color:var(--muted);
-  font-family:var(--head);
-  letter-spacing:1px;
-  animation: fadeUp 0.8s 1.2s cubic-bezier(0.4,0,0.2,1) forwards, hintBounce 2s 1.5s ease-in-out infinite;
-  opacity:0;
-  z-index:2;
-}
-@keyframes hintBounce {
-  0%,100% { transform:translateX(-50%) translateY(0); }
-  50% { transform:translateX(-50%) translateY(-6px); }
-}
-.hero-start-hint .arrow-key{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:6px;
-  width:24px;
-  height:24px;
-  font-size:12px;
-  color:var(--yellow);
-}
-
-/* Floating decorative orbs */
-.hero-orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(60px);
-  pointer-events:none;
-  z-index:0;
-}
-.hero-orb-1{
-  width:300px;height:300px;
-  background:rgba(250,204,21,0.06);
-  top:10%;right:10%;
-  animation: orbFloat1 8s ease-in-out infinite;
-}
-.hero-orb-2{
-  width:200px;height:200px;
-  background:rgba(255,255,255,0.04);
-  bottom:20%;left:5%;
-  animation: orbFloat2 10s ease-in-out infinite;
-}
-@keyframes orbFloat1 {
-  0%,100% { transform:translate(0,0); }
-  50% { transform:translate(-20px,30px); }
-}
-@keyframes orbFloat2 {
-  0%,100% { transform:translate(0,0); }
-  50% { transform:translate(15px,-20px); }
-}
-
-/* Grid overlay for hero */
-.hero-grid{
-  position:absolute;
-  inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size:60px 60px;
-  pointer-events:none;
-  z-index:0;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
-}
-
-/* Responsive hero */
-@media(max-width:768px){
-  .hero-title{ font-size:clamp(42px,12vw,70px); letter-spacing:-2px; }
-  .hero-subtitle{ font-size:clamp(18px,5vw,24px); }
-  .hero-stats{ gap:10px; }
-  .hero-stat{ min-width:80px; padding:14px 16px; }
-  .hero-stat .num{ font-size:28px; }
-  .hero-start-hint{ display:none; }
-  .hero-orb{ display:none; }
-}
-
-@media(max-width:768px){
-  .slide{overflow-x:hidden;padding:24px 20px;}
-  #topbar,#botnav{padding:0 16px;}
-  .two{grid-template-columns:1fr;}
-  .card-grid,.pgrid,.rm-grid{grid-template-columns:1fr 1fr;}
-  .ch-title{letter-spacing:-1px;}
-  .kb-hint{display:none;}
-  .hamburger{display:flex!important;}
-  #mobile-menu{display:block;}
-  .tb-title{display:none;}
-  .flow-container{flex-direction: column; gap:15px;}
-  .flow-arrow{transform: rotate(90deg); margin: 2px 0;}
-}
-@media(max-width:480px){
-  .card-grid,.pgrid,.rm-grid{grid-template-columns:1fr;}
-  .crow{grid-template-columns:50px 1fr 76px;}
-}
-
-/* Hamburger Menu */
-.hamburger{display:none;
-  @media(min-width:769px){.hamburger{display:none!important;}}
-  
-/* Stagger Animation */
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(24px); filter:blur(2px); }
-  to   { opacity:1; transform:translateY(0); filter:blur(0); }
-}
-@keyframes fadeIn {
-  from { opacity:0; }
-  to   { opacity:1; }
-}
-@keyframes scaleIn {
-  from { opacity:0; transform:scale(0.92); }
-  to   { opacity:1; transform:scale(1); }
-}
-
-.slide .anim-item { opacity:0; }
-.slide.active .anim-item { animation: fadeUp 0.55s cubic-bezier(0.4,0,0.2,1) forwards; }
-.slide.active .anim-fade { animation: fadeIn 0.5s cubic-bezier(0.4,0,0.2,1) forwards; }
-.slide.active .anim-scale { animation: scaleIn 0.6s cubic-bezier(0.4,0,0.2,1) forwards; }
-
-.slide.active .anim-item:nth-child(1)  { animation-delay: 0.05s; }
-.slide.active .anim-item:nth-child(2)  { animation-delay: 0.12s; }
-.slide.active .anim-item:nth-child(3)  { animation-delay: 0.19s; }
-.slide.active .anim-item:nth-child(4)  { animation-delay: 0.26s; }
-.slide.active .anim-item:nth-child(5)  { animation-delay: 0.33s; }
-.slide.active .anim-item:nth-child(6)  { animation-delay: 0.40s; }
-.slide.active .anim-item:nth-child(7)  { animation-delay: 0.47s; }
-.slide.active .anim-item:nth-child(8)  { animation-delay: 0.54s; }
-.slide.active .anim-item:nth-child(9)  { animation-delay: 0.61s; }
-.slide.active .anim-item:nth-child(10) { animation-delay: 0.68s; }
-.slide.active .anim-item:nth-child(11) { animation-delay: 0.75s; }
-.slide.active .anim-item:nth-child(12) { animation-delay: 0.82s; }
-
-/* Big title entrance */
-.slide.active .ch-tag,
-.slide.active .big-icon,
-.slide.active .ch-title,
-.slide.active .ch-sub,
-.slide.active .ch-topics,
-.slide.active .eyebrow,
-.slide.active .s-head,
-.slide.active .sub,
-.slide.active .body,
-.slide.active .callout,
-.slide.active .card,
-.slide.active .stat,
-.slide.active .pb,
-.slide.active .tw,
-.slide.active .ls li,
-.slide.active .quote,
-.slide.active .pgrid .pc,
-.slide.active .rm-grid .rc,
-.slide.active .quiz-box,
-.slide.active .quiz-opt,
-.slide.active .prompt-builder,
-.slide.active .flow-step,
-.slide.active .chip,
-.slide.active .mp,
-.slide.active .cmp,
-.slide.active .model-row .mp,
-.slide.active .chips .chip,
-.slide.active .stats .stat,
-.slide.active .card-grid .card,
-.slide.active .pgrid .pc,
-.slide.active .rm-grid .rc,
-.slide.active .hgrid,
-.slide.active .blob1,
-.slide.active .blob2 { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) forwards; opacity:0; }
-
-.slide.active .ch-tag      { animation-delay: 0.05s; }
-.slide.active .big-icon    { animation-delay: 0.10s; }
-.slide.active .ch-title    { animation-delay: 0.15s; }
-.slide.active .ch-sub      { animation-delay: 0.22s; }
-.slide.active .ch-topics   { animation-delay: 0.29s; }
-.slide.active .eyebrow     { animation-delay: 0.05s; }
-.slide.active .s-head      { animation-delay: 0.08s; }
-.slide.active .sub         { animation-delay: 0.15s; }
-.slide.active .body        { animation-delay: 0.18s; }
-.slide.active .callout     { animation-delay: 0.22s; }
-.slide.active .card        { animation-delay: calc(0.15s + var(--i, 0) * 0.08s); }
-.slide.active .stat        { animation-delay: calc(0.15s + var(--i, 0) * 0.08s); }
-.slide.active .pb          { animation-delay: 0.20s; }
-.slide.active .tw          { animation-delay: 0.18s; }
-.slide.active .ls li       { animation-delay: calc(0.15s + var(--i, 0) * 0.07s); }
-.slide.active .quote       { animation-delay: 0.18s; }
-.slide.active .pc          { animation-delay: calc(0.15s + var(--i, 0) * 0.08s); }
-.slide.active .rc          { animation-delay: calc(0.15s + var(--i, 0) * 0.08s); }
-.slide.active .quiz-box    { animation-delay: 0.18s; }
-.slide.active .quiz-opt    { animation-delay: calc(0.20s + var(--i, 0) * 0.08s); }
-.slide.active .prompt-builder { animation-delay: 0.20s; }
-.slide.active .flow-step   { animation-delay: calc(0.15s + var(--i, 0) * 0.08s); }
-.slide.active .chip        { animation-delay: calc(0.15s + var(--i, 0) * 0.06s); }
-.slide.active .mp         { animation-delay: calc(0.15s + var(--i, 0) * 0.06s); }
-.slide.active .cmp        { animation-delay: 0.18s; }
-.slide.active .blob1       { animation-delay: 0.0s; animation: fadeIn 1.2s ease forwards; }
-.slide.active .blob2       { animation-delay: 0.0s; animation: fadeIn 1.2s ease forwards; }
-.slide.active .hgrid       { animation-delay: 0.0s; animation: fadeIn 1.5s ease forwards; }
-
-
-/* Chapter Progress Dots */
-#chapter-dots{position:fixed;top:58px;left:50%;transform:translateX(-50%);z-index:195;display:flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(15,15,15,0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.06);border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:opacity .3s, transform .3s;}
-.ch-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:pointer;transition:all .3s cubic-bezier(0.4,0,0.2,1);position:relative;}
-.ch-dot:hover{background:var(--yellow);transform:scale(1.3);box-shadow:0 0 8px rgba(250,204,21,0.4);}
-.ch-dot.active{background:var(--accent);box-shadow:0 0 12px rgba(255,255,255,0.4),0 0 4px rgba(250,204,21,0.6);transform:scale(1.25);}
-.ch-dot::after{content:attr(data-label);position:absolute;top:-28px;left:50%;transform:translateX(-50%) translateY(4px);background:rgba(0,0,0,0.9);border:1px solid rgba(255,255,255,0.15);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:all .2s ease;backdrop-filter:blur(8px);box-shadow:0 4px 12px rgba(0,0,0,0.5);}
-.ch-dot:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
-.ch-sep{width:1px;height:10px;background:rgba(255,255,255,0.1);margin:0 2px;}
-
-/* OLED Scanline subtle effect */
-body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.015) 2px,rgba(255,255,255,0.015) 4px);pointer-events:none;z-index:9999;opacity:0.6;}
-
-
-/* ═════════════════ HERO SLIDE ENHANCEMENTS ═════════════════ */
-
-/* Animated Aurora Background */
-#hero-aurora{
-  position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(250,204,21,0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(255,255,255,0.05) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(250,204,21,0.04) 0%, transparent 50%);
-  animation: auroraShift 12s ease-in-out infinite alternate;
-}
-@keyframes auroraShift {
-  0% { transform: translate(0,0) scale(1); opacity:0.7; }
-  33% { transform: translate(2%,-1%) scale(1.05); opacity:0.9; }
-  66% { transform: translate(-1%,2%) scale(0.95); opacity:0.8; }
-  100% { transform: translate(1%,1%) scale(1.02); opacity:0.7; }
-}
-
-/* Canvas Particle Network */
-#hero-canvas{
-  position:absolute;inset:0;z-index:1;pointer-events:none;
-}
-
-/* Hero Content Layer */
-.hero-content{
-  position:relative;z-index:2;
-  max-width:720px;
-  padding-top: clamp(20px, 5vh, 60px);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  min-height:100%;
-}
-
-/* Gradient Text Title */
-.hero-title{
-  font-family:var(--head);
-  font-size:clamp(56px, 9vw, 110px);
-  font-weight:800;
-  letter-spacing:-4px;
-  line-height:0.95;
-  background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 40%, #FACC15 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 40px rgba(255,255,255,0.15)) drop-shadow(0 0 80px rgba(250,204,21,0.08));
-  animation: titleReveal 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-  transform: translateY(30px);
-  margin-bottom:6px;
-}
-@keyframes titleReveal {
-  to { opacity:1; transform: translateY(0); }
-}
-
-/* Subtitle with typing cursor effect */
-.hero-subtitle{
-  font-family:var(--head);
-  font-size:clamp(22px, 3.5vw, 32px);
-  font-weight:600;
-  color:var(--muted);
-  letter-spacing:-0.5px;
-  margin-bottom:28px;
-  animation: subtitleReveal 1s 0.4s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-  transform: translateY(20px);
-}
-@keyframes subtitleReveal {
-  to { opacity:1; transform: translateY(0); }
-}
-
-/* Eyebrow pulse glow */
-.hero-eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  font-family:var(--head);
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--yellow);
-  margin-bottom:24px;
-  animation: eyebrowReveal 0.8s 0.2s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-eyebrow::before{
-  content:'';
-  display:block;
-  width:28px;
-  height:2px;
-  background:var(--yellow);
-  box-shadow:0 0 10px rgba(250,204,21,0.5);
-  animation: linePulse 2s ease-in-out infinite;
-}
-@keyframes linePulse {
-  0%,100% { opacity:0.6; box-shadow:0 0 6px rgba(250,204,21,0.3); }
-  50% { opacity:1; box-shadow:0 0 14px rgba(250,204,21,0.6); }
-}
-@keyframes eyebrowReveal {
-  to { opacity:1; }
-}
-
-/* Hero body text */
-.hero-body{
-  font-size:15.5px;
-  color:#BBBBBB;
-  line-height:1.75;
-  margin-bottom:24px;
-  max-width:540px;
-  animation: fadeUp 0.8s 0.6s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-
-/* Hero Chips - more premium */
-.hero-chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:32px;
-  animation: fadeUp 0.8s 0.75s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-chip{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:24px;
-  padding:7px 18px;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:500;
-  transition:all 0.3s ease;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-}
-.hero-chip:hover{
-  border-color:rgba(250,204,21,0.3);
-  color:var(--yellow);
-  box-shadow:0 0 16px rgba(250,204,21,0.08);
-  transform:translateY(-2px);
-  background:rgba(250,204,21,0.04);
-}
-
-/* Hero Stats - floating glass cards */
-.hero-stats{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  animation: fadeUp 0.8s 0.9s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-stat{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:var(--radius);
-  padding:18px 24px;
-  text-align:center;
-  min-width:100px;
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  transition:all 0.35s cubic-bezier(0.4,0,0.2,1);
-  position:relative;
-  overflow:hidden;
-}
-.hero-stat::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(250,204,21,0.3),transparent);
-  opacity:0;
-  transition:opacity 0.3s;
-}
-.hero-stat:hover{
-  border-color:rgba(250,204,21,0.2);
-  transform:translateY(-4px) scale(1.02);
-  box-shadow:0 8px 32px rgba(250,204,21,0.06), 0 0 20px rgba(255,255,255,0.03);
-  background:rgba(255,255,255,0.05);
-}
-.hero-stat:hover::before{ opacity:1; }
-.hero-stat .num{
-  font-family:var(--head);
-  font-size:36px;
-  font-weight:800;
-  color:var(--accent);
-  display:block;
-  letter-spacing:-2px;
-  line-height:1;
-  background: linear-gradient(180deg, #FFFFFF 0%, #E8E8E8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero-stat .lbl{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:6px;
-  display:block;
-  font-weight:500;
-  letter-spacing:0.5px;
-}
-
-/* Start Hint */
-.hero-start-hint{
-  position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:12px;
-  color:var(--muted);
-  font-family:var(--head);
-  letter-spacing:1px;
-  animation: fadeUp 0.8s 1.2s cubic-bezier(0.4,0,0.2,1) forwards, hintBounce 2s 1.5s ease-in-out infinite;
-  opacity:0;
-  z-index:2;
-}
-@keyframes hintBounce {
-  0%,100% { transform:translateX(-50%) translateY(0); }
-  50% { transform:translateX(-50%) translateY(-6px); }
-}
-.hero-start-hint .arrow-key{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:6px;
-  width:24px;
-  height:24px;
-  font-size:12px;
-  color:var(--yellow);
-}
-
-/* Floating decorative orbs */
-.hero-orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(60px);
-  pointer-events:none;
-  z-index:0;
-}
-.hero-orb-1{
-  width:300px;height:300px;
-  background:rgba(250,204,21,0.06);
-  top:10%;right:10%;
-  animation: orbFloat1 8s ease-in-out infinite;
-}
-.hero-orb-2{
-  width:200px;height:200px;
-  background:rgba(255,255,255,0.04);
-  bottom:20%;left:5%;
-  animation: orbFloat2 10s ease-in-out infinite;
-}
-@keyframes orbFloat1 {
-  0%,100% { transform:translate(0,0); }
-  50% { transform:translate(-20px,30px); }
-}
-@keyframes orbFloat2 {
-  0%,100% { transform:translate(0,0); }
-  50% { transform:translate(15px,-20px); }
-}
-
-/* Grid overlay for hero */
-.hero-grid{
-  position:absolute;
-  inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size:60px 60px;
-  pointer-events:none;
-  z-index:0;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
-}
-
-/* Responsive hero */
-@media(max-width:768px){
-  .hero-title{ font-size:clamp(42px,12vw,70px); letter-spacing:-2px; }
-  .hero-subtitle{ font-size:clamp(18px,5vw,24px); }
-  .hero-stats{ gap:10px; }
-  .hero-stat{ min-width:80px; padding:14px 16px; }
-  .hero-stat .num{ font-size:28px; }
-  .hero-start-hint{ display:none; }
-  .hero-orb{ display:none; }
-}
-
-@media(max-width:768px){
-  #chapter-dots{gap:4px;padding:4px 10px;border-radius:16px;}
-  .ch-dot{width:6px;height:6px;}
-  .ch-dot::after{display:none;}
-}
-
-
-/* OLED Scanline subtle effect */
-body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.015) 2px,rgba(255,255,255,0.015) 4px);pointer-events:none;z-index:9999;opacity:0.6;}
-
-
-/* ═════════════════ HERO SLIDE ENHANCEMENTS ═════════════════ */
-
-/* Animated Aurora Background */
-#hero-aurora{
-  position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(250,204,21,0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(255,255,255,0.05) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(250,204,21,0.04) 0%, transparent 50%);
-  animation: auroraShift 12s ease-in-out infinite alternate;
-}
-@keyframes auroraShift {
-  0% { transform: translate(0,0) scale(1); opacity:0.7; }
-  33% { transform: translate(2%,-1%) scale(1.05); opacity:0.9; }
-  66% { transform: translate(-1%,2%) scale(0.95); opacity:0.8; }
-  100% { transform: translate(1%,1%) scale(1.02); opacity:0.7; }
-}
-
-/* Canvas Particle Network */
-#hero-canvas{
-  position:absolute;inset:0;z-index:1;pointer-events:none;
-}
-
-/* Hero Content Layer */
-.hero-content{
-  position:relative;z-index:2;
-  max-width:720px;
-  padding-top: clamp(20px, 5vh, 60px);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  min-height:100%;
-}
-
-/* Gradient Text Title */
-.hero-title{
-  font-family:var(--head);
-  font-size:clamp(56px, 9vw, 110px);
-  font-weight:800;
-  letter-spacing:-4px;
-  line-height:0.95;
-  background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 40%, #FACC15 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 40px rgba(255,255,255,0.15)) drop-shadow(0 0 80px rgba(250,204,21,0.08));
-  animation: titleReveal 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-  transform: translateY(30px);
-  margin-bottom:6px;
-}
-@keyframes titleReveal {
-  to { opacity:1; transform: translateY(0); }
-}
-
-/* Subtitle with typing cursor effect */
-.hero-subtitle{
-  font-family:var(--head);
-  font-size:clamp(22px, 3.5vw, 32px);
-  font-weight:600;
-  color:var(--muted);
-  letter-spacing:-0.5px;
-  margin-bottom:28px;
-  animation: subtitleReveal 1s 0.4s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-  transform: translateY(20px);
-}
-@keyframes subtitleReveal {
-  to { opacity:1; transform: translateY(0); }
-}
-
-/* Eyebrow pulse glow */
-.hero-eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  font-family:var(--head);
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--yellow);
-  margin-bottom:24px;
-  animation: eyebrowReveal 0.8s 0.2s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-eyebrow::before{
-  content:'';
-  display:block;
-  width:28px;
-  height:2px;
-  background:var(--yellow);
-  box-shadow:0 0 10px rgba(250,204,21,0.5);
-  animation: linePulse 2s ease-in-out infinite;
-}
-@keyframes linePulse {
-  0%,100% { opacity:0.6; box-shadow:0 0 6px rgba(250,204,21,0.3); }
-  50% { opacity:1; box-shadow:0 0 14px rgba(250,204,21,0.6); }
-}
-@keyframes eyebrowReveal {
-  to { opacity:1; }
-}
-
-/* Hero body text */
-.hero-body{
-  font-size:15.5px;
-  color:#BBBBBB;
-  line-height:1.75;
-  margin-bottom:24px;
-  max-width:540px;
-  animation: fadeUp 0.8s 0.6s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-
-/* Hero Chips - more premium */
-.hero-chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:32px;
-  animation: fadeUp 0.8s 0.75s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-chip{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:24px;
-  padding:7px 18px;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:500;
-  transition:all 0.3s ease;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-}
-.hero-chip:hover{
-  border-color:rgba(250,204,21,0.3);
-  color:var(--yellow);
-  box-shadow:0 0 16px rgba(250,204,21,0.08);
-  transform:translateY(-2px);
-  background:rgba(250,204,21,0.04);
-}
-
-/* Hero Stats - floating glass cards */
-.hero-stats{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  animation: fadeUp 0.8s 0.9s cubic-bezier(0.4,0,0.2,1) forwards;
-  opacity:0;
-}
-.hero-stat{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:var(--radius);
-  padding:18px 24px;
-  text-align:center;
-  min-width:100px;
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  transition:all 0.35s cubic-bezier(0.4,0,0.2,1);
-  position:relative;
-  overflow:hidden;
-}
-.hero-stat::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(250,204,21,0.3),transparent);
-  opacity:0;
-  transition:opacity 0.3s;
-}
-.hero-stat:hover{
-  border-color:rgba(250,204,21,0.2);
-  transform:translateY(-4px) scale(1.02);
-  box-shadow:0 8px 32px rgba(250,204,21,0.06), 0 0 20px rgba(255,255,255,0.03);
-  background:rgba(255,255,255,0.05);
-}
-.hero-stat:hover::before{ opacity:1; }
-.hero-stat .num{
-  font-family:var(--head);
-  font-size:36px;
-  font-weight:800;
-  color:var(--accent);
-  display:block;
-  letter-spacing:-2px;
-  line-height:1;
-  background: linear-gradient(180deg, #FFFFFF 0%, #E8E8E8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero-stat .lbl{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:6px;
-  display:block;
-  font-weight:500;
-  letter-spacing:0.5px;
-}
-
-/* Start Hint */
-.hero-start-hint{
-  position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:12px;
-  color:var(--muted);
-  font-family:var(--head);
-  letter-spacing:1px;
-  animation: fadeUp 0.8s 1.2s cubic-bezier(0.4,0,0.2,1) forwards, hintBounce 2s 1.5s ease-in-out infinite;
-  opacity:0;
-  z-index:2;
-}
-@keyframes hintBounce {
-  0%,100% { transform:translateX(-50%) translateY(0); }
-  50% { transform:translateX(-50%) translateY(-6px); }
-}
-.hero-start-hint .arrow-key{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:6px;
-  width:24px;
-  height:24px;
-  font-size:12px;
-  color:var(--yellow);
-}
-
-/* Floating decorative orbs */
-.hero-orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(60px);
-  pointer-events:none;
-  z-index:0;
-}
-.hero-orb-1{
-  width:300px;height:300px;
-  background:rgba(250,204,21,0.06);
-  top:10%;right:10%;
-  animation: orbFloat1 8s ease-in-out infinite;
-}
-.hero-orb-2{
-  width:200px;height:200px;
-  background:rgba(255,255,255,0.04);
-  bottom:20%;left:5%;
-  animation: orbFloat2 10s ease-in-out infinite;
-}
-@keyframes orbFloat1 {
-  0%,100% { transform:translate(0,0); }
-  50% { transform:translate(-20px,30px); }
-}
-@keyframes orbFloat2 {
-  0%,100% { transform:translate(0,0); }
-  50% { transform:translate(15px,-20px); }
-}
-
-/* Grid overlay for hero */
-.hero-grid{
-  position:absolute;
-  inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size:60px 60px;
-  pointer-events:none;
-  z-index:0;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
-}
-
-/* Responsive hero */
-@media(max-width:768px){
-  .hero-title{ font-size:clamp(42px,12vw,70px); letter-spacing:-2px; }
-  .hero-subtitle{ font-size:clamp(18px,5vw,24px); }
-  .hero-stats{ gap:10px; }
-  .hero-stat{ min-width:80px; padding:14px 16px; }
-  .hero-stat .num{ font-size:28px; }
-  .hero-start-hint{ display:none; }
-  .hero-orb{ display:none; }
-}
-
-@media(max-width:768px){.hamburger{display:flex!important;}}flex-direction:column;gap:4px;cursor:pointer;padding:8px;z-index:210;}
+  .slide{padding:24px 20px;}#topbar,#botnav{padding:0 16px;}
+  .two{grid-template-columns:1fr;}.card-grid,.pgrid,.rm-grid{grid-template-columns:1fr 1fr;}
+  .ch-title{letter-spacing:-1px;}.kb-hint{display:none;}.tb-title{display:none;}
+  .flow-container{flex-direction:column;gap:15px;}.flow-arrow{transform:rotate(90deg);}
+  .hero-title{font-size:clamp(42px,12vw,70px);letter-spacing:-2px;}
+  .hero-subtitle{font-size:clamp(18px,5vw,24px);}
+  .hero-stats{gap:10px;}.hero-stat{min-width:80px;padding:14px 16px;}
+  .hero-stat .num{font-size:28px;}.hero-start-hint{display:none;}.hero-orb{display:none;}
+  #chapter-dots{gap:4px;padding:4px 10px;}.ch-dot{width:6px;height:6px;}.ch-dot::after{display:none;}
+}
+@media(max-width:480px){.card-grid,.pgrid,.rm-grid{grid-template-columns:1fr;}.crow{grid-template-columns:50px 1fr 76px;}}
+@media(min-width:769px){.kb-hint{display:none!important;}}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:8px;z-index:210;}
 .hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:1px;transition:all .2s;}
-.hamburger:hover span{background:var(--yellow);box-shadow:0 0 6px rgba(250,204,21,0.4);}
-
-/* Desktop: hide kb-hint, keep only nav buttons to avoid duplicate arrows */
-@media(min-width:769px){
-  .kb-hint{display:none!important;}
-}
-
-/* Mobile menu overlay */
-#mobile-menu{position:fixed;top:55px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--border);z-index:199;transform:translateY(-100%);transition:transform .3s ease;padding:16px 28px;display:none;}
+.hamburger:hover span{background:var(--yellow);}
+@media(max-width:768px){.hamburger{display:flex!important;}}
+#mobile-menu{position:fixed;top:55px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--border);z-index:199;transform:translateY(-100%);transition:transform .3s ease;padding:16px 28px;display:none;max-height:calc(100vh - 55px);overflow-y:auto;}
 #mobile-menu.open{transform:translateY(0);display:block;}
 #mm-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
 #mm-list li a{color:var(--text);text-decoration:none;font-size:13px;font-weight:500;display:block;padding:8px 0;border-bottom:1px solid var(--border);transition:color .15s;}
 #mm-list li a:hover{color:var(--yellow);}
-#mm-list li a.mm-active{color:var(--yellow);font-weight:700;text-shadow:0 0 10px rgba(250,204,21,0.3);}
+#mm-list li a.mm-active{color:var(--yellow);font-weight:700;}
 </style>
 <base target="_blank">
 </head>
@@ -1653,20 +251,23 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
     <span class="tb-logo">Panduan AI</span>
     <span class="tb-title">Belajar AI: dari NOL hingga MAHIR</span>
   </div>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()" title="Menu">
-      <span></span><span></span><span></span>
-    </div>
-    <span class="tb-counter">Slide <b id="cur">1</b> / <b id="tot">27</b></span>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+  <span class="tb-counter">Slide <b id="cur">1</b> / <b id="tot">36</b></span>
 </div>
 
 <div id="mobile-menu">
   <ul id="mm-list">
-    <li><a href="#" onclick="goToSlide(0); return false;" class="mm-active" id="mm-0">🏠 Beranda</a></li>
-    <li><a href="#" onclick="goToSlide(1); return false;" id="mm-1">🧠 BAB 1: Memahami AI</a></li>
-    <li><a href="#" onclick="goToSlide(7); return false;" id="mm-7">✍️ BAB 2: Seni Prompting</a></li>
-    <li><a href="#" onclick="goToSlide(13); return false;" id="mm-13">⚡ BAB 3: Efisiensi dengan AI</a></li>
-    <li><a href="#" onclick="goToSlide(18); return false;" id="mm-18">💼 BAB 4: AI untuk Pekerjaan</a></li>
-    <li><a href="#" onclick="goToSlide(24); return false;" id="mm-24">🚀 Penutup</a></li>
+    <li><a href="#" onclick="goToSlide(0);return false;" class="mm-active" id="mm-0">🏠 Beranda</a></li>
+    <li><a href="#" onclick="goToSlide(1);return false;" id="mm-1">🧠 BAB 1: Memahami AI</a></li>
+    <li><a href="#" onclick="goToSlide(7);return false;" id="mm-7">✍️ BAB 2: Seni Prompting</a></li>
+    <li><a href="#" onclick="goToSlide(13);return false;" id="mm-13">⚡ BAB 3: Efisiensi dengan AI</a></li>
+    <li><a href="#" onclick="goToSlide(18);return false;" id="mm-18">💼 BAB 4: AI untuk Pekerjaan</a></li>
+    <li><a href="#" onclick="goToSlide(24);return false;" id="mm-24">🛡️ BAB 5: Etika &amp; Keamanan</a></li>
+    <li><a href="#" onclick="goToSlide(27);return false;" id="mm-27">📋 BAB 6: Prompt Library</a></li>
+    <li><a href="#" onclick="goToSlide(30);return false;" id="mm-30">📚 BAB 7: AI untuk Pendidikan</a></li>
+    <li><a href="#" onclick="goToSlide(33);return false;" id="mm-33">🚀 Penutup</a></li>
   </ul>
 </div>
 
@@ -1677,467 +278,608 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
   <div class="ch-dot" data-label="BAB 2: Seni Prompting" onclick="goToSlide(7)" data-slide="7"></div>
   <div class="ch-dot" data-label="BAB 3: Efisiensi" onclick="goToSlide(13)" data-slide="13"></div>
   <div class="ch-dot" data-label="BAB 4: Pekerjaan" onclick="goToSlide(18)" data-slide="18"></div>
-  <div class="ch-dot" data-label="Penutup" onclick="goToSlide(24)" data-slide="24"></div>
+  <div class="ch-dot" data-label="BAB 5: Etika &amp; Keamanan" onclick="goToSlide(24)" data-slide="24"></div>
+  <div class="ch-dot" data-label="BAB 6: Prompt Library" onclick="goToSlide(27)" data-slide="27"></div>
+  <div class="ch-dot" data-label="BAB 7: Pendidikan" onclick="goToSlide(30)" data-slide="30"></div>
+  <div class="ch-dot" data-label="Penutup" onclick="goToSlide(33)" data-slide="33"></div>
 </div>
 <div id="prog-track"><div id="prog-fill" style="width:0%"></div></div>
 
 <div id="wrap">
 
-  <div class="slide active" data-chapter="Panduan Praktis AI · 2026">
-    <div class="hero-grid"></div>
-    <div id="hero-aurora"></div>
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <canvas id="hero-canvas"></canvas>
-    <div class="hero-content">
-      <div class="hero-eyebrow">Panduan Lengkap Artificial Intelligence</div>
-      <div class="hero-title">Belajar AI</div>
-      <div class="hero-subtitle">dari NOL hingga MAHIR</div>
-      <p class="hero-body">Panduan praktis memahami AI dari dasar — cara kerja, teknik prompting, efisiensi kerja, hingga memaksimalkan potensinya untuk pekerjaan sehari-hari.</p>
-      <div class="hero-chips">
-        <span class="hero-chip">🧠 Cara Kerja AI</span>
-        <span class="hero-chip">✍️ Teknik Prompting</span>
-        <span class="hero-chip">⚡ Efisiensi Kerja</span>
-        <span class="hero-chip">🚀 Tools Terbaik</span>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><span class="num">4</span><span class="lbl">Bab Lengkap</span></div>
-        <div class="hero-stat"><span class="num">20+</span><span class="lbl">Teknik & Tips</span></div>
-        <div class="hero-stat"><span class="num">15+</span><span class="lbl">Tools AI</span></div>
-        <div class="hero-stat"><span class="num">27</span><span class="lbl">Slide</span></div>
-      </div>
+<!-- ════ SLIDE 0: HERO ════ -->
+<div class="slide active" data-chapter="Panduan Praktis AI · 2026">
+  <div class="hero-grid"></div>
+  <div id="hero-aurora"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Panduan Lengkap Artificial Intelligence</div>
+    <div class="hero-title">Belajar AI</div>
+    <div class="hero-subtitle">dari NOL hingga MAHIR</div>
+    <p class="hero-body">Panduan praktis memahami AI dari dasar — cara kerja, teknik prompting, efisiensi kerja, etika penggunaan, hingga memaksimalkan potensinya untuk pekerjaan dan pendidikan.</p>
+    <div class="hero-chips">
+      <span class="hero-chip">🧠 Cara Kerja AI</span>
+      <span class="hero-chip">✍️ Teknik Prompting</span>
+      <span class="hero-chip">⚡ Efisiensi Kerja</span>
+      <span class="hero-chip">🛡️ Etika &amp; Keamanan</span>
+      <span class="hero-chip">📋 Prompt Library</span>
+      <span class="hero-chip">📚 AI untuk Pendidikan</span>
     </div>
-    <div class="hero-start-hint">
-      <span>Tekan</span><span class="arrow-key">→</span><span>untuk memulai</span>
-    </div>
-  </div>
-
-  <div class="slide" data-chapter="BAB 1 · Memahami AI">
-    <div class="ch-intro">
-      <div class="ch-tag g">BAB 1</div>
-      <div class="big-icon">🧠</div>
-      <div class="ch-title">Memahami <span style="color:var(--accent)">Kecerdasan Buatan</span></div>
-      <p class="ch-sub">Fondasi yang perlu kamu ketahui sebelum melangkah lebih jauh</p>
-      <div class="ch-topics">
-        <span class="ch-topic">Apa itu AI?</span>
-        <span class="ch-topic">Sejarah Singkat</span>
-        <span class="ch-topic">Jenis-Jenis AI</span>
-        <span class="ch-topic">Machine Learning</span>
-        <span class="ch-topic">LLM & Hallucination</span>
-      </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">7</span><span class="lbl">Bab Lengkap</span></div>
+      <div class="hero-stat"><span class="num">30+</span><span class="lbl">Teknik &amp; Tips</span></div>
+      <div class="hero-stat"><span class="num">15+</span><span class="lbl">Tools AI</span></div>
+      <div class="hero-stat"><span class="num">36</span><span class="lbl">Slide</span></div>
     </div>
   </div>
+  <div class="hero-start-hint">
+    <span>Tekan</span><span class="arrow-key">→</span><span>untuk memulai</span>
+  </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 1 · Memahami AI">
-    <div class="s-head g">Apa itu AI?</div>
-    <p class="body">Kecerdasan Buatan (<em>Artificial Intelligence / AI</em>) adalah teknologi yang memungkinkan mesin meniru kemampuan kognitif manusia — seperti belajar, memahami bahasa, memecahkan masalah, hingga menghasilkan konten kreatif.</p>
-    <p class="body">AI sudah dikembangkan sejak 1950-an, namun baru benar-benar meledak berkat kemajuan komputasi dan ketersediaan data dalam jumlah besar.</p>
-    <div class="callout tip"><span class="cl">💡 Penting Diingat</span>AI bukan sihir. AI adalah sistem matematika yang dilatih dari miliaran data, sehingga bisa memprediksi pola dan menghasilkan output yang terasa "cerdas".</div>
-    <div class="card-grid" style="margin-top:20px;">
-      <div class="card"><div class="ci">📊</div><div class="ct">Berbasis Data</div><div class="cd">AI belajar dari miliaran contoh, bukan diprogram satu per satu</div></div>
-      <div class="card"><div class="ci">🔄</div><div class="ct">Prediksi Pola</div><div class="cd">AI memprediksi output terbaik berdasarkan pola yang dipelajari</div></div>
-      <div class="card"><div class="ci">🌍</div><div class="ct">Multibahasa</div><div class="cd">Bisa memahami dan menghasilkan teks dalam ratusan bahasa</div></div>
+<!-- ════ BAB 1 ════ -->
+<div class="slide" data-chapter="BAB 1 · Memahami AI">
+  <div class="ch-intro">
+    <div class="ch-tag g">BAB 1</div>
+    <div class="big-icon">🧠</div>
+    <div class="ch-title">Memahami <span style="color:var(--accent)">Kecerdasan Buatan</span></div>
+    <p class="ch-sub">Fondasi yang perlu kamu ketahui sebelum melangkah lebih jauh</p>
+    <div class="ch-topics">
+      <span class="ch-topic">Apa itu AI?</span><span class="ch-topic">Sejarah Singkat</span>
+      <span class="ch-topic">Jenis-Jenis AI</span><span class="ch-topic">Machine Learning</span>
+      <span class="ch-topic">LLM &amp; Hallucination</span>
     </div>
   </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 1 · Memahami AI">
-    <div class="s-head g">Sejarah Singkat AI</div>
-    <div class="tw">
-      <table>
-        <thead><tr><th style="width:70px">Tahun</th><th>Tonggak Sejarah</th></tr></thead>
-        <tbody>
-          <tr><td class="tg">1950</td><td>Alan Turing menciptakan "Turing Test" — bisakah mesin berpikir?</td></tr>
-          <tr><td class="tg">1956</td><td>Istilah "Artificial Intelligence" resmi diciptakan di Dartmouth Conference</td></tr>
-          <tr><td class="tg">1980s</td><td>Lahirnya Expert Systems — mesin yang bisa mengambil keputusan layaknya ahli</td></tr>
-          <tr><td class="tg">1997</td><td>Deep Blue (IBM) mengalahkan juara catur dunia Garry Kasparov</td></tr>
-          <tr><td class="tg">2012</td><td>Deep Learning revolusioner — AlexNet menang kompetisi pengenalan gambar global</td></tr>
-          <tr><td class="tg">2017</td><td>Google merilis arsitektur Transformer — fondasi dari semua LLM modern</td></tr>
-          <tr><td class="tg">2022</td><td>ChatGPT diluncurkan, membawa AI ke tangan semua orang</td></tr>
-          <tr><td class="tg">2026+</td><td>AI Generatif menjadi alat kerja standar di seluruh dunia</td></tr>
-        </tbody>
-      </table>
+<div class="slide" data-chapter="BAB 1 · Memahami AI">
+  <div class="s-head g">Apa itu AI?</div>
+  <p class="body">Kecerdasan Buatan (<em>Artificial Intelligence / AI</em>) adalah teknologi yang memungkinkan mesin meniru kemampuan kognitif manusia — seperti belajar, memahami bahasa, memecahkan masalah, hingga menghasilkan konten kreatif.</p>
+  <p class="body">AI sudah dikembangkan sejak 1950-an, namun baru benar-benar meledak berkat kemajuan komputasi dan ketersediaan data dalam jumlah besar.</p>
+  <div class="callout tip"><span class="cl">💡 Penting Diingat</span>AI bukan sihir. AI adalah sistem matematika yang dilatih dari miliaran data, sehingga bisa memprediksi pola dan menghasilkan output yang terasa "cerdas".</div>
+  <div class="card-grid" style="margin-top:20px;">
+    <div class="card"><div class="ci">📊</div><div class="ct">Berbasis Data</div><div class="cd">AI belajar dari miliaran contoh, bukan diprogram satu per satu</div></div>
+    <div class="card"><div class="ci">🔄</div><div class="ct">Prediksi Pola</div><div class="cd">AI memprediksi output terbaik berdasarkan pola yang dipelajari</div></div>
+    <div class="card"><div class="ci">🌍</div><div class="ct">Multibahasa</div><div class="cd">Bisa memahami dan menghasilkan teks dalam ratusan bahasa</div></div>
+  </div>
+</div>
+
+<div class="slide" data-chapter="BAB 1 · Memahami AI">
+  <div class="s-head g">Sejarah Singkat AI</div>
+  <div class="tw"><table>
+    <thead><tr><th style="width:70px">Tahun</th><th>Tonggak Sejarah</th></tr></thead>
+    <tbody>
+      <tr><td class="tg">1950</td><td>Alan Turing menciptakan "Turing Test" — bisakah mesin berpikir?</td></tr>
+      <tr><td class="tg">1956</td><td>Istilah "Artificial Intelligence" resmi diciptakan di Dartmouth Conference</td></tr>
+      <tr><td class="tg">1980s</td><td>Lahirnya Expert Systems — mesin yang bisa mengambil keputusan layaknya ahli</td></tr>
+      <tr><td class="tg">1997</td><td>Deep Blue (IBM) mengalahkan juara catur dunia Garry Kasparov</td></tr>
+      <tr><td class="tg">2012</td><td>Deep Learning revolusioner — AlexNet menang kompetisi pengenalan gambar global</td></tr>
+      <tr><td class="tg">2017</td><td>Google merilis arsitektur Transformer — fondasi dari semua LLM modern</td></tr>
+      <tr><td class="tg">2022</td><td>ChatGPT diluncurkan, membawa AI ke tangan semua orang</td></tr>
+      <tr><td class="tg">2026+</td><td>AI Generatif menjadi alat kerja standar di seluruh dunia</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="slide" data-chapter="BAB 1 · Memahami AI">
+  <div class="s-head g">Jenis-Jenis AI</div>
+  <div class="card-grid">
+    <div class="card"><div class="ci">🎯</div><div class="ct">Narrow AI (AI Sempit)</div><div class="cd">Hanya bisa melakukan satu tugas spesifik dengan sangat baik. Contoh: rekomendasi YouTube, Face ID, spam filter.</div></div>
+    <div class="card"><div class="ci">🌐</div><div class="ct">General AI (AI Umum)</div><div class="cd">Bisa melakukan berbagai tugas seperti manusia. Masih dalam tahap penelitian intensif — belum ada yang benar-benar mencapainya.</div></div>
+    <div class="card"><div class="ci">🚀</div><div class="ct">Super AI</div><div class="cd">Kecerdasan melebihi manusia di semua bidang. Masih bersifat teoritis dan menjadi topik perdebatan para ilmuwan.</div></div>
+  </div>
+  <div class="callout info" style="margin-top:18px;"><span class="cl">📍 Posisi Kita Sekarang</span>Semua AI yang tersedia saat ini — ChatGPT, Claude, Gemini — masuk kategori <strong>Narrow AI</strong>. Sangat canggih untuk tugas-tugas tertentu, namun belum bisa disebut "General AI".</div>
+</div>
+
+<div class="slide" data-chapter="BAB 1 · Memahami AI">
+  <div class="s-head g">Cara Kerja AI Modern</div>
+  <div class="two">
+    <div>
+      <div class="sub">🔵 Machine Learning (ML)</div>
+      <p class="body">Cara melatih AI menggunakan data. Alih-alih diprogram secara eksplisit, AI diberi jutaan contoh lalu belajar sendiri pola dari data tersebut. Semakin banyak data, semakin pintar modelnya.</p>
+      <div class="callout tip"><span class="cl">Analogi</span>Seperti anak kecil belajar dari pengalaman — bukan dari aturan tertulis.</div>
+    </div>
+    <div>
+      <div class="sub">🟣 Deep Learning (DL)</div>
+      <p class="body">Subset dari ML yang menggunakan struktur berlapis menyerupai neuron otak manusia (<em>neural network</em>). Membuat AI bisa "melihat" gambar, "mendengar" suara, dan "memahami" teks.</p>
+      <div class="callout info"><span class="cl">Contoh</span>GPT, Claude, Gemini semuanya berbasis deep learning dengan arsitektur Transformer (2017).</div>
     </div>
   </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 1 · Memahami AI">
-    <div class="s-head g">Jenis-Jenis AI</div>
-    <div class="card-grid">
-      <div class="card"><div class="ci">🎯</div><div class="ct">Narrow AI (AI Sempit)</div><div class="cd">Hanya bisa melakukan satu tugas spesifik dengan sangat baik. Contoh: rekomendasi YouTube, Face ID, spam filter.</div></div>
-      <div class="card"><div class="ci">🌐</div><div class="ct">General AI (AI Umum)</div><div class="cd">Bisa melakukan berbagai tugas seperti manusia. Masih dalam tahap penelitian intensif — belum ada yang benar-benar mencapainya.</div></div>
-      <div class="card"><div class="ci">🚀</div><div class="ct">Super AI</div><div class="cd">Kecerdasan melebihi manusia di semua bidang. Masih bersifat teoritis dan menjadi topik perdebatan para ilmuwan.</div></div>
-    </div>
-    <div class="callout info" style="margin-top:18px;"><span class="cl">📍 Posisi Kita Sekarang</span>Semua AI yang tersedia saat ini — ChatGPT, Claude, Gemini — masuk kategori <strong>Narrow AI</strong>. Sangat canggih untuk tugas-tugas tertentu, namun belum bisa disebut "General AI".</div>
+<div class="slide" data-chapter="BAB 1 · Memahami AI">
+  <div class="s-head g">Large Language Model (LLM)</div>
+  <p class="body">Model AI yang dilatih dari miliaran teks internet. LLM bukan "database" jawaban — mereka <em>menghasilkan</em> jawaban baru berdasarkan pola bahasa yang dipelajari.</p>
+  <div class="model-row">
+    <div class="mp"><span class="mn">GPT-4o</span><span class="mb">OpenAI</span></div>
+    <div class="mp"><span class="mn">Claude</span><span class="mb">Anthropic</span></div>
+    <div class="mp"><span class="mn">Gemini</span><span class="mb">Google</span></div>
+    <div class="mp"><span class="mn">Llama 3</span><span class="mb">Meta (Open Source)</span></div>
   </div>
+  <div class="callout info"><span class="cl">🧠 Analogi Mudah</span>Bayangkan kamu membaca 1 juta buku dalam semua bahasa — kamu akan sangat fasih berbicara dan menulis. Itulah yang dilakukan LLM.</div>
+  <div class="sub" style="margin-top:16px;">⚠️ Mengapa AI Bisa "Salah"? (Hallucination)</div>
+  <p class="body">AI bekerja berdasarkan prediksi pola, bukan pencarian fakta. Kadang ia menghasilkan informasi yang terdengar meyakinkan namun tidak akurat.</p>
+  <div class="callout warn"><span class="cl">⚠️ Selalu Verifikasi</span>Selalu cek ulang data angka, nama, dan fakta spesifik dari AI — terutama untuk keperluan pekerjaan formal.</div>
+</div>
 
-  <div class="slide" data-chapter="BAB 1 · Memahami AI">
-    <div class="s-head g">Cara Kerja AI Modern</div>
-    <div class="two">
-      <div>
-        <div class="sub">🔵 Machine Learning (ML)</div>
-        <p class="body">Cara melatih AI menggunakan data. Alih-alih diprogram secara eksplisit, AI diberi jutaan contoh lalu belajar sendiri pola dari data tersebut. Semakin banyak data, semakin pintar modelnya.</p>
-        <div class="callout tip"><span class="cl">Analogi</span>Seperti anak kecil belajar dari pengalaman — bukan dari aturan tertulis.</div>
-      </div>
-      <div>
-        <div class="sub">🟣 Deep Learning (DL)</div>
-        <p class="body">Subset dari ML yang menggunakan struktur berlapis menyerupai neuron otak manusia (<em>neural network</em>). Membuat AI bisa "melihat" gambar, "mendengar" suara, dan "memahami" teks.</p>
-        <div class="callout info"><span class="cl">Contoh</span>GPT, Claude, Gemini semuanya berbasis deep learning dengan arsitektur Transformer (2017).</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="slide" data-chapter="BAB 1 · Memahami AI">
-    <div class="s-head g">Large Language Model (LLM)</div>
-    <p class="body">Model AI yang dilatih dari miliaran teks internet. LLM bukan "database" jawaban — mereka <em>menghasilkan</em> jawaban baru berdasarkan pola bahasa yang dipelajari.</p>
-    <div class="model-row">
-      <div class="mp"><span class="mn">GPT-4o</span><span class="mb">OpenAI</span></div>
-      <div class="mp"><span class="mn">Claude</span><span class="mb">Anthropic</span></div>
-      <div class="mp"><span class="mn">Gemini</span><span class="mb">Google</span></div>
-      <div class="mp"><span class="mn">Llama 3</span><span class="mb">Meta (Open Source)</span></div>
-    </div>
-    <div class="callout info"><span class="cl">🧠 Analogi Mudah</span>Bayangkan kamu membaca 1 juta buku dalam semua bahasa — kamu akan sangat fasih berbicara dan menulis. Itulah yang dilakukan LLM.</div>
-    <div class="sub" style="margin-top:16px;">⚠️ Mengapa AI Bisa "Salah"? (Hallucination)</div>
-    <p class="body">AI bekerja berdasarkan prediksi pola, bukan pencarian fakta. Kadang ia menghasilkan informasi yang terdengar meyakinkan namun tidak akurat.</p>
-    <div class="callout warn"><span class="cl">⚠️ Selalu Verifikasi</span>Selalu cek ulang data angka, nama, dan fakta spesifik dari AI — terutama untuk keperluan pekerjaan formal.</div>
-  </div>
-
-  <div class="slide" data-chapter="BAB 2 · Seni Prompting">
-    <div class="ch-intro">
-      <div class="ch-tag y">BAB 2</div>
-      <div class="big-icon">✍️</div>
-      <div class="ch-title">Seni <span style="color:var(--yellow)">Prompting</span></div>
-      <p class="ch-sub">Cara berkomunikasi dengan AI agar hasilnya maksimal</p>
-      <div class="ch-topics">
-        <span class="ch-topic">Anatomi Prompt</span>
-        <span class="ch-topic">Zero-Shot</span>
-        <span class="ch-topic">Few-Shot</span>
-        <span class="ch-topic">Chain of Thought</span>
-        <span class="ch-topic">Role Prompting</span>
-        <span class="ch-topic">Prompt Chaining</span>
-        <span class="ch-topic">Kesalahan Umum</span>
-      </div>
+<!-- ════ BAB 2 ════ -->
+<div class="slide" data-chapter="BAB 2 · Seni Prompting">
+  <div class="ch-intro">
+    <div class="ch-tag y">BAB 2</div>
+    <div class="big-icon">✍️</div>
+    <div class="ch-title">Seni <span style="color:var(--yellow)">Prompting</span></div>
+    <p class="ch-sub">Cara berkomunikasi dengan AI agar hasilnya maksimal</p>
+    <div class="ch-topics">
+      <span class="ch-topic">Anatomi Prompt</span><span class="ch-topic">Zero-Shot</span>
+      <span class="ch-topic">Few-Shot</span><span class="ch-topic">Chain of Thought</span>
+      <span class="ch-topic">Role Prompting</span><span class="ch-topic">Prompt Chaining</span>
+      <span class="ch-topic">Kesalahan Umum</span>
     </div>
   </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 2 · Seni Prompting">
-    <div class="s-head y">Anatomi Prompt yang Efektif</div>
-    <p class="body">Kualitas output AI sangat bergantung pada kualitas prompt — <em>garbage in, garbage out</em>. Daripada sekadar tabel, mari kita bedah visualnya:</p>
-    
-    <div class="prompt-builder">
-      <div class="pb-header">
-        <div class="pb-dot"></div><div class="pb-dot"></div><div class="pb-dot"></div>
-      </div>
-      <div class="pb-content">
-        <span class="p-badge p-role">ROLE</span> "Kamu adalah guru Bahasa Inggris berpengalaman 10 tahun.<br>
-        <span class="p-badge p-ctx">CONTEXT</span> Saya sedang mempersiapkan diri untuk interview kerja di perusahaan asing.<br>
-        <span class="p-badge p-task">TASK</span> Tolong koreksi grammar dan berikan pilihan kosakata yang lebih profesional dari kalimat berikut: '[teks kamu]'.<br>
-        <span class="p-badge p-fmt">FORMAT</span> Berikan output dalam bentuk tabel (Kalimat Asli | Koreksi | Alasan)."
-      </div>
-    </div>
-
-    <div class="card-grid" style="margin-top:10px;">
-      <div class="card"><div class="ct" style="color:var(--blue)">1. Role</div><div class="cd">Menentukan 'otak' & keahlian spesifik mana yang harus dipakai AI.</div></div>
-      <div class="card"><div class="ct" style="color:var(--yellow)">2. Context</div><div class="cd">Latar belakang situasi agar gaya bahasa AI tidak melenceng.</div></div>
-      <div class="card"><div class="ct" style="color:var(--accent)">3. Task & Format</div><div class="cd">Instruksi final yang jelas dan bagaimana bentuk laporan yang kamu mau.</div></div>
+<div class="slide" data-chapter="BAB 2 · Seni Prompting">
+  <div class="s-head y">Anatomi Prompt yang Efektif</div>
+  <p class="body">Kualitas output AI sangat bergantung pada kualitas prompt — <em>garbage in, garbage out</em>. Bedah visual anatomi prompt yang kuat:</p>
+  <div class="prompt-builder">
+    <div class="pb-header"><div class="pb-dot"></div><div class="pb-dot"></div><div class="pb-dot"></div></div>
+    <div class="pb-content">
+      <span class="p-badge p-role">ROLE</span> "Kamu adalah guru Bahasa Inggris berpengalaman 10 tahun.<br>
+      <span class="p-badge p-ctx">CONTEXT</span> Saya sedang mempersiapkan diri untuk interview kerja di perusahaan asing.<br>
+      <span class="p-badge p-task">TASK</span> Tolong koreksi grammar dan berikan pilihan kosakata yang lebih profesional dari kalimat berikut: '[teks kamu]'.<br>
+      <span class="p-badge p-fmt">FORMAT</span> Berikan output dalam bentuk tabel (Kalimat Asli | Koreksi | Alasan)."
     </div>
   </div>
+  <div class="card-grid" style="margin-top:10px;">
+    <div class="card"><div class="ct" style="color:var(--blue)">1. Role</div><div class="cd">Menentukan 'otak' &amp; keahlian spesifik mana yang harus dipakai AI.</div></div>
+    <div class="card"><div class="ct" style="color:var(--yellow)">2. Context</div><div class="cd">Latar belakang situasi agar gaya bahasa AI tidak melenceng.</div></div>
+    <div class="card"><div class="ct" style="color:var(--accent)">3. Task &amp; Format</div><div class="cd">Instruksi final yang jelas dan bagaimana bentuk laporan yang kamu mau.</div></div>
+  </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 2 · Seni Prompting">
-    <div class="s-head y">Teknik Prompting — Bagian 1</div>
-    <div class="sub">1. Zero-Shot Prompting</div>
-    <p class="body">Langsung meminta AI melakukan tugas tanpa memberikan contoh apapun. Cocok untuk tugas sederhana yang AI sudah sangat familiar.</p>
-    <div class="pb" data-label="Zero-Shot"><span class="hi">Terjemahkan</span> kalimat ini ke Bahasa Inggris:
+<div class="slide" data-chapter="BAB 2 · Seni Prompting">
+  <div class="s-head y">Teknik Prompting — Bagian 1</div>
+  <div class="sub">1. Zero-Shot Prompting</div>
+  <p class="body">Langsung meminta AI melakukan tugas tanpa memberikan contoh apapun. Cocok untuk tugas sederhana yang AI sudah sangat familiar.</p>
+  <div class="pb" data-label="Zero-Shot"><span class="hi">Terjemahkan</span> kalimat ini ke Bahasa Inggris:
 <span class="dim">"Hari ini cuacanya sangat panas dan melelahkan."</span></div>
-    <div class="sub" style="margin-top:18px;">2. Few-Shot Prompting</div>
-    <p class="body">Berikan 2–5 contoh sebelum meminta AI melakukan tugas. Sangat efektif untuk mengajarkan format atau gaya penulisan spesifik.</p>
-    <div class="pb" data-label="Few-Shot"><span class="hi">Klasifikasikan</span> sentimen berikut:
+  <div class="sub" style="margin-top:18px;">2. Few-Shot Prompting</div>
+  <p class="body">Berikan 2–5 contoh sebelum meminta AI melakukan tugas. Sangat efektif untuk mengajarkan format atau gaya penulisan spesifik.</p>
+  <div class="pb" data-label="Few-Shot"><span class="hi">Klasifikasikan</span> sentimen berikut:
 <span class="dim">"Produknya bagus"     → Positif
 "Pelayanannya lambat" → Negatif
 "Biasa saja"          → Netral</span>
 
 Sekarang klasifikasikan: <span class="hi">"Sangat puas dengan hasilnya!"</span></div>
-  </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 2 · Seni Prompting">
-    <div class="s-head y">Teknik Prompting — Bagian 2</div>
-    <div class="sub">3. Chain of Thought (CoT)</div>
-    <p class="body">Minta AI "berpikir langkah demi langkah" sebelum memberikan jawaban. Sangat meningkatkan akurasi untuk soal logika dan keputusan kompleks.</p>
-    <div class="callout tip"><span class="cl">💡 Cara Mudah</span>Tambahkan <strong>"Pikirkan langkah demi langkah"</strong> atau <strong>"Let's think step by step"</strong> di akhir prompt — hasilnya jauh lebih akurat.</div>
-    <div class="sub" style="margin-top:16px;">4. Role Prompting</div>
-    <p class="body">Minta AI berperan sebagai persona tertentu untuk output yang lebih relevan dan terspecialisasi.</p>
-    <div class="pb" data-label="Role Prompting"><span class="hi">Kamu adalah</span> konsultan pemasaran berpengalaman 10 tahun
+<div class="slide" data-chapter="BAB 2 · Seni Prompting">
+  <div class="s-head y">Teknik Prompting — Bagian 2</div>
+  <div class="sub">3. Chain of Thought (CoT)</div>
+  <p class="body">Minta AI "berpikir langkah demi langkah" sebelum memberikan jawaban. Sangat meningkatkan akurasi untuk soal logika dan keputusan kompleks.</p>
+  <div class="callout tip"><span class="cl">💡 Cara Mudah</span>Tambahkan <strong>"Pikirkan langkah demi langkah"</strong> atau <strong>"Let's think step by step"</strong> di akhir prompt — hasilnya jauh lebih akurat.</div>
+  <div class="sub" style="margin-top:16px;">4. Role Prompting</div>
+  <p class="body">Minta AI berperan sebagai persona tertentu untuk output yang lebih relevan dan terspealisasi.</p>
+  <div class="pb" data-label="Role Prompting"><span class="hi">Kamu adalah</span> konsultan pemasaran berpengalaman 10 tahun
 yang spesialis di UKM Indonesia.
 
 Bantu saya membuat strategi promosi produk tas kulit lokal
 dengan budget di bawah <span class="hi">Rp 1 juta per bulan</span>.</div>
-  </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 2 · Seni Prompting">
-    <div class="s-head y">Teknik Lanjutan & Kesalahan Umum</div>
-    <div class="sub">5. Prompt Chaining</div>
-    <p class="body">Memecah tugas besar menjadi beberapa prompt berurutan. Output dari satu prompt menjadi input untuk prompt berikutnya. Ideal untuk proyek kompleks.</p>
-    <div class="sub" style="margin-top:14px;">❌ Kesalahan yang Sering Terjadi</div>
-    <ul class="ls" style="margin-bottom:16px;">
-      <li><strong>Terlalu singkat</strong> — AI tidak tahu panjang, gaya, atau target audiens</li>
-      <li><strong>Terlalu ambigu</strong> — "Perbaiki teks ini" → AI tidak tahu apa yang salah</li>
-      <li><strong>Tidak ada konteks</strong> — AI tidak tahu untuk siapa atau apa tujuannya</li>
-      <li><strong>Tidak iteratif</strong> — Jika hasil kurang, perbaiki promptnya, jangan menyerah</li>
-    </ul>
-    <div class="cmp">
-      <div class="crow bad"><div class="cb" style="color:var(--red)">❌</div><div class="cx">"Tulis email"</div><div class="cr" style="color:var(--red)">Sangat generik</div></div>
-      <div class="crow ok"><div class="cb" style="color:var(--yellow)">⚠️</div><div class="cx">"Tulis email untuk klien tentang keterlambatan proyek"</div><div class="cr" style="color:var(--yellow)">Lumayan</div></div>
-      <div class="crow good"><div class="cb" style="color:var(--accent)">✅</div><div class="cx">"Kamu adalah manajer proyek. Tulis email profesional ke PT XYZ menjelaskan keterlambatan 3 hari karena masalah teknis. Tone formal tapi empatik. Sertakan solusi."</div><div class="cr" style="color:var(--accent)">Sangat baik</div></div>
+<div class="slide" data-chapter="BAB 2 · Seni Prompting">
+  <div class="s-head y">Teknik Lanjutan &amp; Kesalahan Umum</div>
+  <div class="sub">5. Prompt Chaining</div>
+  <p class="body">Memecah tugas besar menjadi beberapa prompt berurutan. Output dari satu prompt menjadi input untuk prompt berikutnya. Ideal untuk proyek kompleks.</p>
+  <div class="sub" style="margin-top:14px;">❌ Kesalahan yang Sering Terjadi</div>
+  <ul class="ls" style="margin-bottom:16px;">
+    <li><strong>Terlalu singkat</strong> — AI tidak tahu panjang, gaya, atau target audiens</li>
+    <li><strong>Terlalu ambigu</strong> — "Perbaiki teks ini" → AI tidak tahu apa yang salah</li>
+    <li><strong>Tidak ada konteks</strong> — AI tidak tahu untuk siapa atau apa tujuannya</li>
+    <li><strong>Tidak iteratif</strong> — Jika hasil kurang, perbaiki promptnya, jangan menyerah</li>
+  </ul>
+  <div class="cmp">
+    <div class="crow bad"><div class="cb" style="color:var(--red)">❌</div><div class="cx">"Tulis email"</div><div class="cr" style="color:var(--red)">Sangat generik</div></div>
+    <div class="crow ok"><div class="cb" style="color:var(--yellow)">⚠️</div><div class="cx">"Tulis email untuk klien tentang keterlambatan proyek"</div><div class="cr" style="color:var(--yellow)">Lumayan</div></div>
+    <div class="crow good"><div class="cb" style="color:var(--accent)">✅</div><div class="cx">"Kamu adalah manajer proyek. Tulis email profesional ke PT XYZ menjelaskan keterlambatan 3 hari karena masalah teknis. Tone formal tapi empatik. Sertakan solusi."</div><div class="cr" style="color:var(--accent)">Sangat baik</div></div>
+  </div>
+</div>
+
+<div class="slide" data-chapter="BAB 2 · Evaluasi Singkat">
+  <div class="s-head y">Interactive Quiz: Uji Pemahamanmu!</div>
+  <p class="body">Manakah teknik prompting terbaik yang sebaiknya digunakan jika kamu ingin meminta AI memecahkan soal matematika atau logika yang rumit?</p>
+  <div class="quiz-box">
+    <div class="quiz-opt" onclick="checkQuiz(this,false)"><span>A. Zero-Shot Prompting (Langsung minta jawaban tanpa contoh)</span></div>
+    <div class="quiz-opt" onclick="checkQuiz(this,false)"><span>B. Role Prompting (Meminta AI menjadi guru matematika)</span></div>
+    <div class="quiz-opt" onclick="checkQuiz(this,true)"><span>C. Chain of Thought (Meminta AI berpikir langkah demi langkah) ✨</span></div>
+  </div>
+  <p id="quiz-feedback" class="body" style="margin-top:15px;font-weight:600;min-height:24px;"></p>
+</div>
+
+<!-- ════ BAB 3 ════ -->
+<div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
+  <div class="ch-intro">
+    <div class="ch-tag r">BAB 3</div>
+    <div class="big-icon">⚡</div>
+    <div class="ch-title">Efisiensi <span style="color:var(--red)">dengan AI</span></div>
+    <p class="ch-sub">Bekerja lebih cepat dan lebih cerdas bersama AI</p>
+    <div class="ch-topics">
+      <span class="ch-topic">Identifikasi Tugas</span><span class="ch-topic">Workflow AI-First</span>
+      <span class="ch-topic">Tips Hemat Waktu</span><span class="ch-topic">Kombinasi Tools</span>
     </div>
   </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 2 · Evaluasi Singkat">
-    <div class="s-head y">Interactive Quiz: Uji Pemahamanmu!</div>
-    <p class="body">Manakah teknik prompting terbaik yang sebaiknya digunakan jika kamu ingin meminta AI memecahkan soal matematika atau logika yang rumit?</p>
-    <div class="quiz-box">
-      <div class="quiz-opt" onclick="checkQuiz(this, false)"><span>A. Zero-Shot Prompting (Langsung minta jawaban tanpa contoh)</span></div>
-      <div class="quiz-opt" onclick="checkQuiz(this, false)"><span>B. Role Prompting (Meminta AI menjadi guru matematika)</span></div>
-      <div class="quiz-opt" onclick="checkQuiz(this, true)"><span>C. Chain of Thought (Meminta AI berpikir langkah demi langkah) ✨</span></div>
-    </div>
-    <p id="quiz-feedback" class="body" style="margin-top:15px; font-weight:600; min-height:24px;"></p>
+<div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
+  <div class="s-head r">Identifikasi Tugas yang Bisa Diotomasi</div>
+  <div class="tw"><table>
+    <thead><tr><th>Kategori Tugas</th><th class="tc">Bisa AI?</th><th>Contoh</th></tr></thead>
+    <tbody>
+      <tr><td class="tr">Berulang &amp; Berbasis Teks</td><td class="tg tc">✅ Sangat Bisa</td><td>Email, laporan, notulensi, ringkasan</td></tr>
+      <tr><td class="tr">Riset &amp; Kompilasi Info</td><td class="tg tc">✅ Sangat Bisa</td><td>Mencari referensi, merangkum artikel</td></tr>
+      <tr><td class="tr">Kreatif &amp; Generatif</td><td class="ty tc">✅ Butuh Review</td><td>Copywriting, ide konten, brainstorming</td></tr>
+      <tr><td class="tr">Analisis Data Sederhana</td><td class="tg tc">✅ Bisa</td><td>Interpretasi angka, tren, statistik</td></tr>
+      <tr><td class="tr">Keputusan Strategis</td><td class="ty tc">⚠️ Terbatas</td><td>AI bantu riset, keputusan tetap di tanganmu</td></tr>
+      <tr><td class="tr">Relasi &amp; Empati Manusia</td><td class="tr tc">❌ Tidak Cocok</td><td>Negosiasi tatap muka, kepemimpinan</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
+  <div class="s-head r">Workflow AI-First Pipeline</div>
+  <p class="body">Bukan menggantikan manusia, tapi jadikan AI sebagai asisten penyaring pertama sebelum kamu melakukan sentuhan akhir:</p>
+  <div class="flow-container">
+    <div class="flow-step"><h4>1. Definisikan</h4><p>Tentukan target &amp; output tugas</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>2. Draft AI</h4><p>Biarkan AI membuat kerangka kasar</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>3. Review</h4><p>Validasi kebenaran data &amp; fakta</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>4. Poles</h4><p>Beri sentuhan empati manusia</p></div>
   </div>
+  <div class="callout danger"><span class="cl">⚡ Aturan Emas</span><strong>Aturan 80/20 AI:</strong> 80% waktu dihemat dari membuat draf &amp; riset awal oleh AI. 20% sisanya kamu gunakan untuk pemolesan tingkat tinggi yang tidak bisa ditiru mesin.</div>
+</div>
 
-  <div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
-    <div class="ch-intro">
-      <div class="ch-tag r">BAB 3</div>
-      <div class="big-icon">⚡</div>
-      <div class="ch-title">Efisiensi <span style="color:var(--red)">dengan AI</span></div>
-      <p class="ch-sub">Bekerja lebih cepat dan lebih cerdas bersama AI</p>
-      <div class="ch-topics">
-        <span class="ch-topic">Identifikasi Tugas</span>
-        <span class="ch-topic">Workflow AI-First</span>
-        <span class="ch-topic">Tips Hemat Waktu</span>
-        <span class="ch-topic">Kombinasi Tools</span>
-      </div>
-    </div>
-  </div>
+<div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
+  <div class="s-head r">Tips Menghemat Waktu dengan AI</div>
+  <ul class="ls">
+    <li><strong>Buat Template Prompt</strong> — Simpan prompt yang sering dipakai agar tidak mengetik ulang</li>
+    <li><strong>Mulai dari First Draft AI</strong> — Jauh lebih cepat daripada mulai dari halaman kosong</li>
+    <li><strong>Batch Processing</strong> — Kumpulkan tugas sejenis dan selesaikan sekaligus dalam satu sesi</li>
+    <li><strong>AI sebagai Rubber Duck</strong> — Ceritakan masalahmu ke AI untuk mendapat perspektif baru</li>
+    <li><strong>Buat SOP dengan AI</strong> — Dokumentasi proses kerja berulang agar tim bisa mengikutinya</li>
+    <li><strong>Belajar Cepat</strong> — "Jelaskan X seperti saya pemula" jauh lebih efisien dari googling berjam-jam</li>
+  </ul>
+</div>
 
-  <div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
-    <div class="s-head r">Identifikasi Tugas yang Bisa Diotomasi</div>
-    <div class="tw">
-      <table>
-        <thead><tr><th>Kategori Tugas</th><th class="tc">Bisa AI?</th><th>Contoh</th></tr></thead>
-        <tbody>
-          <tr><td class="tr">Berulang & Berbasis Teks</td><td class="tg tc">✅ Sangat Bisa</td><td>Email, laporan, notulensi, ringkasan</td></tr>
-          <tr><td class="tr">Riset & Kompilasi Info</td><td class="tg tc">✅ Sangat Bisa</td><td>Mencari referensi, merangkum artikel</td></tr>
-          <tr><td class="tr">Kreatif & Generatif</td><td class="ty tc">✅ Butuh Review</td><td>Copywriting, ide konten, brainstorming</td></tr>
-          <tr><td class="tr">Analisis Data Sederhana</td><td class="tg tc">✅ Bisa</td><td>Interpretasi angka, tren, statistik</td></tr>
-          <tr><td class="tr">Keputusan Strategis</td><td class="ty tc">⚠️ Terbatas</td><td>AI bantu riset, keputusan tetap di tanganmu</td></tr>
-          <tr><td class="tr">Relasi & Empati Manusia</td><td class="tr tc">❌ Tidak Cocok</td><td>Negosiasi tatap muka, kepemimpinan</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
+  <div class="s-head r">Menggabungkan AI Tools</div>
+  <p class="body">Tidak ada satu AI yang bisa segalanya. Kunci efisiensi adalah kombinasi tools yang tepat:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Kebutuhan</th><th>Tools Rekomendasi</th></tr></thead>
+    <tbody>
+      <tr><td class="tr">Menulis &amp; Analisis Teks</td><td>Claude AI, ChatGPT, Gemini</td></tr>
+      <tr><td class="tr">Membuat Gambar &amp; Visual</td><td>Midjourney, DALL-E 3, Adobe Firefly, Canva AI</td></tr>
+      <tr><td class="tr">Coding &amp; Debugging</td><td>Claude AI, GitHub Copilot, Cursor</td></tr>
+      <tr><td class="tr">Presentasi &amp; Slide</td><td>Gamma.app, Beautiful.ai, Canva AI</td></tr>
+      <tr><td class="tr">Riset &amp; Pencarian</td><td>Perplexity AI, Gemini + Search</td></tr>
+      <tr><td class="tr">Audio &amp; Voice</td><td>ElevenLabs, Adobe Podcast AI</td></tr>
+      <tr><td class="tr">Video &amp; Animasi</td><td>Runway ML, Kling AI, Seedance</td></tr>
+      <tr><td class="tr">Otomasi &amp; Workflow</td><td>Zapier AI, Make.com, n8n</td></tr>
+    </tbody>
+  </table></div>
+</div>
 
-  <div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
-    <div class="s-head r">Workflow AI-First Pipeline</div>
-    <p class="body">Bukan menggantikan manusia, tapi jadikan AI sebagai asisten penyaring pertama sebelum kamu melakukan sentuhan akhir:</p>
-    
-    <div class="flow-container">
-      <div class="flow-step"><h4>1. Definisikan</h4><p>Tentukan target & output tugas</p></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step"><h4>2. Draft AI</h4><p>Biarkan AI membuat kerangka kasar</p></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step"><h4>3. Review</h4><p>Validasi kebenaran data & fakta</p></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step"><h4>4. Poles</h4><p>Beri sentuhan empati manusia</p></div>
-    </div>
-
-    <div class="callout danger"><span class="cl">⚡ Aturan Emas</span><strong>Aturan 80/20 AI:</strong> 80% waktu dihemat dari membuat draf & riset awal oleh AI. 20% sisanya kamu gunakan untuk pemolesan tingkat tinggi (refinement) yang tidak bisa ditiru mesin.</div>
-  </div>
-
-  <div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
-    <div class="s-head r">Tips Menghemat Waktu dengan AI</div>
-    <ul class="ls">
-      <li><strong>Buat Template Prompt</strong> — Simpan prompt yang sering dipakai agar tidak mengetik ulang</li>
-      <li><strong>Mulai dari First Draft AI</strong> — Jauh lebih cepat daripada mulai dari halaman kosong</li>
-      <li><strong>Batch Processing</strong> — Kumpulkan tugas sejenis dan selesaikan sekaligus dalam satu sesi</li>
-      <li><strong>AI sebagai Rubber Duck</strong> — Ceritakan masalahmu ke AI untuk mendapat perspektif baru</li>
-      <li><strong>Buat SOP dengan AI</strong> — Dokumentasi proses kerja berulang agar tim bisa mengikutinya</li>
-      <li><strong>Belajar Cepat</strong> — "Jelaskan X seperti saya pemula" jauh lebih efisien dari googling berjam-jam</li>
-    </ul>
-  </div>
-
-  <div class="slide" data-chapter="BAB 3 · Efisiensi dengan AI">
-    <div class="s-head r">Menggabungkan AI Tools</div>
-    <p class="body">Tidak ada satu AI yang bisa segalanya. Kunci efisiensi adalah kombinasi tools yang tepat:</p>
-    <div class="tw">
-      <table>
-        <thead><tr><th>Kebutuhan</th><th>Tools Rekomendasi</th></tr></thead>
-        <tbody>
-          <tr><td class="tr">Menulis & Analisis Teks</td><td>Claude AI, ChatGPT, Gemini</td></tr>
-          <tr><td class="tr">Membuat Gambar & Visual</td><td>Midjourney, DALL-E 3, Adobe Firefly, Canva AI</td></tr>
-          <tr><td class="tr">Coding & Debugging</td><td>Claude AI, GitHub Copilot, Cursor</td></tr>
-          <tr><td class="tr">Presentasi & Slide</td><td>Gamma.app, Beautiful.ai, Canva AI</td></tr>
-          <tr><td class="tr">Riset & Pencarian</td><td>Perplexity AI, Gemini + Search</td></tr>
-          <tr><td class="tr">Audio & Voice</td><td>ElevenLabs, Adobe Podcast AI</td></tr>
-          <tr><td class="tr">Video & Animasi</td><td>Runway ML, Kling AI, Seedance</td></tr>
-          <tr><td class="tr">Otomasi & Workflow</td><td>Zapier AI, Make.com, n8n</td></tr>
-        </tbody>
-      </table>
+<!-- ════ BAB 4 ════ -->
+<div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+  <div class="ch-intro">
+    <div class="ch-tag b">BAB 4</div>
+    <div class="big-icon">💼</div>
+    <div class="ch-title">AI untuk <span style="color:var(--blue)">Pekerjaan Sehari-hari</span></div>
+    <p class="ch-sub">Contoh nyata penggunaan AI di berbagai bidang profesional</p>
+    <div class="ch-topics">
+      <span class="ch-topic">Administrasi</span><span class="ch-topic">Komunikasi</span>
+      <span class="ch-topic">Belajar &amp; Riset</span><span class="ch-topic">Coding</span>
+      <span class="ch-topic">Tools Populer</span>
     </div>
   </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
-    <div class="ch-intro">
-      <div class="ch-tag b">BAB 4</div>
-      <div class="big-icon">💼</div>
-      <div class="ch-title">AI untuk <span style="color:var(--blue)">Pekerjaan Sehari-hari</span></div>
-      <p class="ch-sub">Contoh nyata penggunaan AI di berbagai bidang profesional</p>
-      <div class="ch-topics">
-        <span class="ch-topic">Administrasi</span>
-        <span class="ch-topic">Komunikasi</span>
-        <span class="ch-topic">Belajar & Riset</span>
-        <span class="ch-topic">Coding</span>
-        <span class="ch-topic">Tools Populer</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
-    <div class="s-head b">AI untuk Administrasi & Dokumen</div>
-    <p class="body">Area di mana AI paling langsung menghemat waktu. Hampir semua pekerjaan administratif berbasis teks bisa dipercepat <strong>5–10 kali lipat</strong>.</p>
-    <ul class="ls">
-      <li>Membuat surat resmi, memo, dan proposal dari poin-poin kasar</li>
-      <li>Merangkum dokumen panjang menjadi poin kunci dalam hitungan detik</li>
-      <li>Menyusun notulensi rapat dari catatan acak yang tidak terstruktur</li>
-      <li>Membuat template dokumen yang konsisten dan tampak profesional</li>
-      <li>Mentranslasi dokumen antar bahasa dengan akurasi tinggi</li>
-    </ul>
-    <div class="pb" data-label="Contoh Prompt Admin" style="margin-top:14px;"><span class="dim">Saya staf TU sekolah.</span> Buat surat undangan rapat orang tua
+<div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+  <div class="s-head b">AI untuk Administrasi &amp; Dokumen</div>
+  <p class="body">Area di mana AI paling langsung menghemat waktu. Hampir semua pekerjaan administratif berbasis teks bisa dipercepat <strong>5–10 kali lipat</strong>.</p>
+  <ul class="ls">
+    <li>Membuat surat resmi, memo, dan proposal dari poin-poin kasar</li>
+    <li>Merangkum dokumen panjang menjadi poin kunci dalam hitungan detik</li>
+    <li>Menyusun notulensi rapat dari catatan acak yang tidak terstruktur</li>
+    <li>Membuat template dokumen yang konsisten dan tampak profesional</li>
+    <li>Mentranslasi dokumen antar bahasa dengan akurasi tinggi</li>
+  </ul>
+  <div class="pb" data-label="Contoh Prompt Admin" style="margin-top:14px;"><span class="dim">Saya staf TU sekolah.</span> Buat surat undangan rapat orang tua
 untuk acara <span class="hi">"Penerimaan Rapor"</span> pada Kamis, 20 Juni 2026
 pukul 09.00 WIB. Bahasa formal tapi ramah. Sertakan konfirmasi
 kehadiran paling lambat 17 Juni via WhatsApp ke nomor sekolah.</div>
-  </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
-    <div class="s-head b">AI untuk Komunikasi Profesional</div>
-    <div class="card-grid">
-      <div class="card"><div class="ci">📧</div><div class="ct">Email Profesional</div><div class="cd">Draft email dari poin-poin atau tone yang diinginkan dalam hitungan detik</div></div>
-      <div class="card"><div class="ci">😤</div><div class="ct">Balasan Komplain</div><div class="cd">Respon yang empatik dan tetap profesional untuk situasi sensitif</div></div>
-      <div class="card"><div class="ci">🎤</div><div class="ct">Presentasi</div><div class="cd">Outline atau script berdasarkan topik dan target audiens</div></div>
-      <div class="card"><div class="ci">📱</div><div class="ct">Media Sosial</div><div class="cd">Caption, hashtag, dan jadwal konten yang konsisten</div></div>
-      <div class="card"><div class="ci">💬</div><div class="ct">Template WhatsApp</div><div class="cd">Respon standar untuk pertanyaan umum pelanggan bisnis</div></div>
-    </div>
-    <div class="callout info" style="margin-top:14px;"><span class="cl">💡 Tips</span>Untuk balasan email formal, tambahkan: <em>"Tone: profesional tapi hangat. Panjang: maksimal 5 kalimat."</em> — hasilnya langsung bisa dipakai.</div>
+<div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+  <div class="s-head b">AI untuk Komunikasi Profesional</div>
+  <div class="card-grid">
+    <div class="card"><div class="ci">📧</div><div class="ct">Email Profesional</div><div class="cd">Draft email dari poin-poin atau tone yang diinginkan dalam hitungan detik</div></div>
+    <div class="card"><div class="ci">😤</div><div class="ct">Balasan Komplain</div><div class="cd">Respon yang empatik dan tetap profesional untuk situasi sensitif</div></div>
+    <div class="card"><div class="ci">🎤</div><div class="ct">Presentasi</div><div class="cd">Outline atau script berdasarkan topik dan target audiens</div></div>
+    <div class="card"><div class="ci">📱</div><div class="ct">Media Sosial</div><div class="cd">Caption, hashtag, dan jadwal konten yang konsisten</div></div>
+    <div class="card"><div class="ci">💬</div><div class="ct">Template WhatsApp</div><div class="cd">Respon standar untuk pertanyaan umum pelanggan bisnis</div></div>
   </div>
+  <div class="callout info" style="margin-top:14px;"><span class="cl">💡 Tips</span>Untuk balasan email formal, tambahkan: <em>"Tone: profesional tapi hangat. Panjang: maksimal 5 kalimat."</em> — hasilnya langsung bisa dipakai.</div>
+</div>
 
-  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
-    <div class="s-head b">AI untuk Belajar & Riset</div>
-    <p class="body">AI adalah "tutor pribadi" yang tidak pernah lelah dan bisa menjelaskan topik apapun dari level pemula hingga ahli.</p>
-    <ul class="ls">
-      <li>Jelaskan konsep sulit dengan analogi: <em>"Jelaskan blockchain seperti saya berusia 10 tahun"</em></li>
-      <li>Rangkum artikel atau dokumen panjang dalam hitungan detik</li>
-      <li>Diskusikan topik dari berbagai sudut pandang</li>
-      <li>Buat soal latihan dan simulasi ujian dari materi tertentu</li>
-      <li>Terjemahkan paper akademis atau istilah teknis ke bahasa awam</li>
-    </ul>
-    <div class="callout info" style="margin-top:14px;"><span class="cl">💡 Kekuatan Terbesar</span>Waktu yang biasanya habis 2–3 jam untuk research awal bisa dipangkas menjadi 15–20 menit. Gunakan waktu sisa untuk deep-dive ke hal yang benar-benar penting.</div>
-  </div>
+<div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+  <div class="s-head b">AI untuk Belajar &amp; Riset</div>
+  <p class="body">AI adalah "tutor pribadi" yang tidak pernah lelah dan bisa menjelaskan topik apapun dari level pemula hingga ahli.</p>
+  <ul class="ls">
+    <li>Jelaskan konsep sulit dengan analogi: <em>"Jelaskan blockchain seperti saya berusia 10 tahun"</em></li>
+    <li>Rangkum artikel atau dokumen panjang dalam hitungan detik</li>
+    <li>Diskusikan topik dari berbagai sudut pandang</li>
+    <li>Buat soal latihan dan simulasi ujian dari materi tertentu</li>
+    <li>Terjemahkan paper akademis atau istilah teknis ke bahasa awam</li>
+  </ul>
+  <div class="callout info" style="margin-top:14px;"><span class="cl">💡 Kekuatan Terbesar</span>Waktu yang biasanya habis 2–3 jam untuk research awal bisa dipangkas menjadi 15–20 menit. Gunakan waktu sisa untuk deep-dive ke hal yang benar-benar penting.</div>
+</div>
 
-  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
-    <div class="s-head b">AI untuk Coding & Teknis</div>
-    <ul class="ls">
-      <li><strong>Menulis kode</strong> — dari deskripsi fungsi yang diinginkan</li>
-      <li><strong>Debugging</strong> — paste error, AI jelaskan penyebab dan solusinya</li>
-      <li><strong>Refactoring</strong> — perbaiki struktur kode yang berantakan</li>
-      <li><strong>Dokumentasi</strong> — generate komentar dan docs otomatis</li>
-      <li><strong>Belajar framework baru</strong> — tutorial step-by-step sesuai levelmu</li>
-    </ul>
-    <div class="callout info"><span class="cl">💡 Tips Coding dengan AI</span>Selalu berikan konteks yang jelas: bahasa pemrograman, framework, versi, dan apa yang sudah dicoba. Semakin spesifik, semakin tepat jawaban AI.</div>
-    <div class="pb" data-label="Contoh Prompt Coding" style="margin-top:13px;">Saya pakai <span class="hi">PHP native</span>, tanpa framework.
+<div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+  <div class="s-head b">AI untuk Coding &amp; Teknis</div>
+  <ul class="ls">
+    <li><strong>Menulis kode</strong> — dari deskripsi fungsi yang diinginkan</li>
+    <li><strong>Debugging</strong> — paste error, AI jelaskan penyebab dan solusinya</li>
+    <li><strong>Refactoring</strong> — perbaiki struktur kode yang berantakan</li>
+    <li><strong>Dokumentasi</strong> — generate komentar dan docs otomatis</li>
+    <li><strong>Belajar framework baru</strong> — tutorial step-by-step sesuai levelmu</li>
+  </ul>
+  <div class="callout info"><span class="cl">💡 Tips Coding dengan AI</span>Selalu berikan konteks yang jelas: bahasa pemrograman, framework, versi, dan apa yang sudah dicoba. Semakin spesifik, semakin tepat jawaban AI.</div>
+  <div class="pb" data-label="Contoh Prompt Coding" style="margin-top:13px;">Saya pakai <span class="hi">PHP native</span>, tanpa framework.
 Buat fungsi untuk <span class="hi">upload file PDF</span> dengan validasi:
 max 2MB, hanya file PDF, simpan ke folder /uploads/
 <span class="dim">// Error: undefined variable $target_dir</span></div>
-  </div>
+</div>
 
-  <div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
-    <div class="s-head b">Tools AI Populer: Panduan Perbandingan</div>
-    <div class="tw">
-      <table>
-        <thead><tr><th>Tool</th><th>Keunggulan</th><th>Cocok Untuk</th><th>Harga</th></tr></thead>
-        <tbody>
-          <tr><td class="tb"><strong>Claude</strong><br><small style="color:var(--muted)">Anthropic</small></td><td>Analisis mendalam, nuansa bahasa terbaik</td><td>Penulisan, analisis, coding, riset</td><td>Gratis / $20/bln</td></tr>
-          <tr><td class="tb"><strong>ChatGPT</strong><br><small style="color:var(--muted)">OpenAI</small></td><td>Ecosystem luas, GPT-4o multimodal</td><td>Serba guna, image generation</td><td>Gratis / $20/bln</td></tr>
-          <tr><td class="tb"><strong>Gemini</strong><br><small style="color:var(--muted)">Google</small></td><td>Terintegrasi Google, akses web real-time</td><td>Riset terkini, Google Workspace</td><td>Gratis / $20/bln</td></tr>
-          <tr><td class="tb"><strong>Perplexity AI</strong></td><td>Pencarian dengan sumber terverifikasi</td><td>Riset & referensi terpercaya</td><td>Gratis / $20/bln</td></tr>
-          <tr><td class="tb"><strong>Gamma.app</strong></td><td>Presentasi dari teks otomatis & cepat</td><td>Slide & deck profesional</td><td>Gratis / $15/bln</td></tr>
-          <tr><td class="tb"><strong>Midjourney</strong></td><td>Kualitas gambar terbaik di kelasnya</td><td>Ilustrasi, desain, visual konten</td><td>$10–60/bln</td></tr>
-        </tbody>
-      </table>
+<div class="slide" data-chapter="BAB 4 · AI untuk Pekerjaan">
+  <div class="s-head b">Tools AI Populer: Panduan Perbandingan</div>
+  <div class="tw"><table>
+    <thead><tr><th>Tool</th><th>Keunggulan</th><th>Cocok Untuk</th><th>Harga</th></tr></thead>
+    <tbody>
+      <tr><td class="tb"><strong>Claude</strong><br><small style="color:var(--muted)">Anthropic</small></td><td>Analisis mendalam, nuansa bahasa terbaik</td><td>Penulisan, analisis, coding, riset</td><td>Gratis / $20/bln</td></tr>
+      <tr><td class="tb"><strong>ChatGPT</strong><br><small style="color:var(--muted)">OpenAI</small></td><td>Ecosystem luas, GPT-4o multimodal</td><td>Serba guna, image generation</td><td>Gratis / $20/bln</td></tr>
+      <tr><td class="tb"><strong>Gemini</strong><br><small style="color:var(--muted)">Google</small></td><td>Terintegrasi Google, akses web real-time</td><td>Riset terkini, Google Workspace</td><td>Gratis / $20/bln</td></tr>
+      <tr><td class="tb"><strong>Perplexity AI</strong></td><td>Pencarian dengan sumber terverifikasi</td><td>Riset &amp; referensi terpercaya</td><td>Gratis / $20/bln</td></tr>
+      <tr><td class="tb"><strong>Gamma.app</strong></td><td>Presentasi dari teks otomatis &amp; cepat</td><td>Slide &amp; deck profesional</td><td>Gratis / $15/bln</td></tr>
+      <tr><td class="tb"><strong>Midjourney</strong></td><td>Kualitas gambar terbaik di kelasnya</td><td>Ilustrasi, desain, visual konten</td><td>$10–60/bln</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- ════ BAB 5: ETIKA & KEAMANAN ════ -->
+<div class="slide" data-chapter="BAB 5 · Etika &amp; Keamanan AI">
+  <div class="ch-intro">
+    <div class="ch-tag y">BAB 5</div>
+    <div class="big-icon">🛡️</div>
+    <div class="ch-title">Etika &amp; <span style="color:var(--yellow)">Keamanan AI</span></div>
+    <p class="ch-sub">Gunakan AI dengan bijak, aman, dan bertanggung jawab</p>
+    <div class="ch-topics">
+      <span class="ch-topic">Data Pribadi &amp; Privasi</span>
+      <span class="ch-topic">Deepfake &amp; Hoaks</span>
+      <span class="ch-topic">Copyright AI</span>
+      <span class="ch-topic">Regulasi Indonesia</span>
     </div>
   </div>
+</div>
 
-  <div class="slide" data-chapter="Penutup · Mindset AI-First">
-    <div class="ch-intro">
-      <div class="ch-tag g">PENUTUP</div>
-      <div class="big-icon">🚀</div>
-      <div class="ch-title">Mindset <span style="color:var(--accent)">AI-First</span></div>
-      <p class="ch-sub">Perjalanan belajar AI adalah maraton, bukan sprint</p>
-      <div class="ch-topics">
-        <span class="ch-topic">3 Prinsip Utama</span>
-        <span class="ch-topic">Roadmap 30 Hari</span>
-      </div>
+<div class="slide" data-chapter="BAB 5 · Etika &amp; Keamanan AI">
+  <div class="s-head y">Data yang TIDAK Boleh Dibagikan ke AI</div>
+  <p class="body">Ketika menggunakan AI berbasis cloud, inputmu dikirim ke server pihak ketiga. Ada risiko privasi yang perlu disadari sebelum mengetik apapun.</p>
+  <div class="callout danger"><span class="cl">🚫 Jangan Pernah Input ke AI Publik</span>Data berikut bisa membahayakan kamu atau orang lain jika masuk ke server pihak ketiga.</div>
+  <div class="card-grid" style="margin-top:10px;">
+    <div class="card"><div class="ci">🔐</div><div class="ct">Kata Sandi &amp; PIN</div><div class="cd">Password akun, PIN ATM, kode OTP — tidak boleh dibagikan ke AI apapun dalam kondisi apapun</div></div>
+    <div class="card"><div class="ci">🪪</div><div class="ct">Data Identitas</div><div class="cd">NIK KTP, nomor paspor, data BPJS, nomor rekening — data sensitif yang bisa disalahgunakan</div></div>
+    <div class="card"><div class="ci">🏢</div><div class="ct">Rahasia Perusahaan</div><div class="cd">Kontrak klien, data keuangan internal, strategi bisnis — bisa melanggar NDA dan hukum</div></div>
+    <div class="card"><div class="ci">👨‍👩‍👧</div><div class="ct">Data Orang Lain</div><div class="cd">Data pribadi rekan kerja, siswa, atau klien tanpa izin mereka — melanggar privasi</div></div>
+  </div>
+  <div class="callout tip" style="margin-top:8px;"><span class="cl">✅ Solusi Aman</span>Gunakan data fiktif saat membuat template. Ganti nama asli dengan placeholder seperti <em>[NAMA KLIEN]</em> atau <em>[NOMOR REKENING]</em> sebelum memasukkan ke AI.</div>
+</div>
+
+<div class="slide" data-chapter="BAB 5 · Etika &amp; Keamanan AI">
+  <div class="s-head y">Deepfake, Copyright &amp; Regulasi AI</div>
+  <div class="sub">⚠️ Waspadai Deepfake &amp; Konten Palsu</div>
+  <p class="body">AI kini bisa membuat foto, video, dan suara palsu yang sangat realistis. Selalu verifikasi sebelum menyebarkan konten yang terasa "terlalu sempurna".</p>
+  <ul class="ls" style="margin-bottom:14px;">
+    <li>Cek sumber asli video/foto sebelum share — gunakan reverse image search</li>
+    <li>Tanda deepfake: wajah terlalu mulus, telinga/tangan tidak wajar, latar blur tidak konsisten</li>
+    <li>Menyebarkan deepfake yang menipu bisa melanggar UU ITE pasal 28 ayat 1</li>
+  </ul>
+  <div class="sub">📄 Copyright Konten AI di Indonesia</div>
+  <div class="tw"><table>
+    <thead><tr><th>Situasi</th><th class="tc">Status Hukum</th></tr></thead>
+    <tbody>
+      <tr><td>Konten AI murni tanpa modifikasi</td><td class="ty tc">⚠️ Abu-abu (belum diatur eksplisit)</td></tr>
+      <tr><td>Konten AI yang sudah diedit &amp; dikurasi signifikan</td><td class="tg tc">✅ Lebih aman, bisa diklaim</td></tr>
+      <tr><td>Memasukkan materi berhak cipta ke AI</td><td class="tr tc">❌ Berisiko pelanggaran hak cipta</td></tr>
+      <tr><td>Menggunakan AI untuk membuat hoaks/tipu daya</td><td class="tr tc">❌ Melanggar UU ITE</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout info" style="margin-top:10px;"><span class="cl">🇮🇩 Regulasi di Indonesia</span>UU ITE, UU Hak Cipta, dan Peraturan Menkominfo tentang AI berlaku untuk semua konten yang dihasilkan dan disebarkan. Regulasi khusus AI Indonesia masih dalam proses penyusunan — pantau perkembangannya.</div>
+</div>
+
+<!-- ════ BAB 6: PROMPT LIBRARY ════ -->
+<div class="slide" data-chapter="BAB 6 · Prompt Library">
+  <div class="ch-intro">
+    <div class="ch-tag r">BAB 6</div>
+    <div class="big-icon">📋</div>
+    <div class="ch-title">Prompt <span style="color:var(--red)">Library</span></div>
+    <p class="ch-sub">Koleksi prompt siap pakai — copy, sesuaikan, langsung gunakan</p>
+    <div class="ch-topics">
+      <span class="ch-topic">Administrasi</span>
+      <span class="ch-topic">Komunikasi</span>
+      <span class="ch-topic">Riset &amp; Belajar</span>
+      <span class="ch-topic">Konten Kreatif</span>
+      <span class="ch-topic">Coding</span>
     </div>
   </div>
+</div>
 
-  <div class="slide" data-chapter="Penutup · Mindset AI-First">
-    <div class="s-head">3 Prinsip Utama Mindset AI-First</div>
-    <div class="quote">
-      <blockquote>"AI tidak akan menggantikan manusia.<br>Tapi manusia yang menggunakan AI dengan baik<br>akan menggantikan mereka yang tidak."</blockquote>
-      <cite>— Realita industri yang sudah terjadi di berbagai bidang</cite>
-    </div>
-    <div class="pgrid">
-      <div class="pc"><div class="pn">Prinsip 01</div><div class="pt">Kolaborasi, Bukan Kompetisi</div><div class="pd">AI adalah alat, bukan musuh. Tugasmu adalah mengarahkan, mengevaluasi, dan memberikan konteks lokal yang tidak bisa digantikan mesin.</div></div>
-      <div class="pc"><div class="pn">Prinsip 02</div><div class="pt">Kuriositas Tanpa Henti</div><div class="pd">Dunia AI bergerak sangat cepat. Sisihkan 15–30 menit per hari untuk bereksperimen dengan cara baru menggunakan AI.</div></div>
-      <div class="pc"><div class="pn">Prinsip 03</div><div class="pt">Tetap Kritis & Verifikasi</div><div class="pd">AI bisa salah. Selalu verifikasi fakta penting, terutama data numerik, nama, dan informasi kritis.</div></div>
+<div class="slide" data-chapter="BAB 6 · Prompt Library">
+  <div class="s-head r">Prompt Siap Pakai — Administrasi &amp; Komunikasi</div>
+  <div class="sub">📁 Administrasi &amp; Dokumen</div>
+  <div class="pb" data-label="Buat Surat Resmi">Buat <span class="hi">[jenis surat]</span> untuk <span class="hi">[tujuan]</span> kepada <span class="hi">[penerima]</span>.
+Tanggal: <span class="hi">[tanggal]</span>. Tone: formal. Bahasa: Indonesia baku.
+Sertakan <span class="hi">[elemen tambahan jika ada]</span>.</div>
+  <div class="pb" data-label="Rangkum Dokumen">Rangkum dokumen berikut menjadi maksimal <span class="hi">5 poin kunci</span>.
+Format: bullet point. Fokus pada <span class="hi">[aspek penting]</span>.
+<span class="dim">[paste teks dokumen di sini]</span></div>
+  <div class="sub" style="margin-top:14px;">💬 Komunikasi &amp; Email</div>
+  <div class="pb" data-label="Draft Email Profesional">Kamu adalah asisten komunikasi profesional.
+Tulis email <span class="hi">[tujuan: konfirmasi/follow-up/komplain/permintaan]</span>
+kepada <span class="hi">[penerima]</span> perihal <span class="hi">[topik]</span>.
+Tone: <span class="hi">[formal/semi-formal/hangat]</span>. Panjang: maks <span class="hi">[X]</span> kalimat.
+Poin yang harus ada: <span class="dim">[poin 1], [poin 2]</span>.</div>
+  <div class="pb" data-label="Balas Komplain Pelanggan">Balas komplain pelanggan berikut dengan tone <span class="hi">empatik &amp; profesional</span>.
+Berikan solusi konkret dan tindak lanjut yang jelas.
+Komplain: <span class="dim">"[isi komplain pelanggan]"</span></div>
+</div>
+
+<div class="slide" data-chapter="BAB 6 · Prompt Library">
+  <div class="s-head r">Prompt Siap Pakai — Riset, Kreatif &amp; Coding</div>
+  <div class="sub">🔍 Riset &amp; Belajar</div>
+  <div class="pb" data-label="Jelaskan Konsep">Jelaskan <span class="hi">[konsep/topik]</span> dengan bahasa sederhana
+seolah saya adalah <span class="hi">[pemula/pelajar SMA/awam di bidang ini]</span>.
+Gunakan <span class="hi">analogi sehari-hari</span> dan sertakan contoh nyata.</div>
+  <div class="pb" data-label="Buat Soal Latihan">Buat <span class="hi">[jumlah]</span> soal latihan tentang <span class="hi">[topik]</span>
+untuk tingkat <span class="hi">[SD/SMP/SMA/mahasiswa]</span>.
+Format: pilihan ganda 4 opsi (A-D).
+Sertakan <span class="hi">kunci jawaban &amp; penjelasan singkat</span> di akhir.</div>
+  <div class="sub" style="margin-top:12px;">🎨 Konten Kreatif</div>
+  <div class="pb" data-label="Caption Media Sosial">Buat <span class="hi">3 variasi caption</span> untuk <span class="hi">[Instagram/LinkedIn/TikTok]</span>
+tentang <span class="hi">[topik/produk/event]</span>.
+Target audiens: <span class="hi">[deskripsi]</span>. Tone: <span class="hi">[casual/inspiratif/informatif]</span>.
+Sertakan call-to-action dan hashtag relevan.</div>
+  <div class="sub" style="margin-top:12px;">💻 Coding</div>
+  <div class="pb" data-label="Debug Kode">Saya menggunakan <span class="hi">[bahasa/framework]</span>. Kode ini menghasilkan error:
+<span class="dim">[paste kode]</span>
+Error message: <span class="dim">[paste pesan error]</span>
+Jelaskan <span class="hi">penyebabnya</span> dan berikan <span class="hi">solusi yang sudah diperbaiki</span>.</div>
+</div>
+
+<!-- ════ BAB 7: AI UNTUK PENDIDIKAN ════ -->
+<div class="slide" data-chapter="BAB 7 · AI untuk Pendidikan">
+  <div class="ch-intro">
+    <div class="ch-tag b">BAB 7</div>
+    <div class="big-icon">📚</div>
+    <div class="ch-title">AI untuk <span style="color:var(--blue)">Pendidikan</span></div>
+    <p class="ch-sub">Revolusi cara mengajar dan belajar di era AI</p>
+    <div class="ch-topics">
+      <span class="ch-topic">Untuk Guru</span>
+      <span class="ch-topic">Buat Soal Otomatis</span>
+      <span class="ch-topic">RPP &amp; Materi</span>
+      <span class="ch-topic">Untuk Siswa</span>
+      <span class="ch-topic">Tips Orang Tua</span>
     </div>
   </div>
+</div>
 
-  <div class="slide" data-chapter="Penutup · Mindset AI-First">
-    <div class="s-head">Roadmap Belajar AI: 30 Hari Pertama</div>
-    <div class="rm-grid">
-      <div class="rc"><div class="rw">MINGGU 1</div><div class="rf">Eksplorasi Dasar</div><div class="rd">Coba ChatGPT atau Claude untuk 5 tugas sehari-hari. Catat hasilnya dan identifikasi kelebihan dan kekurangannya.</div></div>
-      <div class="rc"><div class="rw">MINGGU 2</div><div class="rf">Kuasai Prompting</div><div class="rd">Praktikkan Few-Shot, Role Prompting, dan Chain of Thought setiap hari. Buat prompt library pertamamu.</div></div>
-      <div class="rc"><div class="rw">MINGGU 3</div><div class="rf">Integrasi ke Pekerjaan</div><div class="rd">Identifikasi 3 tugas rutin yang bisa dibantu AI. Buat template prompt yang bisa digunakan berulang.</div></div>
-      <div class="rc"><div class="rw">MINGGU 4</div><div class="rf">Eksplorasi Tools</div><div class="rd">Coba 2–3 AI tools baru. Evaluasi mana yang paling relevan dan mulai rutinkan penggunaannya.</div></div>
-    </div>
-    <div class="callout tip" style="margin-top:14px;"><span class="cl">🚀 Pesan Penutup</span>Tujuan belajar AI bukan menjadi "ahli AI" secara teknis — tapi menjadi lebih produktif, kreatif, dan kompetitif di bidangmu sendiri. Mulailah dari satu masalah nyata hari ini!</div>
+<div class="slide" data-chapter="BAB 7 · AI untuk Pendidikan">
+  <div class="s-head b">AI untuk Guru — Hemat Waktu, Tingkatkan Kualitas</div>
+  <p class="body">Guru menghabiskan rata-rata <em>30–40% waktu</em> untuk administrasi. AI bisa memangkas waktu itu drastis agar fokus ke hal yang paling penting: mengajar.</p>
+  <div class="card-grid">
+    <div class="card"><div class="ci">📝</div><div class="ct">Buat Soal Otomatis</div><div class="cd">Generate soal PG, essay, atau isian dari materi apapun dalam hitungan detik, lengkap dengan kunci jawaban</div></div>
+    <div class="card"><div class="ci">📋</div><div class="ct">RPP &amp; Silabus</div><div class="cd">Draft Rencana Pelaksanaan Pembelajaran sesuai Kurikulum Merdeka secara otomatis dan terstruktur</div></div>
+    <div class="card"><div class="ci">📊</div><div class="ct">Laporan Nilai</div><div class="cd">Buat narasi penilaian dan catatan perkembangan siswa dari data angka yang ada di rapor</div></div>
+    <div class="card"><div class="ci">💬</div><div class="ct">Feedback Personal</div><div class="cd">Generate komentar individual untuk setiap siswa berdasarkan profil kemampuan dan perkembangan mereka</div></div>
   </div>
+  <div class="pb" data-label="Contoh: Buat Soal" style="margin-top:10px;">Buat <span class="hi">10 soal pilihan ganda</span> tentang <span class="hi">Fotosintesis</span>
+untuk siswa kelas <span class="hi">5 SD</span>. Level: sedang.
+Setiap soal punya 4 pilihan (A–D).
+Sertakan <span class="hi">kunci jawaban + penjelasan singkat</span> di bagian akhir.</div>
+</div>
 
-</div><div id="botnav">
+<div class="slide" data-chapter="BAB 7 · AI untuk Pendidikan">
+  <div class="s-head b">AI untuk Siswa &amp; Tips Orang Tua</div>
+  <div class="sub">🎓 Manfaat AI untuk Siswa</div>
+  <ul class="ls">
+    <li>Tutor pribadi 24/7 yang sabar menjelaskan ulang tanpa batas waktu</li>
+    <li>Bisa minta penjelasan dengan berbagai gaya: analogi, cerita, visual, atau contoh soal</li>
+    <li>Bantu memahami teks bacaan sulit dengan bahasa yang lebih mudah dipahami</li>
+    <li>Latihan percakapan bahasa Inggris atau bahasa asing lainnya secara interaktif</li>
+    <li>Buat ringkasan materi untuk persiapan ujian dengan cepat dan terstruktur</li>
+  </ul>
+  <div class="sub" style="margin-top:14px;">👨‍👩‍👧 Tips untuk Orang Tua</div>
+  <div class="callout warn"><span class="cl">⚠️ AI adalah Alat Bantu, Bukan Pengganti Belajar</span>Pastikan anak memahami konsep, bukan hanya menyalin jawaban AI. Dampingi anak — terutama SD dan SMP — saat menggunakan AI untuk tugas sekolah.</div>
+  <div class="callout tip"><span class="cl">💡 Cara Benar Pakai AI untuk Belajar</span>Coba sendiri dulu → Jika stuck, tanya AI untuk <em>petunjuk/cara berpikir</em> (bukan jawaban langsung) → Pahami penjelasannya → Kerjakan sendiri tanpa AI. Proses inilah yang membangun kemampuan sejati.</div>
+</div>
+
+<!-- ════ PENUTUP ════ -->
+<div class="slide" data-chapter="Penutup · Mindset AI-First">
+  <div class="ch-intro">
+    <div class="ch-tag g">PENUTUP</div>
+    <div class="big-icon">🚀</div>
+    <div class="ch-title">Mindset <span style="color:var(--accent)">AI-First</span></div>
+    <p class="ch-sub">Perjalanan belajar AI adalah maraton, bukan sprint</p>
+    <div class="ch-topics">
+      <span class="ch-topic">3 Prinsip Utama</span>
+      <span class="ch-topic">Roadmap 30 Hari</span>
+    </div>
+  </div>
+</div>
+
+<div class="slide" data-chapter="Penutup · Mindset AI-First">
+  <div class="s-head">3 Prinsip Utama Mindset AI-First</div>
+  <div class="quote">
+    <blockquote>"AI tidak akan menggantikan manusia.<br>Tapi manusia yang menggunakan AI dengan baik<br>akan menggantikan mereka yang tidak."</blockquote>
+    <cite>— Realita industri yang sudah terjadi di berbagai bidang</cite>
+  </div>
+  <div class="pgrid">
+    <div class="pc"><div class="pn">Prinsip 01</div><div class="pt">Kolaborasi, Bukan Kompetisi</div><div class="pd">AI adalah alat, bukan musuh. Tugasmu adalah mengarahkan, mengevaluasi, dan memberikan konteks lokal yang tidak bisa digantikan mesin.</div></div>
+    <div class="pc"><div class="pn">Prinsip 02</div><div class="pt">Kuriositas Tanpa Henti</div><div class="pd">Dunia AI bergerak sangat cepat. Sisihkan 15–30 menit per hari untuk bereksperimen dengan cara baru menggunakan AI.</div></div>
+    <div class="pc"><div class="pn">Prinsip 03</div><div class="pt">Tetap Kritis &amp; Verifikasi</div><div class="pd">AI bisa salah. Selalu verifikasi fakta penting, terutama data numerik, nama, dan informasi kritis sebelum digunakan.</div></div>
+  </div>
+</div>
+
+<div class="slide" data-chapter="Penutup · Mindset AI-First">
+  <div class="s-head">Roadmap Belajar AI: 30 Hari Pertama</div>
+  <div class="rm-grid">
+    <div class="rc"><div class="rw">MINGGU 1</div><div class="rf">Eksplorasi Dasar</div><div class="rd">Coba ChatGPT atau Claude untuk 5 tugas sehari-hari. Catat hasilnya dan identifikasi kelebihan dan kekurangannya.</div></div>
+    <div class="rc"><div class="rw">MINGGU 2</div><div class="rf">Kuasai Prompting</div><div class="rd">Praktikkan Few-Shot, Role Prompting, dan Chain of Thought setiap hari. Buat prompt library pertamamu.</div></div>
+    <div class="rc"><div class="rw">MINGGU 3</div><div class="rf">Integrasi ke Pekerjaan</div><div class="rd">Identifikasi 3 tugas rutin yang bisa dibantu AI. Buat template prompt yang bisa digunakan berulang.</div></div>
+    <div class="rc"><div class="rw">MINGGU 4</div><div class="rf">Eksplorasi Tools</div><div class="rd">Coba 2–3 AI tools baru. Evaluasi mana yang paling relevan dan mulai rutinkan penggunaannya.</div></div>
+  </div>
+  <div class="callout tip" style="margin-top:14px;"><span class="cl">🚀 Pesan Penutup</span>Tujuan belajar AI bukan menjadi "ahli AI" secara teknis — tapi menjadi lebih produktif, kreatif, dan kompetitif di bidangmu sendiri. Mulailah dari satu masalah nyata hari ini!</div>
+</div>
+
+</div>
+
+<div id="botnav">
   <span class="chap-lbl" id="chap-lbl">Panduan Praktis AI · 2026</span>
   <div class="nav-row">
     <div class="kb-hint"><span class="kb">←</span><span class="kb">→</span></div>
-    <button class="nav-btn" id="btn-p" onclick="go(-1)" disabled title="Sebelumnya (←)">←</button>
-    <button class="nav-btn" id="btn-n" onclick="go(1)" title="Berikutnya (→)">→</button>
+    <button class="nav-btn" id="btn-p" onclick="go(-1)" disabled title="Sebelumnya">←</button>
+    <button class="nav-btn" id="btn-n" onclick="go(1)" title="Berikutnya">→</button>
   </div>
 </div>
 
 <script>
 const slides = Array.from(document.querySelectorAll('.slide'));
-const TOTAL  = slides.length;
+const TOTAL = slides.length;
 document.getElementById('tot').textContent = TOTAL;
-
 let cur = 0;
 
 function go(dir) {
   const next = cur + dir;
   if (next < 0 || next >= TOTAL) return;
-
-  const prev = cur;
-  cur = next;
-
+  const prev = cur; cur = next;
   slides[prev].classList.remove('active');
   slides[prev].classList.add('out');
   setTimeout(() => slides[prev].classList.remove('out'), 400);
-
   slides[cur].classList.add('active');
   slides[cur].scrollTop = 0;
-
   updateUI();
 }
 
@@ -2151,16 +893,18 @@ function updateUI() {
 }
 
 function updateChapterDots() {
-  const dots = document.querySelectorAll('.ch-dot');
   const ranges = [
-    {start:0, end:0, idx:0},
-    {start:1, end:6, idx:1},
-    {start:7, end:12, idx:2},
-    {start:13, end:17, idx:3},
-    {start:18, end:23, idx:4},
-    {start:24, end:26, idx:5}
+    {start:0,  end:0},
+    {start:1,  end:6},
+    {start:7,  end:12},
+    {start:13, end:17},
+    {start:18, end:23},
+    {start:24, end:26},
+    {start:27, end:29},
+    {start:30, end:32},
+    {start:33, end:35}
   ];
-  dots.forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.ch-dot').forEach(d => d.classList.remove('active'));
   for (const r of ranges) {
     if (cur >= r.start && cur <= r.end) {
       const dot = document.querySelector('.ch-dot[data-slide="' + r.start + '"]');
@@ -2170,14 +914,10 @@ function updateChapterDots() {
   }
 }
 
-// Interactive Quiz Logic
 function checkQuiz(element, isCorrect) {
-  // Reset all options inside this slide
   const options = element.parentElement.querySelectorAll('.quiz-opt');
   options.forEach(opt => opt.classList.remove('correct', 'wrong'));
-  
   const feedback = document.getElementById('quiz-feedback');
-  
   if (isCorrect) {
     element.classList.add('correct');
     feedback.textContent = "✅ Benar! Chain of Thought memaksa AI menjabarkan logika berpikirnya sehingga meminimalisir kesalahan hitung/analisis.";
@@ -2189,32 +929,25 @@ function checkQuiz(element, isCorrect) {
   }
 }
 
-// Keyboard
 document.addEventListener('keydown', e => {
   if (['ArrowRight','ArrowDown','Space',' '].includes(e.key)) { e.preventDefault(); go(1); }
-  else if (['ArrowLeft','ArrowUp'].includes(e.key))           { e.preventDefault(); go(-1); }
+  else if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); go(-1); }
 });
 
-// Touch swipe
 let tx = 0;
 document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
-document.addEventListener('touchend',   e => {
+document.addEventListener('touchend', e => {
   const d = tx - e.changedTouches[0].clientX;
   if (Math.abs(d) > 50) go(d > 0 ? 1 : -1);
 }, {passive:true});
 
-updateUI();
-
-// Hamburger menu toggle
 function toggleMenu() {
-  const menu = document.getElementById('mobile-menu');
-  menu.classList.toggle('open');
+  document.getElementById('mobile-menu').classList.toggle('open');
 }
 
 function goToSlide(n) {
   if (n < 0 || n >= TOTAL) return;
-  const prev = cur;
-  cur = n;
+  const prev = cur; cur = n;
   slides[prev].classList.remove('active');
   slides[prev].classList.add('out');
   setTimeout(() => slides[prev].classList.remove('out'), 400);
@@ -2222,21 +955,26 @@ function goToSlide(n) {
   slides[cur].scrollTop = 0;
   updateUI();
   updateMenuActive();
-  updateChapterDots();
   document.getElementById('mobile-menu').classList.remove('open');
 }
 
 function updateMenuActive() {
   document.querySelectorAll('#mm-list a').forEach(a => a.classList.remove('mm-active'));
-  const map = {0:'mm-0', 1:'mm-1', 2:'mm-1', 3:'mm-1', 4:'mm-1', 5:'mm-1', 6:'mm-1', 7:'mm-7', 8:'mm-7', 9:'mm-7', 10:'mm-7', 11:'mm-7', 12:'mm-7', 13:'mm-13', 14:'mm-13', 15:'mm-13', 16:'mm-13', 17:'mm-13', 18:'mm-18', 19:'mm-18', 20:'mm-18', 21:'mm-18', 22:'mm-18', 23:'mm-18', 24:'mm-24', 25:'mm-24', 26:'mm-24'};
+  const map = {
+    0:'mm-0',
+    1:'mm-1',2:'mm-1',3:'mm-1',4:'mm-1',5:'mm-1',6:'mm-1',
+    7:'mm-7',8:'mm-7',9:'mm-7',10:'mm-7',11:'mm-7',12:'mm-7',
+    13:'mm-13',14:'mm-13',15:'mm-13',16:'mm-13',17:'mm-13',
+    18:'mm-18',19:'mm-18',20:'mm-18',21:'mm-18',22:'mm-18',23:'mm-18',
+    24:'mm-24',25:'mm-24',26:'mm-24',
+    27:'mm-27',28:'mm-27',29:'mm-27',
+    30:'mm-30',31:'mm-30',32:'mm-30',
+    33:'mm-33',34:'mm-33',35:'mm-33'
+  };
   const id = map[cur];
-  if (id) {
-    const el = document.getElementById(id);
-    if (el) el.classList.add('mm-active');
-  }
+  if (id) { const el = document.getElementById(id); if (el) el.classList.add('mm-active'); }
 }
 
-// Close menu on outside click
 document.addEventListener('click', function(e) {
   const menu = document.getElementById('mobile-menu');
   const hamburger = document.getElementById('hamburger');
@@ -2248,123 +986,81 @@ document.addEventListener('click', function(e) {
 // Hero Canvas Particle Network
 (function(){
   const canvas = document.getElementById('hero-canvas');
-  if(!canvas) return;
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let particles = [];
-  const PARTICLE_COUNT = 45;
-  const CONNECTION_DIST = 120;
-  const MOUSE_DIST = 150;
-  let mouse = {x:null,y:null};
-  let w,h;
-  let animId;
-  let isActive = true;
+  let particles = [], w, h, animId, isActive = true;
+  const PARTICLE_COUNT = 45, CONNECTION_DIST = 120, MOUSE_DIST = 150;
+  let mouse = {x:null, y:null};
 
-  function resize(){
+  function resize() {
     const slide = canvas.closest('.slide');
-    if(!slide) return;
-    w = slide.offsetWidth;
-    h = slide.offsetHeight;
+    if (!slide) return;
+    w = slide.offsetWidth; h = slide.offsetHeight;
     canvas.width = w * window.devicePixelRatio;
     canvas.height = h * window.devicePixelRatio;
     ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-    canvas.style.width = w+'px';
-    canvas.style.height = h+'px';
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
   }
 
   class Particle {
-    constructor(){
-      this.x = Math.random()*w;
-      this.y = Math.random()*h;
-      this.vx = (Math.random()-0.5)*0.4;
-      this.vy = (Math.random()-0.5)*0.4;
-      this.size = Math.random()*1.5+0.5;
-      this.isYellow = Math.random() > 0.7;
+    constructor() {
+      this.x = Math.random()*w; this.y = Math.random()*h;
+      this.vx = (Math.random()-0.5)*0.4; this.vy = (Math.random()-0.5)*0.4;
+      this.size = Math.random()*1.5+0.5; this.isYellow = Math.random() > 0.7;
     }
-    update(){
-      this.x += this.vx;
-      this.y += this.vy;
-      if(this.x<0 || this.x>w) this.vx *= -1;
-      if(this.y<0 || this.y>h) this.vy *= -1;
-      // Mouse repulsion
-      if(mouse.x!=null){
-        const dx = this.x - mouse.x;
-        const dy = this.y - mouse.y;
+    update() {
+      this.x += this.vx; this.y += this.vy;
+      if (this.x < 0 || this.x > w) this.vx *= -1;
+      if (this.y < 0 || this.y > h) this.vy *= -1;
+      if (mouse.x != null) {
+        const dx = this.x-mouse.x, dy = this.y-mouse.y;
         const dist = Math.sqrt(dx*dx+dy*dy);
-        if(dist < MOUSE_DIST){
-          const force = (MOUSE_DIST - dist)/MOUSE_DIST;
-          this.x += dx * force * 0.02;
-          this.y += dy * force * 0.02;
-        }
+        if (dist < MOUSE_DIST) { const f = (MOUSE_DIST-dist)/MOUSE_DIST; this.x += dx*f*0.02; this.y += dy*f*0.02; }
       }
     }
-    draw(){
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-      ctx.fillStyle = this.isYellow ? 'rgba(250,204,21,0.6)' : 'rgba(255,255,255,0.4)';
-      ctx.fill();
-      // Glow
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size*3, 0, Math.PI*2);
-      ctx.fillStyle = this.isYellow ? 'rgba(250,204,21,0.08)' : 'rgba(255,255,255,0.05)';
-      ctx.fill();
+    draw() {
+      ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+      ctx.fillStyle = this.isYellow ? 'rgba(250,204,21,0.6)' : 'rgba(255,255,255,0.4)'; ctx.fill();
+      ctx.beginPath(); ctx.arc(this.x, this.y, this.size*3, 0, Math.PI*2);
+      ctx.fillStyle = this.isYellow ? 'rgba(250,204,21,0.08)' : 'rgba(255,255,255,0.05)'; ctx.fill();
     }
   }
 
-  function init(){
-    resize();
-    particles = [];
-    for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
-  }
-
-  function animate(){
-    if(!isActive) return;
+  function init() { resize(); particles = []; for (let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle()); }
+  function animate() {
+    if (!isActive) return;
     ctx.clearRect(0,0,w,h);
-    // Update & draw particles
-    for(let p of particles){ p.update(); p.draw(); }
-    // Draw connections
-    for(let i=0;i<particles.length;i++){
-      for(let j=i+1;j<particles.length;j++){
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
+    for (let p of particles) { p.update(); p.draw(); }
+    for (let i=0;i<particles.length;i++) {
+      for (let j=i+1;j<particles.length;j++) {
+        const dx = particles[i].x-particles[j].x, dy = particles[i].y-particles[j].y;
         const dist = Math.sqrt(dx*dx+dy*dy);
-        if(dist < CONNECTION_DIST){
-          const alpha = (1 - dist/CONNECTION_DIST) * 0.12;
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
+        if (dist < CONNECTION_DIST) {
+          ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle = 'rgba(255,255,255,'+(1-dist/CONNECTION_DIST)*0.12+')';
+          ctx.lineWidth = 0.5; ctx.stroke();
         }
       }
     }
     animId = requestAnimationFrame(animate);
   }
 
-  canvas.addEventListener('mousemove', e=>{
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
-  canvas.addEventListener('mouseleave', ()=>{ mouse.x=null; mouse.y=null; });
-  window.addEventListener('resize', ()=>{ resize(); });
+  canvas.addEventListener('mousemove', e => { const r = canvas.getBoundingClientRect(); mouse.x = e.clientX-r.left; mouse.y = e.clientY-r.top; });
+  canvas.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+  window.addEventListener('resize', () => { resize(); });
 
-  // Only run when hero slide is active
-  const observer = new MutationObserver(mutations=>{
-    const slide = canvas.closest('.slide');
-    if(slide){
-      isActive = slide.classList.contains('active');
-      if(isActive && !animId) animate();
-      else if(!isActive && animId){ cancelAnimationFrame(animId); animId=null; }
-    }
-  });
   const slide = canvas.closest('.slide');
-  if(slide) observer.observe(slide, {attributes:true, attributeFilter:['class']});
-
-  init();
-  animate();
+  if (slide) {
+    new MutationObserver(() => {
+      isActive = slide.classList.contains('active');
+      if (isActive && !animId) animate();
+      else if (!isActive && animId) { cancelAnimationFrame(animId); animId = null; }
+    }).observe(slide, {attributes:true, attributeFilter:['class']});
+  }
+  init(); animate();
 })();
 
+updateUI();
 </script>
 </body>
 </html>
